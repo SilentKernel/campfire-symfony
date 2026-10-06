@@ -1,0 +1,2 @@
+{#- reference/app/views/messages/create.turbo_stream.erb. Variables: message, message_html. #}
+{{ turbo_stream('append', dom_id(message.room, 'messages'), message_html) }}

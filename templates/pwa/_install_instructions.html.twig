@@ -1,0 +1,49 @@
+{#- reference/app/views/pwa/_install_instructions.html.erb -#}
+{% set p = platform() %}
+{% if not (p.chrome() or (p.firefox() and not p.android())) %}
+  <details class="notifications-help pwa__instructions hide-in-pwa" data-controller="pwa-install" data-pwa-install-prompting-class="pwa--can-install" data-notifications-target="details">
+    <summary class="btn">
+      {{ image_tag('external/install.svg', {aria: {hidden: 'true'}, size: 20}) }}
+      <strong>Install Campfire as a web app.</strong>
+      {{ image_tag('disclosure.svg', {aria: {hidden: 'true'}, size: 10, class: 'disclosure'}) }}
+    </summary>
+
+{% if p.edge() %}
+        <ol>
+          <li>Click <em>{{ image_tag('install-edge.svg', {alt: 'the app available - install Campfire chat button', size: 16}) }}</em>in the address bar.</li>
+          <li>Click <em>Install</em>.</li>
+        </ol>
+{% elseif p.chrome() and p.android() %}
+        <ol>
+          <li>Tap the <em>{{ image_tag('menu-dots-vertical.svg', {alt: 'More options', size: 16}) }}</em> menu button.</li>
+          <li>Tap <em>Install app</em> in the menu.</li>
+        </ol>
+{% elseif p.firefox() and p.android() %}
+        <ol>
+          <li>Tap the <em>{{ image_tag('menu-dots-vertical.svg', {alt: 'More options', size: 16}) }}</em> menu button.</li>
+          <li>Tap <em>Install</em> in the menu.</li>
+        </ol>
+{% elseif p.safari() and p.desktop() %}
+        <ol>
+          <li>Click <em>File</em> in the top left.</li>
+          <li>Click <em>Add to Dock…</em>.</li>
+        </ol>
+{% elseif (p.safari() or p.chrome()) and p.ios() %}
+        <p>To receive push notifications in {{ p.browser()|ruby_capitalize }} for {{ p.operatingSystem() }}, you must install Campfire as a web app.</p>
+        <ol>
+          <li>Tap <em>{{ image_tag('external/share.svg', {alt: 'the share button', size: 20}) }}</em></li>
+          <li>Tap <em>Add to Home Screen</em>.</li>
+        </ol>
+{% else %}
+        <p>Some platforms require you to install Campfire as a web app to receive push notifications.</p>
+{% endif %}
+
+    <div class="margin-block-start txt-align-center pwa__installer">
+      <hr class="separator margin-block">
+      <button class="btn btn--reversed center" data-action="pwa-install#promptInstall">
+        {{ image_tag('external/install.svg', {aria: {hidden: 'true'}}) }}
+        Install now
+      </button>
+    </div>
+  </details>
+{% endif %}

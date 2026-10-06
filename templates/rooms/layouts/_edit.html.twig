@@ -1,0 +1,22 @@
+{#- reference/app/views/rooms/layouts/_edit.html.erb, as a layout: views extend it and fill the
+    `room_form` block. -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'Edit settings for ' ~ room.name %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back_to_last_room_visited() }}
+  </div>
+{% endblock %}
+
+{% block content %}
+<section class="panel txt-align-center" style="view-transition-name: edit-room-{{ room.id }}">
+  {% block room_form %}{% endblock %}
+</section>
+
+{% if can_administer %}
+  <section class="panel txt-align-center">
+    {{ button_to_delete_room(room) }}
+  </section>
+{% endif %}
+{% endblock %}

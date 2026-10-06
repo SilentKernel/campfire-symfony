@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Run a command inside the Linux benchmark runner (bench/runner/Dockerfile).
+#
+#   bench/bin/runner [COMMAND...]     default: an interactive shell
+#
+# The runner shares the host's Docker engine, PID and cgroup namespaces (so the Rust harness can
+# pin CPUs, read /proc/loadavg and sample container cgroups) and the host network. Two paths are
+# mounted at the same location inside, so containers it starts can bind-mount them too:
+#   * this repository
+#   * $BENCH_HOME (default /opt/campfire-bench), on the Docker VM's own Linux filesystem, where
+#     seeds, app storage and the Rust harness live. SQLite's WAL is not safe on shared macOS
+#     folders (virtiofs), so nothing the apps write is kept in the repository.
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+IMAGE=${RUNNER_IMAGE:-campfire-bench-runner}
+
+if ! docker image inspect "$IMAGE" >/dev/null 2>&1 || [ -n "${RUNNER_REBUILD:-}" ]; then
+  docker build -q -t "$IMAGE" "$ROOT/bench/runner" >/dev/null
+fi
+
+tty=(); if [ -t 0 ] && [ -t 1 ]; then tty=(-it); fi
+[ $# -gt 0 ] || set -- bash
+
+# The physical machine, which the Linux VM can't see: recorded by bench/run in env.txt.
+host_cpu=${HOST_CPU:-} host_power=${HOST_POWER:-}
+if [ "$(uname -s)" = Darwin ]; then
+  if [ -z "$host_cpu" ]; then
+    host_cpu=$(sysctl -n machdep.cpu.brand_string 2>/dev/null || true)
+    p=$(sysctl -n hw.perflevel0.physicalcpu 2>/dev/null || true) e=$(sysctl -n hw.perflevel1.physicalcpu 2>/dev/null || true)
+    [ -z "$p" ] || host_cpu="$host_cpu (${p}P+${e:-0}E cores), macOS $(sw_vers -productVersion 2>/dev/null || true)"
+  fi
+  if [ -z "$host_power" ]; then
+    host_power="$(pmset -g batt 2>/dev/null | sed -n "s/.*drawing from '\(.*\)'.*/\1/p" || true)"
+    host_power="$host_power, lowpowermode $(pmset -g 2>/dev/null | awk '/lowpowermode/{print $2}' || true)"
+  fi
+fi
+
+exec docker run --rm "${tty[@]+"${tty[@]}"}" --privileged --pid host --cgroupns host --network host \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "$ROOT:$ROOT" -v "$BENCH_HOME:$BENCH_HOME" \
+  -e BENCH_HOME="$BENCH_HOME" -e CAMPFIRE_SYMFONY="$ROOT" \
+  -e HOST_CPU="$host_cpu" -e HOST_POWER="$host_power" \
+  -w "$ROOT" "$IMAGE" "$@"

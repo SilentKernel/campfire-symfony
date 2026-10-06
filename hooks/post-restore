@@ -1,0 +1,18 @@
+#!/bin/bash
+# ONCE runs this after it restored the storage volume: put the snapshots pre-backup took back in
+# place of the live databases (reference/hooks/post-restore), with no stale WAL beside them.
+set -euo pipefail
+
+storage="${CAMPFIRE_STORAGE_PATH:-/rails/storage}"
+db_name="${CAMPFIRE_DATABASE_NAME:-${RAILS_ENV:-production}}.sqlite3"
+
+for name in "$db_name" jobs.sqlite3; do
+  snapshot="$storage/backups/$name"
+  db="$storage/db/$name"
+
+  if [ -f "$snapshot" ]; then
+    mkdir -p "$(dirname "$db")"
+    cp "$snapshot" "$db"
+    rm -f "$db-wal" "$db-shm"
+  fi
+done

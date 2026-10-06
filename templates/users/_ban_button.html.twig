@@ -1,0 +1,14 @@
+{#- reference/app/views/users/_ban_button.html.erb; the aria label names the page's user (@user). -#}
+{% if user.isActive() %}
+  {%- set ban %}
+    {{ image_tag('cancel.svg', {aria: {hidden: 'true', label: 'Ban ' ~ page_user.name}}) }}
+    <span>Ban {{ user.name }}</span>
+{% endset %}
+  {{ button_to(ban, path('user_ban.post', {user_id: user.id}), {method: 'post', class: 'btn full-width', data: {turbo_confirm: 'Are you sure you want to ban this user? This will log them out, delete their messages, and block their IP addresses.'}}) }}
+{% else %}
+  {%- set unban %}
+    {{ image_tag('cancel.svg', {aria: {hidden: 'true', label: 'Remove Ban ' ~ page_user.name}}) }}
+    <span>Remove ban</span>
+{% endset %}
+  {{ button_to(unban, path('user_ban', {user_id: user.id}), {method: 'delete', class: 'btn btn--negative full-width', data: {turbo_confirm: 'Are you sure you want to remove the ban on this user?'}}) }}
+{% endif %}

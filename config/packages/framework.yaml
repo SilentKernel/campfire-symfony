@@ -1,0 +1,22 @@
+framework:
+    secret: '%env(SECRET_KEY_BASE)%'
+
+    # Rails keeps its session in the encrypted `_campfire_session` cookie; App\Http\RailsSession
+    # reads and writes it. PHP sessions are never started.
+    session: false
+
+    # Rails forms and Turbo send PATCH/PUT/DELETE as POST with a `_method` field.
+    http_method_override: true
+
+    # Like Rails' ActionDispatch::RemoteIp: X-Forwarded-* from loopback and private networks
+    # (a local TLS proxy) are trusted.
+    trusted_proxies: '127.0.0.1,PRIVATE_SUBNETS'
+    trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
+
+    handle_all_throwables: true
+    php_errors:
+        log: true
+
+when@test:
+    framework:
+        test: true

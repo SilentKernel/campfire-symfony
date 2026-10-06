@@ -1,0 +1,28 @@
+# Mirrors Propshaft's load path in the reference app (tests/fixtures/rails/assets/load_path.txt),
+# in the same order, every directory at the root namespace, so logical paths are Rails' own
+# ("application.js", "controllers/composer_controller.js", "turbo.js", "lexxy.css", "bell.mp3").
+framework:
+    asset_mapper:
+        paths:
+            assets/images: ''
+            assets/sounds: ''
+            assets/stylesheets: ''
+            assets/javascript: ''
+            assets/vendor/javascript: ''
+            assets/gems/lexxy/app/assets/javascript: ''
+            assets/gems/lexxy/app/assets/stylesheets: ''
+            assets/gems/stimulus-rails/app/assets/javascripts: ''
+            assets/gems/turbo-rails/app/assets/javascripts: ''
+            assets/gems/actiontext/app/assets/javascripts: ''
+            assets/gems/action_text-trix/app/assets/javascripts: ''
+            assets/gems/action_text-trix/app/assets/stylesheets: ''
+            assets/gems/actioncable/app/assets/javascripts: ''
+            assets/gems/activestorage/app/assets/javascripts: ''
+            assets/gems/actionview/app/assets/javascripts: ''
+        importmap_polyfill: false
+        missing_import_mode: strict
+
+when@prod:
+    framework:
+        asset_mapper:
+            missing_import_mode: warn

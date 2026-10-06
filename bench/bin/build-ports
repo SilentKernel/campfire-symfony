@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+# Build the comparator ports' production images natively, at pinned revisions, for bench/run
+# (inside the runner: bench/bin/runner bench/bin/build-ports [laravel,django,express,elixir,go,rust]).
+#
+#   once-campfire-laravel:bench  github.com/basecamp/once-campfire-laravel @ LARAVEL_REF
+#   once-campfire-django:bench   github.com/basecamp/once-campfire-django  @ DJANGO_REF
+#   once-campfire-express:bench  github.com/basecamp/once-campfire-express @ EXPRESS_REF
+#   once-campfire-elixir:bench   github.com/basecamp/once-campfire-elixir  @ ELIXIR_REF
+#   once-campfire-go:bench       github.com/basecamp/once-campfire-go      @ GO_REF
+#   once-campfire-rust:bench     github.com/basecamp/once-campfire-rust    @ RUST_APP_REF
+#
+# The checkouts live in $BENCH_HOME (the Docker VM's own filesystem). The Rust *app* gets its own
+# checkout (once-campfire-rust-app): $BENCH_HOME/once-campfire-rust stays at bench/bin/setup's
+# RUST_REF, because its load generator and seed are the harness. Each image is built from the
+# port's own Dockerfile for the engine's native platform, with the build arguments its README
+# documents; every base image is a multi-arch index, so on Apple silicon everything resolves to
+# linux/arm64 and nothing runs emulated. The revision is recorded in the image
+# (org.opencontainers.image.revision) so bench/run can report it.
+#
+# One harness-side change, for Elixir only (see bench/README.md): its Dockerfile copies Thruster
+# out of the Rails image from the gem's x86_64-linux directory, which exists only in an amd64
+# Rails image. The build uses a copy of that Dockerfile in which the gem platform is the native
+# one (aarch64-linux on arm64: the same thruster 0.1.23 gem, Gemfile.lock lists both platforms)
+# and the frontend stage is the Rails image built from Elixir's own pinned reference/ (tagged
+# campfire-elixir-reference:app, so it doesn't replace bench/bin/setup's campfire-reference:app).
+# bin/export-assets is likewise run with that image name (same steps, re-implemented below).
+#
+# Idempotent: an image whose revision label already matches is kept (BUILD_FORCE=1 rebuilds).
+set -euo pipefail
+
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+GH=https://github.com/basecamp
+LARAVEL_REPO=${LARAVEL_REPO:-$GH/once-campfire-laravel.git}
+LARAVEL_REF=${LARAVEL_REF:-608d465904366652319fd7bcd4c727393f1b115d}
+LARAVEL_IMAGE=${LARAVEL_IMAGE:-once-campfire-laravel:bench}
+DJANGO_REPO=${DJANGO_REPO:-$GH/once-campfire-django.git}
+DJANGO_REF=${DJANGO_REF:-7cff970b9860c952883ba5a6ed4d624194307973}
+DJANGO_IMAGE=${DJANGO_IMAGE:-once-campfire-django:bench}
+# Upstream HEADs on 2026-10-06 (set <APP>_REF=origin/HEAD to take the current one).
+EXPRESS_REPO=${EXPRESS_REPO:-$GH/once-campfire-express.git}
+EXPRESS_REF=${EXPRESS_REF:-361330a0ecfb5abb74c8c67d243717282652aec5}
+EXPRESS_IMAGE=${EXPRESS_IMAGE:-once-campfire-express:bench}
+ELIXIR_REPO=${ELIXIR_REPO:-$GH/once-campfire-elixir.git}
+ELIXIR_REF=${ELIXIR_REF:-f15fc9eb609286f1e3da970e7dfd95e3bf69f82f}
+ELIXIR_IMAGE=${ELIXIR_IMAGE:-once-campfire-elixir:bench}
+ELIXIR_REFERENCE_IMAGE=${ELIXIR_REFERENCE_IMAGE:-campfire-elixir-reference:app}
+GO_REPO=${GO_REPO:-$GH/once-campfire-go.git}
+GO_REF=${GO_REF:-8d2f7f24f56dac87dba0211b68b14d9e21e4b516}
+GO_IMAGE=${GO_IMAGE:-once-campfire-go:bench}
+RUST_APP_REPO=${RUST_APP_REPO:-$GH/once-campfire-rust.git}
+RUST_APP_REF=${RUST_APP_REF:-ccece30e8e160d8c3e05bf395ee55ee35962093b}
+RUST_APP_IMAGE=${RUST_APP_IMAGE:-once-campfire-rust:bench}
+ONLY=${1:-laravel,django,express,elixir,go,rust}
+
+log() { echo "[build-ports $(date +%T)] $*" >&2; }
+
+native=$(docker version -f '{{.Server.Arch}}')
+platform=linux/$native
+
+checkout() { # repo ref dir -> prints the resolved commit
+  local repo=$1 ref=$2 dir=$3
+  [ -d "$dir/.git" ] || git clone -q "$repo" "$dir"
+  git -C "$dir" fetch -q origin "$ref" 2>/dev/null || git -C "$dir" fetch -q origin
+  git -C "$dir" -c advice.detachedHead=false checkout -q --force "$ref"
+  git -C "$dir" clean -qfdx
+  git -C "$dir" rev-parse HEAD
+}
+resolve() { # repo ref -> commit (a full sha is returned as is)
+  if [[ "$2" =~ ^[0-9a-f]{40}$ ]]; then echo "$2"; else git ls-remote "$1" "${2#origin/}" | awk 'NR==1{print $1}'; fi
+}
+
+current_rev() { docker image inspect -f '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$1" 2>/dev/null || true; }
+
+verify() { # image ref
+  local arch rev
+  arch=$(docker image inspect -f '{{.Os}}/{{.Architecture}}' "$1")
+  rev=$(current_rev "$1")
+  [ "$arch" = "$platform" ] || { log "$1 is $arch, expected $platform"; exit 1; }
+  [ "$rev" = "$2" ] || { log "$1 has revision '$rev', expected $2"; exit 1; }
+  log "$1: $arch, revision $rev, $(docker image inspect -f '{{.Id}}' "$1")"
+}
+want() { [[ ",$ONLY," = *,$1,* ]]; }
+stale() { [ -n "${BUILD_FORCE:-}" ] || [ "$(current_rev "$1")" != "$2" ]; }
+labels() { printf '%s\n' --label "org.opencontainers.image.revision=$1" --label "org.opencontainers.image.source=${2%.git}"; }
+
+if want laravel; then
+  dir=$BENCH_HOME/once-campfire-laravel
+  if stale "$LARAVEL_IMAGE" "$LARAVEL_REF"; then
+    log "laravel: checking out $LARAVEL_REF"
+    checkout "$LARAVEL_REPO" "$LARAVEL_REF" "$dir" >/dev/null
+    # Its .dockerignore leaves out reference/ (the build doesn't need the Rails submodule).
+    log "laravel: building $LARAVEL_IMAGE for $platform"
+    docker build --platform "$platform" --pull $(labels "$LARAVEL_REF" "$LARAVEL_REPO") -t "$LARAVEL_IMAGE" "$dir"
+  fi
+  verify "$LARAVEL_IMAGE" "$LARAVEL_REF"
+fi
+
+if want django; then
+  dir=$BENCH_HOME/once-campfire-django
+  if stale "$DJANGO_IMAGE" "$DJANGO_REF"; then
+    log "django: checking out $DJANGO_REF (with the reference/ submodule: bin/build-assets reads it)"
+    checkout "$DJANGO_REPO" "$DJANGO_REF" "$dir" >/dev/null
+    git -C "$dir" submodule update -q --init --depth 1 reference 2>/dev/null || git -C "$dir" submodule update -q --init reference
+    log "django: building $DJANGO_IMAGE for $platform"
+    docker build --platform "$platform" --pull \
+      --build-arg "REVISION=$DJANGO_REF" \
+      --label "org.opencontainers.image.source=${DJANGO_REPO%.git}" \
+      -t "$DJANGO_IMAGE" "$dir"
+  fi
+  verify "$DJANGO_IMAGE" "$DJANGO_REF"
+fi
+
+if want express; then
+  dir=$BENCH_HOME/once-campfire-express
+  EXPRESS_REF=$(resolve "$EXPRESS_REPO" "$EXPRESS_REF")
+  if stale "$EXPRESS_IMAGE" "$EXPRESS_REF"; then
+    log "express: checking out $EXPRESS_REF (README: git submodule update --init; build:assets reads reference/)"
+    checkout "$EXPRESS_REPO" "$EXPRESS_REF" "$dir" >/dev/null
+    git -C "$dir" submodule update -q --init reference
+    log "express: building $EXPRESS_IMAGE for $platform"
+    # Its Dockerfile sets org.opencontainers.image.revision from REVISION.
+    docker build --platform "$platform" --pull --build-arg "REVISION=$EXPRESS_REF" \
+      --label "org.opencontainers.image.source=${EXPRESS_REPO%.git}" -t "$EXPRESS_IMAGE" "$dir"
+  fi
+  verify "$EXPRESS_IMAGE" "$EXPRESS_REF"
+fi
+
+if want go; then
+  dir=$BENCH_HOME/once-campfire-go
+  GO_REF=$(resolve "$GO_REPO" "$GO_REF")
+  if stale "$GO_IMAGE" "$GO_REF"; then
+    log "go: checking out $GO_REF (README: git submodule update --init --recursive)"
+    checkout "$GO_REPO" "$GO_REF" "$dir" >/dev/null
+    git -C "$dir" submodule update -q --init --recursive
+    log "go: building $GO_IMAGE for $platform"
+    docker build --platform "$platform" --pull \
+      --build-arg "GIT_REVISION=$GO_REF" --build-arg "OCI_SOURCE=${GO_REPO%.git}" \
+      $(labels "$GO_REF" "$GO_REPO") -t "$GO_IMAGE" "$dir"
+  fi
+  verify "$GO_IMAGE" "$GO_REF"
+fi
+
+if want rust; then
+  dir=$BENCH_HOME/once-campfire-rust-app
+  RUST_APP_REF=$(resolve "$RUST_APP_REPO" "$RUST_APP_REF")
+  if stale "$RUST_APP_IMAGE" "$RUST_APP_REF"; then
+    log "rust: checking out $RUST_APP_REF into $dir (README: git submodule update --init)"
+    checkout "$RUST_APP_REPO" "$RUST_APP_REF" "$dir" >/dev/null
+    git -C "$dir" submodule update -q --init reference
+    log "rust: building $RUST_APP_IMAGE for $platform (TARGETARCH=$native)"
+    docker build --platform "$platform" --pull \
+      --build-arg "GIT_REVISION=$RUST_APP_REF" --build-arg "OCI_SOURCE=${RUST_APP_REPO%.git}" \
+      $(labels "$RUST_APP_REF" "$RUST_APP_REPO") -t "$RUST_APP_IMAGE" "$dir"
+  fi
+  verify "$RUST_APP_IMAGE" "$RUST_APP_REF"
+fi
+
+if want elixir; then
+  dir=$BENCH_HOME/once-campfire-elixir
+  ELIXIR_REF=$(resolve "$ELIXIR_REPO" "$ELIXIR_REF")
+  if stale "$ELIXIR_IMAGE" "$ELIXIR_REF"; then
+    log "elixir: checking out $ELIXIR_REF (README: git submodule update --init)"
+    checkout "$ELIXIR_REPO" "$ELIXIR_REF" "$dir" >/dev/null
+    git -C "$dir" submodule update -q --init reference
+    ref_rev=$(git -C "$dir/reference" rev-parse HEAD)
+    case "$native" in arm64) gem_platform=aarch64-linux ;; amd64) gem_platform=x86_64-linux ;; *) log "elixir: no Thruster gem for $native"; exit 1 ;; esac
+
+    # README step 1: the Rails image of its pinned reference (assets, Thruster, 502.html).
+    if [ -n "${BUILD_FORCE:-}" ] || [ "$(docker image inspect -f '{{range .Config.Env}}{{println .}}{{end}}' "$ELIXIR_REFERENCE_IMAGE" 2>/dev/null | sed -n 's/^GIT_REVISION=//p')" != "$ref_rev" ]; then
+      log "elixir: building $ELIXIR_REFERENCE_IMAGE from its reference/ ($ref_rev)"
+      docker build --platform "$platform" --build-arg "GIT_REVISION=$ref_rev" -t "$ELIXIR_REFERENCE_IMAGE" "$dir/reference"
+    fi
+    # README step 2: the toolchain (the Dockerfile's FROM campfire-elixir:toolchain).
+    log "elixir: building campfire-elixir:toolchain (Dockerfile.dev)"
+    docker build --platform "$platform" --pull -f "$dir/Dockerfile.dev" -t campfire-elixir:toolchain "$dir"
+    # README steps 3-5: hex, rebar, deps.get with bin/mix (the toolchain container).
+    log "elixir: mix local.hex, local.rebar, deps.get"
+    "$dir/bin/mix" local.hex --force >/dev/null
+    "$dir/bin/mix" local.rebar --force >/dev/null
+    "$dir/bin/mix" deps.get >/dev/null
+    # README step 6: bin/export-assets, with the reference image under its harness-side name.
+    log "elixir: exporting assets from $ELIXIR_REFERENCE_IMAGE"
+    c=$(docker create "$ELIXIR_REFERENCE_IMAGE")
+    mkdir -p "$dir/priv/static/assets" "$dir/priv/public" "$dir/priv/pwa" "$dir/priv/images/logos"
+    docker cp "$c:/rails/public/assets/." "$dir/priv/static/assets/" >/dev/null
+    for f in robots.txt 404.html 422.html 500.html 502.html; do docker cp "$c:/rails/public/$f" "$dir/priv/public/$f" >/dev/null; done
+    docker rm "$c" >/dev/null
+    cp "$dir/reference/app/views/pwa/manifest.json.erb" "$dir/reference/app/views/pwa/service_worker.js" "$dir/priv/pwa/"
+    cp "$dir/reference/app/assets/images/logos/app-icon.png" "$dir/reference/app/assets/images/logos/app-icon-192.png" "$dir/priv/images/logos/"
+    cp "$dir/reference/app/assets/images/default-bot-avatar.svg" "$dir/priv/images/"
+    git -C "$dir" diff --quiet -- priv || { log "elixir: export-assets changed tracked files in priv/"; git -C "$dir" status --short -- priv >&2; }
+    # README step 7, with the native Thruster gem directory and the reference image's name.
+    df=$BENCH_HOME/build/elixir.Dockerfile
+    mkdir -p "$(dirname "$df")"
+    sed -e "s#thruster-\([0-9.]*\)-x86_64-linux/exe/x86_64-linux/#thruster-\1-$gem_platform/exe/$gem_platform/#" \
+        -e "s#thruster-\([0-9.]*\)-x86_64-linux/MIT-LICENSE#thruster-\1-$gem_platform/MIT-LICENSE#" \
+        -e "s#^FROM campfire-reference:app AS frontend#FROM $ELIXIR_REFERENCE_IMAGE AS frontend#" "$dir/Dockerfile" > "$df"
+    log "elixir: harness-side Dockerfile differs from upstream by:"; diff "$dir/Dockerfile" "$df" >&2 || true
+    log "elixir: building $ELIXIR_IMAGE for $platform"
+    docker build --platform "$platform" -f "$df" \
+      --build-arg "GIT_REVISION=$ELIXIR_REF" $(labels "$ELIXIR_REF" "$ELIXIR_REPO") \
+      --label "campfire.bench.dockerfile=upstream Dockerfile with Thruster $gem_platform and FROM $ELIXIR_REFERENCE_IMAGE (bench/bin/build-ports)" \
+      -t "$ELIXIR_IMAGE" "$dir"
+    # The binary that will front every request must be native too.
+    docker run --rm --entrypoint sh "$ELIXIR_IMAGE" -c 'od -An -tx1 -j18 -N2 /usr/local/bin/thrust' | tr -d ' \n' | grep -qx "$([ "$native" = arm64 ] && echo b700 || echo 3e00)" ||
+      { log "elixir: /usr/local/bin/thrust is not a $native ELF"; exit 1; }
+  fi
+  verify "$ELIXIR_IMAGE" "$ELIXIR_REF"
+fi

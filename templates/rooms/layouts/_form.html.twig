@@ -1,0 +1,26 @@
+{#- reference/app/views/rooms/layouts/_form.html.erb, embedded with the room-access list in the
+    `access` block. Expects `room`, `form_url`, `form_method` and `can_administer`. -#}
+{{ form_with({url: form_url, method: form_method}) }}
+  <div class="flex align-center gap">
+    {% if can_administer %}
+      {{ translation_button('room_name') }}
+
+      <label class="flex-item-grow txt-large">
+        {{ tag('input', {name: 'room[name]', id: 'room_name', class: 'input full-width', required: true, autofocus: true, placeholder: 'Name the room', data: {turbo_permanent: true, action: 'keydown.enter->form#submit:prevent'}, type: 'text', value: room.name}) }}
+        <span class="for-screen-reader">Name this room</span>
+      </label>
+    {% else %}
+      <h1 class="flex-item-grow txt-x-large">
+        {{ room.name }}
+      </h1>
+    {% endif %}
+  </div>
+
+  <hr class="margin-block borderless">
+
+  <section class="room-access margin-block pad-inline fill-shade border-radius">
+    {% block access %}{% endblock %}
+  </section>
+
+  {% if can_administer %}{{ submit_room_button_tag() }}{% endif %}
+</form>

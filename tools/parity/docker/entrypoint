@@ -1,0 +1,14 @@
+#!/bin/sh
+# Entrypoint for the campfire-symfony parity candidate image (copy of once-campfire-rust
+# parity/docker/candidate/entrypoint).
+#
+# FAKETIME   libfaketime spec: "@2026-03-02 16:00:00" ticks from that instant; "2026-03-02 16:00:00"
+#            freezes it. Monotonic clocks stay real. PARITY_NO_FAKETIME=1 skips the preload (the
+#            app then relies on CAMPFIRE_FROZEN_TIME alone).
+set -e
+if [ -n "$FAKETIME" ] && [ -z "$PARITY_NO_FAKETIME" ]; then
+  export LD_PRELOAD=/usr/local/lib/faketime/libfaketime.so.1
+  export FAKETIME_DONT_FAKE_MONOTONIC=1
+  export FAKETIME_DONT_RESET=1
+fi
+exec "$@"

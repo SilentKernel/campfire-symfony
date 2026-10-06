@@ -1,0 +1,21 @@
+#!/bin/bash
+# ONCE runs this before it copies the storage volume. Like reference/script/admin/prepare-backup,
+# it writes a consistent copy of each SQLite database (the online backup API, safe while the app
+# writes in WAL mode) to storage/backups/; the volume copy then carries those snapshots. Active
+# Storage files are write-once (content-addressed keys), so the volume copy of files/ is consistent.
+set -euo pipefail
+
+storage="${CAMPFIRE_STORAGE_PATH:-/rails/storage}"
+db_name="${CAMPFIRE_DATABASE_NAME:-${RAILS_ENV:-production}}.sqlite3"
+backups="$storage/backups"
+
+mkdir -p "$backups"
+
+for name in "$db_name" jobs.sqlite3; do
+  db="$storage/db/$name"
+  [ -f "$db" ] || continue
+  tmp="$backups/.$name.tmp"
+  rm -f "$tmp"
+  sqlite3 -cmd ".timeout 10000" "$db" ".backup '$tmp'"
+  mv -f "$tmp" "$backups/$name"
+done

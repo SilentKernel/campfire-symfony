@@ -1,0 +1,2 @@
+{#- reference/app/views/accounts/users/_next_page_container.html.erb -#}
+{{ turbo_frame_tag('next_page_container', {loading: 'lazy', src: path('account_users', {page: page, _format: 'turbo_stream'}), class: 'flex center'}, "\n  <div class=\"spinner center\"></div>\n") -}}

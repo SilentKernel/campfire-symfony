@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# The authoritative CI run: builds the Dockerfile's dev stage (the production PHP 8.4 ZTS with the
+# same extensions and php.ini, plus dev dependencies) and runs PHPUnit, PHPStan and a
+# php-cs-fixer dry run inside it. The parity seed (var/seed, see bin/fetch-seed) and the Rails
+# reference are mounted read-only when present.
+#
+#   bin/check                 everything
+#   bin/check phpunit [args]  one tool (phpunit, phpstan, cs), extra arguments passed through
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+IMAGE=${CHECK_IMAGE:-campfire-symfony:dev}
+
+docker build --target dev -t "$IMAGE" "$ROOT" >&2
+
+mounts=()
+[ -d "$ROOT/var/seed" ] && mounts+=(-v "$ROOT/var/seed:/rails/var/seed:ro")
+# The Rails reference (submodule, kept out of the build context): its test fixtures, migrations
+# and public files are test oracles.
+[ -d "$ROOT/reference/test" ] && mounts+=(-v "$ROOT/reference:/rails/reference:ro")
+
+run() { docker run --rm "${mounts[@]+"${mounts[@]}"}" "$IMAGE" "$@"; }
+
+tool=${1:-all}
+[ $# -gt 0 ] && shift
+
+status=0
+step() {
+  echo "--- $1" >&2
+  shift
+  run "$@" || status=1
+}
+
+case "$tool" in
+  phpunit) step phpunit php bin/phpunit "$@" ;;
+  phpstan) step phpstan vendor/bin/phpstan analyse --no-progress "$@" ;;
+  cs) step php-cs-fixer vendor/bin/php-cs-fixer fix --dry-run --diff "$@" ;;
+  all)
+    step phpunit php bin/phpunit
+    step phpstan vendor/bin/phpstan analyse --no-progress
+    step php-cs-fixer vendor/bin/php-cs-fixer fix --dry-run --diff
+    ;;
+  *) echo "usage: bin/check [phpunit|phpstan|cs] [args...]" >&2; exit 2 ;;
+esac
+
+exit $status

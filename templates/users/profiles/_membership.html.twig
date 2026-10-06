@@ -1,0 +1,15 @@
+{#- reference/app/views/users/profiles/_membership.html.erb -#}
+<li class="flex align-center gap margin-none min-width membership-item">
+  {%- set name %}
+    <strong>{{ room_display_name(membership.room) }}</strong>
+{% endset %}
+  {{ link_to(name, path('room', {id: membership.room.id}), {class: 'overflow-ellipsis fill-shade txt-primary txt-undecorated'}) }}
+
+  <hr class="separator" aria-hidden="true">
+
+  <span class="txt-small">
+    {%- set involvement %}
+      {{ button_to_change_involvement(membership.room, membership.involvement) }}
+{% endset %}
+    {{ turbo_frame_tag(dom_id(membership.room, 'involvement'), {}, involvement) }}  </span>
+</li>

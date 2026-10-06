@@ -1,0 +1,17 @@
+{#- reference/app/views/accounts/bots/new.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'New chat bot' %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back_to(path('account_bots')) }}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+  {{ form_with({url: path('account_bots.post'), class: 'flex flex-column gap', multipart: true}) }}
+{{ include('accounts/bots/_form.html.twig') }}</form>
+</section>
+{% endblock %}

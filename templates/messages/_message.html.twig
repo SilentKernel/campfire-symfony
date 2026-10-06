@@ -1,0 +1,33 @@
+{#- reference/app/views/messages/_message.html.erb, cached by App\View\MessageRenderer. Variables: p (App\View\MessagePresentation), detached, url_base. Bump MessageRenderer::VERSION when the presentation changes. #}
+{% set message = p.message %}
+{% set at_path = path('room_at_message', {room_id: message.room.id, message_id: message.id}) %}
+{% set content %}
+
+    <h2 class="message__day-separator">{{ local_datetime_tag(message.createdAt, 'date') }}</h2>
+
+    <figure class="avatar message__avatar">
+      {{ avatar_tag(p.creator) }}
+    </figure>
+
+    <turbo-frame id="{{ dom_id(message, 'edit') }}">
+      <div class="message__body">
+        <div class="message__body-content">
+          <div class="message__meta">
+            <h3 class="message__heading">
+              <span class="message__author" title="{{ p.creator.title }}">
+                <strong data-reply-target="author">{{ p.creator.name }}</strong>
+              </span>
+              <a target="_top" class="message__permalink" href="{{ at_path }}">{{ message_timestamp(message, {class: 'message__timestamp'}) }}</a>
+              <span class="message__room">
+                {{ link_to(p.roomName, at_path, {target: '_top', data: {reply_target: 'link'}}) }}
+              </span>
+            </h3>
+            {{ include('messages/_actions.html.twig', {url: url_base ~ at_path}) }}
+          </div>
+          {{ include('messages/_presentation.html.twig') }}
+          {{ include('messages/boosts/_boosts.html.twig') }}
+        </div>
+      </div>
+    </turbo-frame>
+{% endset %}
+{{ "\n  " }}{{ message_tag(p, content) -}}

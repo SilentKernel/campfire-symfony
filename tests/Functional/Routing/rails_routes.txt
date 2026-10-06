@@ -1,0 +1,178 @@
+                                   Prefix Verb   URI Pattern                                                                                       Controller#Action
+                                     root GET    /                                                                                                 welcome#show
+                            new_first_run GET    /first_run/new(.:format)                                                                          first_runs#new
+                           edit_first_run GET    /first_run/edit(.:format)                                                                         first_runs#edit
+                                first_run GET    /first_run(.:format)                                                                              first_runs#show
+                                          PATCH  /first_run(.:format)                                                                              first_runs#update
+                                          PUT    /first_run(.:format)                                                                              first_runs#update
+                                          DELETE /first_run(.:format)                                                                              first_runs#destroy
+                                          POST   /first_run(.:format)                                                                              first_runs#create
+                         session_transfer GET    /session/transfers/:id(.:format)                                                                  sessions/transfers#show
+                                          PATCH  /session/transfers/:id(.:format)                                                                  sessions/transfers#update
+                                          PUT    /session/transfers/:id(.:format)                                                                  sessions/transfers#update
+                              new_session GET    /session/new(.:format)                                                                            sessions#new
+                             edit_session GET    /session/edit(.:format)                                                                           sessions#edit
+                                  session GET    /session(.:format)                                                                                sessions#show
+                                          PATCH  /session(.:format)                                                                                sessions#update
+                                          PUT    /session(.:format)                                                                                sessions#update
+                                          DELETE /session(.:format)                                                                                sessions#destroy
+                                          POST   /session(.:format)                                                                                sessions#create
+                            account_users GET    /account/users(.:format)                                                                          accounts/users#index
+                                          POST   /account/users(.:format)                                                                          accounts/users#create
+                         new_account_user GET    /account/users/new(.:format)                                                                      accounts/users#new
+                        edit_account_user GET    /account/users/:id/edit(.:format)                                                                 accounts/users#edit
+                             account_user GET    /account/users/:id(.:format)                                                                      accounts/users#show
+                                          PATCH  /account/users/:id(.:format)                                                                      accounts/users#update
+                                          PUT    /account/users/:id(.:format)                                                                      accounts/users#update
+                                          DELETE /account/users/:id(.:format)                                                                      accounts/users#destroy
+                          account_bot_key PATCH  /account/bots/:bot_id/key(.:format)                                                               accounts/bots/keys#update
+                                          PUT    /account/bots/:bot_id/key(.:format)                                                               accounts/bots/keys#update
+                             account_bots GET    /account/bots(.:format)                                                                           accounts/bots#index
+                                          POST   /account/bots(.:format)                                                                           accounts/bots#create
+                          new_account_bot GET    /account/bots/new(.:format)                                                                       accounts/bots#new
+                         edit_account_bot GET    /account/bots/:id/edit(.:format)                                                                  accounts/bots#edit
+                              account_bot GET    /account/bots/:id(.:format)                                                                       accounts/bots#show
+                                          PATCH  /account/bots/:id(.:format)                                                                       accounts/bots#update
+                                          PUT    /account/bots/:id(.:format)                                                                       accounts/bots#update
+                                          DELETE /account/bots/:id(.:format)                                                                       accounts/bots#destroy
+                        account_join_code POST   /account/join_code(.:format)                                                                      accounts/join_codes#create
+                             account_logo GET    /account/logo(.:format)                                                                           accounts/logos#show
+                                          DELETE /account/logo(.:format)                                                                           accounts/logos#destroy
+               edit_account_custom_styles GET    /account/custom_styles/edit(.:format)                                                             accounts/custom_styles#edit
+                    account_custom_styles PATCH  /account/custom_styles(.:format)                                                                  accounts/custom_styles#update
+                                          PUT    /account/custom_styles(.:format)                                                                  accounts/custom_styles#update
+                              new_account GET    /account/new(.:format)                                                                            accounts#new
+                             edit_account GET    /account/edit(.:format)                                                                           accounts#edit
+                                  account GET    /account(.:format)                                                                                accounts#show
+                                          PATCH  /account(.:format)                                                                                accounts#update
+                                          PUT    /account(.:format)                                                                                accounts#update
+                                          DELETE /account(.:format)                                                                                accounts#destroy
+                                          POST   /account(.:format)                                                                                accounts#create
+                                     join GET    /join/:join_code(.:format)                                                                        users#new
+                                          POST   /join/:join_code(.:format)                                                                        users#create
+                                  qr_code GET    /qr_code/:id(.:format)                                                                            qr_code#show
+                              user_avatar GET    /users/:user_id/avatar(.:format)                                                                  users/avatars#show
+                                          DELETE /users/:user_id/avatar(.:format)                                                                  users/avatars#destroy
+                                 user_ban DELETE /users/:user_id/ban(.:format)                                                                     users/bans#destroy
+                                          POST   /users/:user_id/ban(.:format)                                                                     users/bans#create
+                             user_sidebar GET    /users/:user_id/sidebar(.:format)                                                                 users/sidebars#show {user_id: "me"}
+                         new_user_profile GET    /users/:user_id/profile/new(.:format)                                                             users/profiles#new {user_id: "me"}
+                        edit_user_profile GET    /users/:user_id/profile/edit(.:format)                                                            users/profiles#edit {user_id: "me"}
+                             user_profile GET    /users/:user_id/profile(.:format)                                                                 users/profiles#show {user_id: "me"}
+                                          PATCH  /users/:user_id/profile(.:format)                                                                 users/profiles#update {user_id: "me"}
+                                          PUT    /users/:user_id/profile(.:format)                                                                 users/profiles#update {user_id: "me"}
+                                          DELETE /users/:user_id/profile(.:format)                                                                 users/profiles#destroy {user_id: "me"}
+                                          POST   /users/:user_id/profile(.:format)                                                                 users/profiles#create {user_id: "me"}
+user_push_subscription_test_notifications POST   /users/:user_id/push_subscriptions/:push_subscription_id/test_notifications(.:format)             users/push_subscriptions/test_notifications#create {user_id: "me"}
+                  user_push_subscriptions GET    /users/:user_id/push_subscriptions(.:format)                                                      users/push_subscriptions#index {user_id: "me"}
+                                          POST   /users/:user_id/push_subscriptions(.:format)                                                      users/push_subscriptions#create {user_id: "me"}
+               new_user_push_subscription GET    /users/:user_id/push_subscriptions/new(.:format)                                                  users/push_subscriptions#new {user_id: "me"}
+              edit_user_push_subscription GET    /users/:user_id/push_subscriptions/:id/edit(.:format)                                             users/push_subscriptions#edit {user_id: "me"}
+                   user_push_subscription GET    /users/:user_id/push_subscriptions/:id(.:format)                                                  users/push_subscriptions#show {user_id: "me"}
+                                          PATCH  /users/:user_id/push_subscriptions/:id(.:format)                                                  users/push_subscriptions#update {user_id: "me"}
+                                          PUT    /users/:user_id/push_subscriptions/:id(.:format)                                                  users/push_subscriptions#update {user_id: "me"}
+                                          DELETE /users/:user_id/push_subscriptions/:id(.:format)                                                  users/push_subscriptions#destroy {user_id: "me"}
+                                     user GET    /users/:id(.:format)                                                                              users#show
+                    autocompletable_users GET    /autocompletable/users(.:format)                                                                  autocompletable/users#index
+                            room_messages GET    /rooms/:room_id/messages(.:format)                                                                messages#index
+                                          POST   /rooms/:room_id/messages(.:format)                                                                messages#create
+                         new_room_message GET    /rooms/:room_id/messages/new(.:format)                                                            messages#new
+                        edit_room_message GET    /rooms/:room_id/messages/:id/edit(.:format)                                                       messages#edit
+                             room_message GET    /rooms/:room_id/messages/:id(.:format)                                                            messages#show
+                                          PATCH  /rooms/:room_id/messages/:id(.:format)                                                            messages#update
+                                          PUT    /rooms/:room_id/messages/:id(.:format)                                                            messages#update
+                                          DELETE /rooms/:room_id/messages/:id(.:format)                                                            messages#destroy
+                  room_bot_message_boosts POST   /rooms/:room_id/:bot_key/messages/:message_id/boosts(.:format)                                    messages/boosts/by_bots#create {format: :json}
+                   room_bot_message_boost DELETE /rooms/:room_id/:bot_key/messages/:message_id/boosts/:id(.:format)                                messages/boosts/by_bots#destroy {format: :json}
+                        room_bot_messages GET    /rooms/:room_id/:bot_key/messages(.:format)                                                       messages/by_bots#index {format: :json}
+                                          POST   /rooms/:room_id/:bot_key/messages(.:format)                                                       messages/by_bots#create {format: :json}
+                         room_bot_message PATCH  /rooms/:room_id/:bot_key/messages/:id(.:format)                                                   messages/by_bots#update {format: :json}
+                                          PUT    /rooms/:room_id/:bot_key/messages/:id(.:format)                                                   messages/by_bots#update {format: :json}
+                                          DELETE /rooms/:room_id/:bot_key/messages/:id(.:format)                                                   messages/by_bots#destroy {format: :json}
+                             room_refresh GET    /rooms/:room_id/refresh(.:format)                                                                 rooms/refreshes#show
+                            room_settings GET    /rooms/:room_id/settings(.:format)                                                                rooms/settings#show
+                         room_involvement GET    /rooms/:room_id/involvement(.:format)                                                             rooms/involvements#show
+                                          PATCH  /rooms/:room_id/involvement(.:format)                                                             rooms/involvements#update
+                                          PUT    /rooms/:room_id/involvement(.:format)                                                             rooms/involvements#update
+                          room_at_message GET    /rooms/:room_id/@:message_id(.:format)                                                            rooms#show
+                                    rooms GET    /rooms(.:format)                                                                                  rooms#index
+                                          POST   /rooms(.:format)                                                                                  rooms#create
+                                 new_room GET    /rooms/new(.:format)                                                                              rooms#new
+                                edit_room GET    /rooms/:id/edit(.:format)                                                                         rooms#edit
+                                     room GET    /rooms/:id(.:format)                                                                              rooms#show
+                                          PATCH  /rooms/:id(.:format)                                                                              rooms#update
+                                          PUT    /rooms/:id(.:format)                                                                              rooms#update
+                                          DELETE /rooms/:id(.:format)                                                                              rooms#destroy
+                              rooms_opens GET    /rooms/opens(.:format)                                                                            rooms/opens#index
+                                          POST   /rooms/opens(.:format)                                                                            rooms/opens#create
+                           new_rooms_open GET    /rooms/opens/new(.:format)                                                                        rooms/opens#new
+                          edit_rooms_open GET    /rooms/opens/:id/edit(.:format)                                                                   rooms/opens#edit
+                               rooms_open GET    /rooms/opens/:id(.:format)                                                                        rooms/opens#show
+                                          PATCH  /rooms/opens/:id(.:format)                                                                        rooms/opens#update
+                                          PUT    /rooms/opens/:id(.:format)                                                                        rooms/opens#update
+                                          DELETE /rooms/opens/:id(.:format)                                                                        rooms/opens#destroy
+                            rooms_closeds GET    /rooms/closeds(.:format)                                                                          rooms/closeds#index
+                                          POST   /rooms/closeds(.:format)                                                                          rooms/closeds#create
+                         new_rooms_closed GET    /rooms/closeds/new(.:format)                                                                      rooms/closeds#new
+                        edit_rooms_closed GET    /rooms/closeds/:id/edit(.:format)                                                                 rooms/closeds#edit
+                             rooms_closed GET    /rooms/closeds/:id(.:format)                                                                      rooms/closeds#show
+                                          PATCH  /rooms/closeds/:id(.:format)                                                                      rooms/closeds#update
+                                          PUT    /rooms/closeds/:id(.:format)                                                                      rooms/closeds#update
+                                          DELETE /rooms/closeds/:id(.:format)                                                                      rooms/closeds#destroy
+                            rooms_directs GET    /rooms/directs(.:format)                                                                          rooms/directs#index
+                                          POST   /rooms/directs(.:format)                                                                          rooms/directs#create
+                         new_rooms_direct GET    /rooms/directs/new(.:format)                                                                      rooms/directs#new
+                        edit_rooms_direct GET    /rooms/directs/:id/edit(.:format)                                                                 rooms/directs#edit
+                             rooms_direct GET    /rooms/directs/:id(.:format)                                                                      rooms/directs#show
+                                          PATCH  /rooms/directs/:id(.:format)                                                                      rooms/directs#update
+                                          PUT    /rooms/directs/:id(.:format)                                                                      rooms/directs#update
+                                          DELETE /rooms/directs/:id(.:format)                                                                      rooms/directs#destroy
+                           message_boosts GET    /messages/:message_id/boosts(.:format)                                                            messages/boosts#index
+                                          POST   /messages/:message_id/boosts(.:format)                                                            messages/boosts#create
+                        new_message_boost GET    /messages/:message_id/boosts/new(.:format)                                                        messages/boosts#new
+                       edit_message_boost GET    /messages/:message_id/boosts/:id/edit(.:format)                                                   messages/boosts#edit
+                            message_boost GET    /messages/:message_id/boosts/:id(.:format)                                                        messages/boosts#show
+                                          PATCH  /messages/:message_id/boosts/:id(.:format)                                                        messages/boosts#update
+                                          PUT    /messages/:message_id/boosts/:id(.:format)                                                        messages/boosts#update
+                                          DELETE /messages/:message_id/boosts/:id(.:format)                                                        messages/boosts#destroy
+                                 messages GET    /messages(.:format)                                                                               messages#index
+                                          POST   /messages(.:format)                                                                               messages#create
+                              new_message GET    /messages/new(.:format)                                                                           messages#new
+                             edit_message GET    /messages/:id/edit(.:format)                                                                      messages#edit
+                                  message GET    /messages/:id(.:format)                                                                           messages#show
+                                          PATCH  /messages/:id(.:format)                                                                           messages#update
+                                          PUT    /messages/:id(.:format)                                                                           messages#update
+                                          DELETE /messages/:id(.:format)                                                                           messages#destroy
+                           clear_searches DELETE /searches/clear(.:format)                                                                         searches#clear
+                                 searches GET    /searches(.:format)                                                                               searches#index
+                                          POST   /searches(.:format)                                                                               searches#create
+                              unfurl_link POST   /unfurl_link(.:format)                                                                            unfurl_links#create
+                              webmanifest GET    /webmanifest(.:format)                                                                            pwa#manifest
+                           service_worker GET    /service-worker(.:format)                                                                         pwa#service_worker
+                       rails_health_check GET    /up(.:format)                                                                                     rails/health#show
+         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
+         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
+        turbo_refresh_historical_location GET    /refresh_historical_location(.:format)                                                            turbo/native/navigation#refresh
+            rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                           action_mailbox/ingresses/postmark/inbound_emails#create
+               rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                              action_mailbox/ingresses/relay/inbound_emails#create
+            rails_sendgrid_inbound_emails POST   /rails/action_mailbox/sendgrid/inbound_emails(.:format)                                           action_mailbox/ingresses/sendgrid/inbound_emails#create
+      rails_mandrill_inbound_health_check GET    /rails/action_mailbox/mandrill/inbound_emails(.:format)                                           action_mailbox/ingresses/mandrill/inbound_emails#health_check
+            rails_mandrill_inbound_emails POST   /rails/action_mailbox/mandrill/inbound_emails(.:format)                                           action_mailbox/ingresses/mandrill/inbound_emails#create
+             rails_mailgun_inbound_emails POST   /rails/action_mailbox/mailgun/inbound_emails/mime(.:format)                                       action_mailbox/ingresses/mailgun/inbound_emails#create
+           rails_conductor_inbound_emails GET    /rails/conductor/action_mailbox/inbound_emails(.:format)                                          rails/conductor/action_mailbox/inbound_emails#index
+                                          POST   /rails/conductor/action_mailbox/inbound_emails(.:format)                                          rails/conductor/action_mailbox/inbound_emails#create
+        new_rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/new(.:format)                                      rails/conductor/action_mailbox/inbound_emails#new
+            rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/:id(.:format)                                      rails/conductor/action_mailbox/inbound_emails#show
+ new_rails_conductor_inbound_email_source GET    /rails/conductor/action_mailbox/inbound_emails/sources/new(.:format)                              rails/conductor/action_mailbox/inbound_emails/sources#new
+    rails_conductor_inbound_email_sources POST   /rails/conductor/action_mailbox/inbound_emails/sources(.:format)                                  rails/conductor/action_mailbox/inbound_emails/sources#create
+    rails_conductor_inbound_email_reroute POST   /rails/conductor/action_mailbox/:inbound_email_id/reroute(.:format)                               rails/conductor/action_mailbox/reroutes#create
+ rails_conductor_inbound_email_incinerate POST   /rails/conductor/action_mailbox/:inbound_email_id/incinerate(.:format)                            rails/conductor/action_mailbox/incinerates#create
+                       rails_service_blob GET    /rails/active_storage/blobs/redirect/:signed_id/*filename(.:format)                               active_storage/blobs/redirect#show
+                 rails_service_blob_proxy GET    /rails/active_storage/blobs/proxy/:signed_id/*filename(.:format)                                  active_storage/blobs/proxy#show
+                                          GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                                        active_storage/blobs/redirect#show
+                rails_blob_representation GET    /rails/active_storage/representations/redirect/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations/redirect#show
+          rails_blob_representation_proxy GET    /rails/active_storage/representations/proxy/:signed_blob_id/:variation_key/*filename(.:format)    active_storage/representations/proxy#show
+                                          GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format)          active_storage/representations/redirect#show
+                       rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                                       active_storage/disk#show
+                update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:format)                                               active_storage/disk#update
+                     rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                                    active_storage/direct_uploads#create

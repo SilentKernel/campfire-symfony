@@ -1,0 +1,594 @@
+{
+ "seeds": {
+  "custom_styles": {
+   "counts": {
+    "pass": 0,
+    "fail": 8,
+    "allowed": 0,
+    "error": 0,
+    "flaky": 0
+   },
+   "cells": 8,
+   "durationMs": 23573
+  },
+  "default": {
+   "counts": {
+    "pass": 0,
+    "fail": 108,
+    "allowed": 0,
+    "error": 0,
+    "flaky": 0
+   },
+   "cells": 108,
+   "durationMs": 363121
+  },
+  "restricted": {
+   "counts": {
+    "pass": 0,
+    "fail": 4,
+    "allowed": 0,
+    "error": 0,
+    "flaky": 0
+   },
+   "cells": 4,
+   "durationMs": 12707
+  }
+ },
+ "states": {
+  "account/edit/with_logo": {
+   "seed": "custom_styles",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /account/edit (navigation) \u2192 200\n-  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /account/logo?v=20260221160000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=300, public, stale-while-revalidate=604800\n@@ -13,6 +13,5 @@\n   content-type: image/png\n-  vary: accept-encoding\n   body: sha256:827dac000cf4f35f\n GET /users/\u00absigned_id:user/avatar:127326141\u00bb/avatar?v=20260102160000 \u2192 200\n-  headers: cache-control content-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-encoding content-type etag referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=1800, public, stale-while-revalidate=604800\n@@ -22,3 +21,3 @@\n GET /users/\u00absigned_id:user/avatar:149087659\u00bb/avatar?v=20260125160000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=1800, public, stale-while-revalidate=604800\n\u2026"
+    }
+   }
+  },
+  "rooms/show/designers/custom_styles": {
+   "seed": "custom_styles",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /account/logo?v=20260221160000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=300, public, stale-while-revalidate=604800\n@@ -5,6 +5,5 @@\n   content-type: image/png\n-  vary: accept-encoding\n   body: sha256:827dac000cf4f35f\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -15,3 +14,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -22,3 +21,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n\u2026"
+    }
+   }
+  },
+  "rooms/show/designers": {
+   "seed": "default",
+   "cells": 14,
+   "status": {
+    "fail": 14
+   },
+   "layers": {
+    "network": 14
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 14,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -8,3 +8,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -15,3 +15,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -22,3 +22,3 @@\n GET /rails/active_storage/representations/redirect/\u00absigned_id:blob_id:5\u00bb/\u00absigned_id:variation:{\"format\":\"jpg\",\"resize_to_limit\":[1200,800]}\u00bb/moon.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: cache-control content-type location referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=300, private\n@@ -26,3 +26,2 @@\n   location: http://localhost:3999/rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg\n-  vary: accept-encoding\n\u2026"
+    }
+   }
+  },
+  "auth/sign_in/banned_ip": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /account/logo?v=20260101160000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=300, public, stale-while-revalidate=604800\n@@ -5,6 +5,5 @@\n   content-type: image/png\n-  vary: accept-encoding\n   body: sha256:d347c43b6c981233\n GET /session/new (navigation) \u2192 200\n-  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -15,6 +14,5 @@\n POST /session \u2192 429\n-  headers: cache-control content-encoding content-type referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-type referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: no-cache\n   content-type: text/html\n-  vary: accept-encoding, accept-encoding\n   set-cookie: _campfire_session; httponly; path; samesite"
+    }
+   }
+  },
+  "interactions/boost_created": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /messages/933434506/boosts \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /messages/933434506/boosts/new \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -17,3 +17,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -24,3 +24,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -31,3 +31,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "realtime/message_edited": {
+   "seed": "default",
+   "cells": 8,
+   "status": {
+    "fail": 8
+   },
+   "layers": {
+    "network": 8
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 8,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -3,3 +3,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -10,3 +10,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -17,3 +17,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -24,3 +24,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -31,3 +31,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "interactions/mention_autocomplete/results": {
+   "seed": "default",
+   "cells": 8,
+   "status": {
+    "fail": 8
+   },
+   "layers": {
+    "network": 8
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 8,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /autocompletable/users?room_id=654632876&filter= \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /autocompletable/users?room_id=654632876&filter=Ke \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -17,3 +17,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -24,3 +24,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -31,3 +31,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "auth/join/invalid_code": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,6 +1,5 @@\n GET /join/not-a-code (navigation) \u2192 404\n-  headers: cache-control content-encoding content-type referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-type referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: no-cache\n   content-type: text/html\n-  vary: accept-encoding\n   body: empty sha256:01ba4719c80b6fe9"
+    }
+   }
+  },
+  "interactions/lightbox": {
+   "seed": "default",
+   "cells": 8,
+   "status": {
+    "fail": 8
+   },
+   "layers": {
+    "network": 8
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 8,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /rails/active_storage/blobs/redirect/\u00absigned_id:blob_id:7\u00bb/black_hole.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: cache-control content-type location referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=300, private\n@@ -5,3 +5,2 @@\n   location: http://localhost:3999/rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg\n-  vary: accept-encoding\n   set-cookie: _campfire_session; httponly; path; samesite\n@@ -9,3 +8,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -16,3 +15,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -23,3 +22,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "realtime/boosted": {
+   "seed": "default",
+   "cells": 8,
+   "status": {
+    "fail": 8
+   },
+   "layers": {
+    "network": 8
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 8,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -3,3 +3,3 @@\n GET /messages/933434506/boosts \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -11,3 +11,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -18,3 +18,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -25,3 +25,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -32,3 +32,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "auth/transfer/expired": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /session/transfers/\u00absigned_id:user/transfer:127326141:expires\u00bb (navigation) \u2192 200\n-  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -8,6 +8,5 @@\n POST /session/transfers/\u00absigned_id:user/transfer:127326141:expires\u00bb \u2192 400\n-  headers: cache-control content-encoding content-type referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-type referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: no-cache\n   content-type: text/vnd.turbo-stream.html\n-  vary: accept-encoding, accept-encoding\n   set-cookie: _campfire_session; httponly; path; samesite"
+    }
+   }
+  },
+  "errors/404": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /users/999999999 (navigation) \u2192 404\n-  headers: content-encoding content-type vary x-cache\n+  headers: content-encoding content-type vary\n   content-type: text/html; charset=UTF-8"
+    }
+   }
+  },
+  "interactions/quick_boost": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /messages/933434506/boosts \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -16,3 +16,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -23,3 +23,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -30,3 +30,3 @@\n GET /rails/active_storage/representations/redirect/\u00absigned_id:blob_id:5\u00bb/\u00absigned_id:variation:{\"format\":\"jpg\",\"resize_to_limit\":[1200,800]}\u00bb/moon.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "interactions/edit_saved": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -8,3 +8,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -15,3 +15,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -22,3 +22,3 @@\n GET /rails/active_storage/representations/redirect/\u00absigned_id:blob_id:5\u00bb/\u00absigned_id:variation:{\"format\":\"jpg\",\"resize_to_limit\":[1200,800]}\u00bb/moon.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: cache-control content-type location referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=300, private\n@@ -26,3 +26,2 @@\n   location: http://localhost:3999/rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg\n-  vary: accept-encoding\n\u2026"
+    }
+   }
+  },
+  "interactions/boost_picker": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /messages/933434506/boosts/new \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -16,3 +16,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -23,3 +23,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -30,3 +30,3 @@\n GET /rails/active_storage/representations/redirect/\u00absigned_id:blob_id:5\u00bb/\u00absigned_id:variation:{\"format\":\"jpg\",\"resize_to_limit\":[1200,800]}\u00bb/moon.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "interactions/mention_autocomplete/all": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /autocompletable/users?room_id=654632876&filter= \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -16,3 +16,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -23,3 +23,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -30,3 +30,3 @@\n GET /rails/active_storage/representations/redirect/\u00absigned_id:blob_id:5\u00bb/\u00absigned_id:variation:{\"format\":\"jpg\",\"resize_to_limit\":[1200,800]}\u00bb/moon.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "interactions/mention_autocomplete/empty": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /autocompletable/users?room_id=654632876&filter= \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,6 +9,6 @@\n GET /autocompletable/users?room_id=654632876&filter=zzz \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n   content-type: text/html; charset=utf-8\n-  vary: accept, accept-encoding\n+  vary: accept\n   set-cookie: _campfire_session; httponly; path; samesite\n@@ -17,3 +17,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -24,3 +24,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "interactions/mention_autocomplete/inserted": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /autocompletable/users?room_id=654632876&filter= \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /autocompletable/users?room_id=654632876&filter=Ke \u2192 200\n-  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -17,3 +17,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -24,3 +24,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -31,3 +31,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n\u2026"
+    }
+   }
+  },
+  "interactions/notifications_help": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"alpha-centuri.webp\\\"; filename*=UTF-8''alpha-centuri.webp\",\"content_type\":\"image/webp\",\"service_name\":\"local\"}:expires\u00bb/alpha-centuri.webp \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -8,3 +8,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"black_hole.jpg\\\"; filename*=UTF-8''black_hole.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/black_hole.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -15,3 +15,3 @@\n GET /rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg \u2192 200\n-  headers: cache-control content-disposition content-encoding content-type last-modified referrer-policy vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: accept-ranges cache-control content-disposition content-type etag last-modified referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=3600, public\n@@ -22,3 +22,3 @@\n GET /rails/active_storage/representations/redirect/\u00absigned_id:blob_id:5\u00bb/\u00absigned_id:variation:{\"format\":\"jpg\",\"resize_to_limit\":[1200,800]}\u00bb/moon.jpg \u2192 302\n-  headers: cache-control content-encoding content-type location referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n+  headers: cache-control content-type location referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-xss-protection\n   cache-control: max-age=300, private\n@@ -26,3 +26,2 @@\n   location: http://localhost:3999/rails/active_storage/disk/\u00absigned_id:blob_key:{\"key\":\"\u00abblob-key\u00bb\",\"disposition\":\"inline; filename=\\\"moon.jpg\\\"; filename*=UTF-8''moon.jpg\",\"content_type\":\"image/jpeg\",\"service_name\":\"local\"}:expires\u00bb/moon.jpg\n-  vary: accept-encoding\n\u2026"
+    }
+   }
+  },
+  "account/edit/admin": {
+   "seed": "default",
+   "cells": 10,
+   "status": {
+    "fail": 10
+   },
+   "layers": {
+    "network": 10
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 10,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /account/edit (navigation) \u2192 200\n-  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /account/logo?v=20260101160000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=300, public, stale-while-revalidate=604800\n@@ -13,6 +13,5 @@\n   content-type: image/png\n-  vary: accept-encoding\n   body: sha256:d347c43b6c981233\n GET /users/\u00absigned_id:user/avatar:127326141\u00bb/avatar?v=20260102160000 \u2192 200\n-  headers: cache-control content-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-encoding content-type etag referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=1800, public, stale-while-revalidate=604800\n@@ -22,3 +21,3 @@\n GET /users/\u00absigned_id:user/avatar:149087659\u00bb/avatar?v=20260125160000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=1800, public, stale-while-revalidate=604800\n\u2026"
+    }
+   }
+  },
+  "account/bots": {
+   "seed": "default",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [
+    "public-response-header-names"
+   ],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,3 +1,3 @@\n GET /account/bots (navigation) \u2192 200\n-  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-encoding content-type etag link referrer-policy set-cookie vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=0, must-revalidate, private\n@@ -9,3 +9,3 @@\n GET /users/\u00absigned_id:user/avatar:394959859\u00bb/avatar?v=20260102200000 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag referrer-policy vary x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=1800, public, stale-while-revalidate=604800\n@@ -16,3 +16,3 @@\n GET /users/\u00absigned_id:user/avatar:773523956\u00bb/avatar?v=20260125160100 \u2192 200\n-  headers: cache-control content-disposition content-encoding content-transfer-encoding content-type etag vary x-cache x-rev x-version\n+  headers: cache-control content-disposition content-transfer-encoding content-type etag referrer-policy x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: max-age=1800, public, stale-while-revalidate=604800\n@@ -20,3 +20,2 @@\n   content-type: image/webp\n-  vary: accept-encoding\n   body: sha256:230f8476b5d58021"
+    }
+   }
+  },
+  "rooms/opens/new/restricted_member": {
+   "seed": "restricted",
+   "cells": 4,
+   "status": {
+    "fail": 4
+   },
+   "layers": {
+    "network": 4
+   },
+   "residual_cells": {},
+   "known": [],
+   "network_sigs": [],
+   "network_residual": [],
+   "network_app_cells": 4,
+   "errors": [],
+   "excerpts": {
+    "network": {
+     "cell": "chromium-desktop-light",
+     "diff": "--- reference\n+++ candidate\n@@ -1,6 +1,5 @@\n GET /rooms/opens/new (navigation) \u2192 403\n-  headers: cache-control content-encoding content-type referrer-policy set-cookie vary x-cache x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n+  headers: cache-control content-type referrer-policy set-cookie x-content-type-options x-frame-options x-permitted-cross-domain-policies x-rev x-version x-xss-protection\n   cache-control: no-cache\n   content-type: text/html\n-  vary: accept-encoding\n   set-cookie: _campfire_session; httponly; path; samesite"
+    }
+   }
+  }
+ },
+ "totals": {
+  "pass": 0,
+  "fail": 120,
+  "allowed": 0,
+  "error": 0,
+  "flaky": 0
+ },
+ "layers": {
+  "pixels": {
+   "compared": 120,
+   "equal": 120
+  },
+  "server": {
+   "compared": 120,
+   "equal": 120
+  },
+  "live": {
+   "compared": 120,
+   "equal": 120
+  },
+  "aria": {
+   "compared": 120,
+   "equal": 120
+  },
+  "network": {
+   "compared": 120,
+   "different": 120,
+   "explained": 120,
+   "app_different": 120
+  },
+  "cable": {
+   "compared": 120,
+   "equal": 120
+  }
+ }
+}

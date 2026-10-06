@@ -1,0 +1,6 @@
+{#- reference/app/views/rooms/involvements/show.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+
+{% block content %}
+{{ turbo_frame_for_involvement_tag(room, button_to_change_involvement(room, involvement)) }}
+{% endblock %}

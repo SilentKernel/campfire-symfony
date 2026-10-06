@@ -1,0 +1,14 @@
+{#- turbo-rails app/views/layouts/turbo_rails/frame.html.erb: the layout of Turbo Frame requests
+    (a Turbo-Frame header), chosen with `{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}`.
+    Only the head and the view are rendered; the nav/footer/sidebar areas are dropped. The blank
+    line keeps the newline after `<%= yield :head %>` (a block tag eats the one that follows it). -#}
+<html>
+  <head>
+    {{ csrf_meta_tags() }}
+    {% block head %}{% endblock %}
+
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{#- reference/app/views/messages/boosts/index.html.erb. Variables: boosts_html. #}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% block content %}{{ boosts_html|raw }}
+
+{% endblock %}

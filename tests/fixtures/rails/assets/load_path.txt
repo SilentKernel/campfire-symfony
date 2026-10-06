@@ -1,0 +1,16 @@
+reference:app/assets/images
+reference:app/assets/sounds
+reference:app/assets/stylesheets
+reference:app/javascript
+reference:vendor/javascript
+gems:lexxy/app/assets/javascript
+gems:lexxy/app/assets/stylesheets
+gems:stimulus-rails/app/assets/javascripts
+gems:turbo-rails/app/assets/javascripts
+gems:actiontext/app/assets/javascripts
+gems:action_text-trix/app/assets/javascripts
+gems:action_text-trix/app/assets/stylesheets
+gems:actioncable/app/assets/javascripts
+gems:activestorage/app/assets/javascripts
+gems:actionview/app/assets/javascripts
+gems:lexxy/app/javascript

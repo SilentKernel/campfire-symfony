@@ -1,0 +1,49 @@
+{#- reference/app/views/messages/_actions.html.erb. Variables: p, detached, url. #}
+
+<div class="message__actions" data-controller="soft-keyboard">
+  <details class="position-relative" data-controller="popup" data-action="keydown.esc-&gt;popup#close toggle-&gt;popup#toggle click@document-&gt;popup#closeOnClickOutside" data-popup-orientation-top-class="popup-orientation-top">
+    <summary class="btn message__action-btn message__options-btn">
+      {{ image_tag('menu-dots-horizontal.svg', {size: 20, class: 'colorize--black', aria: {hidden: 'true'}}) }}
+      <span class="for-screen-reader">Message options</span>
+    </summary>
+
+    <div class="message__actions-menu border shadow" data-popup-target="menu">
+      <div class="quick-boosts">
+        {%~ set boosts_path = path('message_boosts', {message_id: p.message.id}) %}
+        {%~ set boosting_frame = dom_id(p.message, 'boosting') %}
+        {%~ for character, title in emoji_reactions() %}
+          {{ form_with({data: {turbo_frame: boosting_frame, action: 'popup#close'}, url: boosts_path, authenticity_token: detached ? false : null}) }}
+            <input type="hidden" name="boost[content]" id="boost_content" value="{{ character }}" />
+            <button name="button" type="submit" title="{{ title }}" class="btn message__action-btn" data-emoji="{{ character }}">
+              <figure class="margin-none boost-character">{{ character }}</figure>
+              <span class="for-screen-reader">{{ title }}</span>
+</button></form>
+        {%- endfor %}
+
+        <a class="btn message__action-btn message__boost-btn" data-turbo-frame="{{ dom_id(p.message, 'new_boost') }}" data-action="soft-keyboard#open popup#close" href="{{ path('new_message_boost', {message_id: p.message.id}) }}">
+          {{ image_tag('boost.svg', {class: 'colorize--black', size: 20, aria: {hidden: 'true'}}) }}
+          <span class="for-screen-reader">New boost</span>
+</a>      </div>
+
+      <div class="flex flex-wrap border-top margin-block-start-half pad-block-start-half message__actions-grid">
+        {%~ if p.contentType == 'attachment' %}
+          <a class="btn message__action-btn center full-width hide-in-ios-pwa" title="Download" aria-label="Download" href="{{ rails_blob_path(p.attachment, 'attachment') }}">
+            {{ image_tag('download.svg', {class: 'colorize--black', size: 20, aria: {hidden: 'true'}}) }}
+</a>
+          <button class="btn message__action-btn center full-width" data-controller="web-share" data-action="web-share#share" data-web-share-files-value="{{ rails_blob_path(p.attachment) }}" data-web-share-title-value="{{ message_attachment_filename(p.attachment) }}" title="Share" aria-label="Share">
+            {{ image_tag('share.svg', {class: 'colorize--black', size: 20, aria: {hidden: 'true'}}) }}
+</button>
+        {%- else %}
+          <button class="btn message__action-btn center full-width" data-action="reply#reply" title="Reply" aria-label="Reply">
+            {{ image_tag('reply.svg', {class: 'colorize--black', size: 20, aria: {hidden: 'true'}}) }}
+</button>
+        {%- endif %}
+
+        <button class="btn message__action-btn center full-width" title="Copy link" aria-label="Copy link" data-controller="copy-to-clipboard" data-action="copy-to-clipboard#copy" data-copy-to-clipboard-success-class="btn--success" data-copy-to-clipboard-content-value="{{ url }}">
+          {{ image_tag('link.svg', {class: 'colorize--black', size: 20, aria: {hidden: 'true'}}) }}
+</button>
+        <a class="btn message__action-btn center full-width message__edit-btn" data-turbo-frame="{{ dom_id(p.message, 'edit') }}" title="Edit" aria-label="Edit" href="{{ path('edit_room_message', {room_id: p.message.room.id, id: p.message.id}) }}">
+          {{ image_tag('pencil.svg', {class: 'colorize--black', size: 20, aria: {hidden: 'true'}}) }}
+</a>      </div>
+    </div>
+</details></div>

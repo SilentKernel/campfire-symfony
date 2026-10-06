@@ -1,0 +1,30 @@
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/public/assets/
+/var/
+/vendor/
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+/phpunit.xml
+/.phpunit.cache/
+
+# Runtime data: databases, uploaded files, push keys
+/storage/
+
+# Read-only reference checkouts of the other ports (copies of the other ports, for reading)
+/.cache/
+
+# Benchmark working directories; results/ is kept
+/bench/.work/
+
+# Python bytecode from tooling scripts
+__pycache__/
+
+# Outdated benchmark run (image had the SQLite WAL-reset bug, see docs/internal/sqlite-corruption.md)
+/bench/results/2026-10-05-m3pro/
+
+# Session notes
+/docs/internal/RESUME.md

@@ -1,0 +1,31 @@
+{#- reference/app/views/accounts/bots/edit.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'Edit bot' %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back_to(path('account_bots')) }}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel" style="view-transition-name: chat-bot-{{ bot.id }}">
+  {{ form_with({url: path('account_bot.patch', {id: bot.id}), method: 'patch', class: 'flex flex-column gap', multipart: true}) }}
+{{ include('accounts/bots/_form.html.twig') }}</form>
+  <hr class="separator full-width margin-block-double">
+
+  <div class="flex align-center gap justify-space-between">
+    {%- set delete %}
+      {{ image_tag('trash.svg', {aria: {hidden: 'true'}, size: 20}) }}
+      {{ image_tag('bot.svg', {aria: {hidden: 'true'}, size: 20}) }}
+{% endset %}
+    {{ button_to(delete, path('account_bot.delete', {id: bot.id}), {method: 'delete', class: 'btn txt--small btn--negative', aria: {label: 'Delete this chat bot'}, data: {turbo_confirm: 'Are you sure you want to permanently remove this bot from the account? This can’t be undone.'}}) }}
+
+    {%- set key %}
+      {{ image_tag('refresh.svg', {aria: {hidden: 'true'}, size: 20}) }}
+      {{ image_tag('key.svg', {aria: {hidden: 'true'}, size: 20}) }}
+{% endset %}
+    {{ button_to(key, path('account_bot_key.put', {bot_id: bot.id}), {method: 'put', class: 'btn full-width txt--small btn--negative', aria: {label: 'Generate a new key'}, data: {turbo_confirm: 'Are you sure you want to change the bot key? All usage of this bot must be updated.'}}) }}  </div>
+</section>
+{% endblock %}

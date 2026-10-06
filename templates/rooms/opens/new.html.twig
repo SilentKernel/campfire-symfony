@@ -1,0 +1,6 @@
+{#- reference/app/views/rooms/opens/new.html.erb -#}
+{% extends 'rooms/layouts/_new.html.twig' %}
+
+{% block room_form %}
+  {{ include('rooms/opens/_form.html.twig', {type_change_path: path('new_rooms_closed')}) }}
+{% endblock %}

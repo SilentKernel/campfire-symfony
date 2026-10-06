@@ -1,0 +1,74 @@
+{#- reference/app/views/users/sidebars/show.html.erb. `direct_rooms` and `shared_rooms` are
+    App\Domain\Rooms\SidebarRoom lists; the direct rooms render through the fragment cache. -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+
+{% block content %}
+{%- set sidebar %}
+  {{ turbo_stream_from('rooms') }}
+  {{ turbo_stream_from(current_user(), 'rooms') }}
+
+  <div class="sidebar__container overflow-y overflow-hide-scrollbar"
+      data-controller="badge-dot"
+      data-badge-dot-unread-class="unread"
+      data-action="rooms-list:unread@window->badge-dot#update rooms-list:read@window->badge-dot#update turbo:submit-start->turbo-frame#unpermanize">
+    <turbo-frame id="direct_rooms_control" target="_top">
+      <div class="directs gap overflow-x overflow-hide-scrollbar">
+        {%- set new_direct %}
+          <span class="avatar avatar--icon">
+            {{ image_tag('messages-add.svg', {size: 20, aria: {hidden: 'true'}, class: 'colorize--black'}) }}
+          </span>
+
+          <span class="direct__author flex max-width min-width border-radius pad-inline-half">
+            <span class="for-screen-reader">New</span>
+            <span class="txt-small overflow-clip">Ping</span>
+          </span>
+{% endset %}
+        {{ link_to(new_direct, path('new_rooms_direct'), {class: 'direct direct__new', data: {turbo_frame: '_self'}}) }}
+
+        <div id="direct_rooms" contents data-controller="sorted-list" data-action="rooms-list:unread@window->sorted-list#updateItem">
+          {{ sidebar_direct_rooms(direct_rooms) }}
+        </div>
+
+        <div contents>
+          {% for user in direct_placeholder_users %}{{ include('users/sidebars/rooms/_direct_placeholder.html.twig') }}{% endfor %}
+        </div>
+      </div>
+    </turbo-frame>
+
+    <div class="rooms position-relative flex flex-column gap">
+      <div id="shared_rooms" contents data-controller="sorted-list">
+        {% for room in shared_rooms %}
+          {{ include('users/sidebars/rooms/_shared.html.twig', {room: room, unread: room.unread}) }}
+        {% endfor %}
+      </div>
+
+      {% if can_create_rooms %}
+        {%- set new_room %}
+          {{ image_tag('add.svg', {size: 20, aria: {hidden: 'true'}, style: 'view-transition-name: new-room'}) }}
+{% endset %}
+        {{ link_to(new_room, path('new_rooms_open'), {class: 'rooms__new-btn btn room align-center gap txt-reversed', aria: {label: 'New Chat Room'}}) }}
+      {% endif %}
+    </div>
+
+    <button class="btn sidebar__toggle" data-action="toggle-class#toggle">
+      {{ image_tag('menu.svg', {size: 20, aria: {hidden: 'true'}}) }}
+      <span class="for-screen-reader">Open menu</span>
+    </button>
+  </div>
+
+  <div class="flex align-end sidebar__tools gap justify-end">
+    {%- set profile %}
+      {{ image_tag(fresh_user_avatar_path(current_user()), {size: 48, aria: {hidden: 'true'}, style: 'view-transition-name: avatar-' ~ current_user().id}) }}
+      <span class="for-screen-reader">My Settings</span>
+{% endset %}
+    {{ link_to(profile, path('user_profile'), {class: 'btn avatar flex-item-no-shrink sidebar__tool'}) }}
+
+    {%- set settings %}
+      {{ image_tag('settings.svg', {size: 20, aria: {hidden: 'true'}, style: 'view-transition-name: account-settings'}) }}
+      <span class="for-screen-reader">Account Settings</span>
+{% endset %}
+    {{ link_to(settings, path('edit_account'), {class: 'btn align-center gap txt-reversed sidebar__tool'}) }}
+  </div>
+{% endset %}
+{{ sidebar_turbo_frame_tag(null, sidebar) }}
+{% endblock %}

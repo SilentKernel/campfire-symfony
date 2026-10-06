@@ -1,0 +1,75 @@
+{#- reference/app/views/users/show.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = user.name %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back() }}
+  </div>
+
+  <div class="flex align-center gap flex-item-justify-end">
+{% if current_user().isSameRecord(user) %}
+      {%- set edit %}
+        {{ image_tag('pencil.svg', {aria: {hidden: 'true'}}) }}
+        <span class="for-screen-reader">Edit my profile</span>
+{% endset %}
+      {{ link_to(edit, path('user_profile'), {class: 'btn'}) }}
+{% endif %}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel txt-align-center">
+  <div class="flex flex-column gap {{ user.isBanned() ? 'banned' }}">
+    <div class="avatar txt-xx-large center" style="background: white">
+      {{ image_tag(fresh_user_avatar_path(user), {alt: 'Profile avatar', class: 'avatar'}) }}
+    </div>
+
+{% if user.isBot() %}
+      <div class="pad-double--inline push--inline push--block-start">
+{% if user.isActive() %}
+          {{ button_to_direct_room_with(user) }}
+{% else %}
+          <div>{{ user.name }} is no longer on this account</div>
+{% endif %}
+      </div>
+{% else %}
+{% if not user.isDeactivated() %}
+        <div class="flex flex-column gap" style="--row-gap: calc(var(--block-space) / 3)">
+          <h1 class="txt-x-large txt-tight-lines margin-none">{{ user.name }}</h1>
+{% if current_user().canAdminister() %}
+            <div>{{ mail_to(user.emailAddress) }}</div>
+{% endif %}
+          <div>{{ user.bio }}</div>
+        </div>
+
+{% if user.isActive() %}
+          <div class="pad-inline-double margin-inline margin-block-start">
+            {%- set ping %}
+              {{ image_tag('messages.svg', {aria: {hidden: 'true', label: 'Ping ' ~ user.name}}) }}
+{% endset %}
+            {{ button_to(ping, path('rooms_directs.post') ~ '?user_ids%5B%5D=' ~ user.id, {class: 'btn btn--reversed full-width txt-large'}) }}          </div>
+
+{% if current_user().canAdminister() %}
+            <hr class="margin-block-start borderless">
+
+            {{ include('users/profiles/_transfer.html.twig', {user: user}) }}
+{% endif %}
+{% endif %}
+
+{% if current_user().canAdminister() and not current_user().isSameRecord(user) %}
+          <div class="margin-block-start">
+            {{ include('users/_ban_button.html.twig', {user: user, page_user: user}) }}
+          </div>
+{% endif %}
+{% else %}
+        <div>
+          <h1 class="txt-x-large margin-none">{{ user.name }}</h1>
+          <div>{{ user.name }} is no longer on this account</div>
+        </div>
+{% endif %}
+{% endif %}
+  </div>
+</section>
+{% endblock %}

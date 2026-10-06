@@ -1,0 +1,41 @@
+{#- reference/app/views/sessions/new.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'Sign in' %}
+
+{% block head %}{{ turbo_page_requires_reload() }}{% endblock %}
+
+{% block content %}
+
+<section class="txt-align-center">
+  <div class="panel {{ flash('alert') is not null ? 'shake' }}">
+    {{ account_logo_tag('center margin-block-end txt-xx-large') }}
+
+    {{ form_with({url: url('session.post'), class: 'flex flex-column gap'}) }}
+      <fieldset class="flex flex-column gap center-block upad">
+        <legend class="txt-large txt-align-center"><strong>{{ current_account().name }}</strong></legend>
+
+        <div class="flex align-center gap">
+          {{ translation_button('email_address') }}
+          <label class="flex align-center gap input input--actor txt-large">
+            <input required="required" class="input" autofocus="autofocus" autocomplete="username" placeholder="Enter your email address"{% if email_address is not null %} value="{{ email_address }}"{% endif %} type="email" name="email_address" id="email_address" />
+            {{ image_tag('email.svg', {aria: {hidden: 'true'}, size: 24, class: 'colorize--black'}) }}
+          </label>
+        </div>
+
+        <div class="flex align-center gap">
+          {{ translation_button('password') }}
+          <label class="flex align-center gap input input--actor txt-large">
+            <input required="required" class="input" autocomplete="current-password" placeholder="Enter your password" maxlength="72" size="72" type="password" name="password" id="password" />
+            {{ image_tag('password.svg', {aria: {hidden: 'true'}, size: 24, class: 'colorize--black'}) }}
+          </label>
+        </div>
+
+        <button name="log_in" type="submit" class="btn btn--reversed center txt-large">
+          {{ image_tag('arrow-right.svg', {aria: {hidden: 'true'}}) }}
+          <span class="for-screen-reader">Go</span>
+</button>      </fieldset>
+</form>  </div>
+
+  {{ include('accounts/_help_contact.html.twig') }}
+</section>
+{% endblock %}

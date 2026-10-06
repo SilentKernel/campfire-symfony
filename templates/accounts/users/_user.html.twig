@@ -1,0 +1,41 @@
+{#- reference/app/views/accounts/users/_user.html.erb -#}
+<li class="flex align-center gap margin-none {{ user.isBanned() ? 'banned' }}">
+  <figure class="avatar flex-item-no-shrink" style="--avatar-size: 3.75ch;">
+    {{ avatar_tag(user, {loading: 'lazy'}) }}
+  </figure>
+
+  <div class="min-width">
+    <div class="overflow-ellipsis fill-shade"><strong>{{ user.name }}</strong></div>
+  </div>
+
+  <hr class="separator" aria-hidden="true">
+
+{% if current_user().canAdminister() and user.isActive() %}
+{% if not user.isBot() %}
+      {%- set role_id = dom_id(user, 'role') %}
+      {%- set disabled = current_user().isSameRecord(user) %}
+      {{ form_with({url: path('account_user.patch', {id: user.id}), data: {controller: 'form'}, method: 'patch'}) }}
+        <label class="btn txt-small flex-item-no-shrink" for="{{ role_id }}">
+          <span class="for-screen-reader">Role: {{ user.isAdministrator() ? 'Administrator' : 'Member' }}</span>
+          {{ image_tag('crown.svg', {size: 20, aria: {hidden: 'true'}}) }}
+          <input name="user[role]"{% if disabled %} disabled="disabled"{% endif %} type="hidden" value="member" /><input data-action="form#submit" hidden="hidden" id="{{ role_id }}"{% if disabled %} disabled="disabled"{% endif %} type="checkbox" value="administrator"{% if user.isAdministrator() %} checked="checked"{% endif %} name="user[role]" />
+        </label>
+</form>
+{% endif %}
+
+{% if not current_user().isSameRecord(user) %}
+      {%- set delete %}
+        {{ image_tag('minus.svg', {size: 20, aria: {hidden: 'true'}}) }}
+        <span class="for-screen-reader">Delete {{ user.name }}</span>
+{% endset %}
+      {{ button_to(delete, path('account_user.delete', {id: user.id}), {method: 'delete', class: 'btn txt-small flex-item-no-shrink btn--negative', data: {turbo_confirm: 'Are you sure you want to permanently remove this person from the account? This can’t be undone.'}}) }}
+{% endif %}
+{% endif %}
+{% if current_user().isSameRecord(user) %}
+    {%- set settings %}
+      {{ image_tag('pencil.svg', {size: 20, aria: {hidden: 'true'}}) }}
+      <span class="for-screen-reader">My settings</span>
+{% endset %}
+    {{ link_to(settings, path('user_profile'), {class: 'btn txt-small flex-item-no-shrink', target: '_top'}) }}
+{% endif %}
+</li>

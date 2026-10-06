@@ -1,0 +1,21 @@
+{#- reference/app/views/users/push_subscriptions/index.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'Push notification subscriptions' %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back_to_last_room_visited() }}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel--wide flex flex-column gap">
+  <h1 class="txt-align-center txt-large margin-none">Push Notification Subscriptions</h1>
+  <div class="pad-inline fill-shade border-radius" id="push_subscriptions">
+    <menu class="pad flex flex-column gap">
+      {% for push_subscription in push_subscriptions %}{{ include('users/push_subscriptions/_push_subscription.html.twig') }}{% endfor %}
+    </menu>
+  </div>
+</section>
+{% endblock %}

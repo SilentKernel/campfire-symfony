@@ -1,0 +1,48 @@
+doctrine:
+    dbal:
+        default_connection: default
+        types:
+            rails_datetime: App\Database\Type\RailsDateTimeType
+        connections:
+            # The Rails database, schema and all (db/schema.sql). Never altered by Doctrine: the
+            # schema tool ignores the FTS5 index and its shadow tables.
+            default:
+                driver: pdo_sqlite
+                path: '%campfire.database_path%'
+                mapping_types: { json: json }
+                schema_filter: '~^(?!message_search_index)~'
+                profiling_collect_backtrace: '%kernel.debug%'
+            # Messenger's queue, kept out of the Rails schema (like the Laravel and Django ports).
+            jobs:
+                driver: pdo_sqlite
+                path: '%campfire.jobs_database_path%'
+    orm:
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                mappings:
+                    App:
+                        type: attribute
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+
+when@prod:
+    doctrine:
+        orm:
+            entity_managers:
+                default:
+                    query_cache_driver:
+                        type: pool
+                        pool: doctrine.system_cache_pool
+                    metadata_cache_driver:
+                        type: pool
+                        pool: doctrine.system_cache_pool
+    framework:
+        cache:
+            pools:
+                doctrine.system_cache_pool:
+                    adapter: cache.system

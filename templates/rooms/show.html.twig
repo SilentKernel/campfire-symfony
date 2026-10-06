@@ -1,0 +1,32 @@
+{#- reference/app/views/rooms/show.html.erb. `messages_html` is the rendered message page
+    (messages/_message, cached); `invitation` is `@room == Room.original && !@room.messages.paged?`. -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = room_display_name(room) %}
+{% set body_class = 'sidebar' %}
+
+{% block head %}
+  {{ turbo_exempts_page_from_preview() }}
+  <meta name="current-room-id" content="{{ room.id }}">
+{% endblock %}
+
+{% block nav %}{{ include('rooms/show/_nav.html.twig') }}{% endblock %}
+
+{% block sidebar %}{{ sidebar_turbo_frame_tag(path('user_sidebar')) }}{% endblock %}
+
+{% block content %}
+{#- messages_helper#message_area_tag -#}
+<div id="message-area" class="message-area" contents="true" data-controller="messages presence drop-target" data-action="turbo:before-stream-render@document-&gt;messages#beforeStreamRender keydown.up@document-&gt;messages#editMyLastMessage dragenter-&gt;drop-target#dragenter dragover-&gt;drop-target#dragover drop-&gt;drop-target#drop visibilitychange@document-&gt;presence#visibilityChanged" data-messages-first-of-day-class="message--first-of-day" data-messages-formatted-class="message--formatted" data-messages-me-class="message--me" data-messages-mentioned-class="message--mentioned" data-messages-threaded-class="message--threaded" data-messages-page-url-value="{{ url('room_messages', {room_id: room.id}) }}">
+  {{ include('messages/_template.html.twig', ignore_missing = true) }}
+
+  {#- messages_helper#messages_tag #}
+  <div id="{{ dom_id(room, 'messages') }}" class="messages" data-controller="maintain-scroll refresh-room" data-action="turbo:before-stream-render@document-&gt;maintain-scroll#beforeStreamRender visibilitychange@document-&gt;refresh-room#visibilityChanged online@window-&gt;refresh-room#online" data-messages-target="messages" data-refresh-room-loaded-at-value="{{ epoch_milliseconds(room.updatedAt) }}" data-refresh-room-url-value="{{ url('room_refresh', {room_id: room.id}) }}">
+    {{ include('rooms/show/_invitation.html.twig') }}
+    {{ messages_html|raw }}
+  </div>
+
+  {{ turbo_stream_from(room, 'messages', {channel: 'RoomMessagesChannel'}) }}
+  {{ button_to_jump_to_newest_message() }}
+</div>
+{% endblock %}
+
+{% block footer %}{{ include('rooms/show/_composer.html.twig') }}{% endblock %}

@@ -1,0 +1,16 @@
+framework:
+    cache:
+        # APCu is shared by every FrankenPHP worker thread (one process), like the Redis cache store
+        # Rails shares across Puma workers. It holds message fragments and rate-limit counters.
+        app: cache.adapter.apcu
+        prefix_seed: campfire
+
+when@dev:
+    framework:
+        cache:
+            app: cache.adapter.filesystem
+
+when@test:
+    framework:
+        cache:
+            app: cache.adapter.array

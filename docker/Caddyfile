@@ -1,0 +1,92 @@
+# FrankenPHP (Caddy + PHP worker threads): what Thruster does in front of Puma in the Rails image
+# (reference/Procfile: `thrust bin/start-app`): HTTP or automatic HTTPS, gzip, X-Sendfile, static
+# files from public/ with Rails' public_file_server headers, and the app itself.
+#
+# bin/start computes every variable below; see it for the defaults.
+#   CAMPFIRE_SITE_ADDRESS  "http://:$HTTP_PORT", or "$TLS_DOMAIN" for automatic HTTPS
+#   HTTP_PORT HTTPS_PORT   listening ports (80, 443)
+#   TARGET_PORT            the Action Cable server (bin/console campfire:cable) on 127.0.0.1
+#   FRANKENPHP_MODE        "worker" (default) or "classic" (no worker: docker/php-{worker,classic}.caddy)
+#   PHP_WORKERS            worker threads running public/index.php (2 x CPUs)
+#   PHP_THREADS            PHP threads besides the workers, which FrankenPHP adds on top (1)
+#   CAMPFIRE_STORAGE_PATH  root holding files/ (Active Storage blobs) for X-Accel-Redirect
+{
+	admin off
+	skip_install_trust
+	http_port {$HTTP_PORT:80}
+	https_port {$HTTPS_PORT:443}
+	acme_ca {$ACME_DIRECTORY:https://acme-v02.api.letsencrypt.org/directory}
+
+	log {
+		level {$CADDY_LOG_LEVEL:WARN}
+	}
+
+	frankenphp {
+		num_threads {$PHP_THREADS:1}
+	}
+}
+
+{$CAMPFIRE_SITE_ADDRESS:http://:80} {
+	root * /rails/public
+
+	# Thruster gzips responses with Go's default level (6); no brotli/zstd there either.
+	encode {
+		gzip 6
+		minimum_length 512
+	}
+
+	request_body {
+		max_size 100MB
+	}
+
+	header -Server
+
+	# Action Cable (reference/config/routes.rb mounts it at /cable).
+	handle /cable {
+		reverse_proxy 127.0.0.1:{$TARGET_PORT:81}
+	}
+
+	# Digest-stamped assets (asset-map:compile output) never change under their URL.
+	@assets {
+		path /assets/*
+		file
+	}
+	handle @assets {
+		header Cache-Control "public, immutable, max-age=31536000"
+		file_server
+	}
+
+	# Other files in public/: reference/config/environments/production.rb public_file_server headers.
+	@public {
+		not path */ *.php
+		file
+	}
+	handle @public {
+		header Cache-Control "public, max-age=2592000"
+		file_server
+	}
+
+	handle {
+		# X-Sendfile offload (Thruster's X_SENDFILE_ENABLED): a BinaryFileResponse for a blob under
+		# storage/files leaves its body to Caddy once the app calls
+		# BinaryFileResponse::trustXSendfileTypeHeader(). Symfony maps the absolute path through
+		# X-Accel-Mapping, so the X-Accel-Redirect header carries the key path relative to files/.
+		request_header X-Sendfile-Type x-accel-redirect
+		request_header X-Accel-Mapping {$CAMPFIRE_STORAGE_PATH:/rails/storage}/files/=/
+
+		intercept {
+			@accel header X-Accel-Redirect *
+			handle_response @accel {
+				root * {$CAMPFIRE_STORAGE_PATH:/rails/storage}/files
+				rewrite * {resp.header.X-Accel-Redirect}
+				method * GET
+				header -X-Accel-Redirect
+				file_server
+			}
+		}
+
+		# FRANKENPHP_MODE (bin/start): "worker" boots Symfony once per thread and keeps it between
+		# requests; "classic" runs public/index.php from scratch for every request, like PHP-FPM.
+		import php-{$FRANKENPHP_MODE:worker}.caddy
+	}
+}

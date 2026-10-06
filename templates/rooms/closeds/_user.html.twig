@@ -1,0 +1,25 @@
+{#- reference/app/views/rooms/closeds/_user.html.erb -#}
+<li class="flex align-center gap margin-none" data-value="{{ user.name|lower }}">
+  <figure class="avatar flex-item-no-shrink" style="--avatar-size: 4ch;">
+    {{ avatar_tag(user, {loading: 'lazy'}) }}
+  </figure>
+
+  <div class="min-width">
+    <div class="overflow-ellipsis fill-shade"><strong>{{ user.name }}</strong></div>
+  </div>
+
+  <hr class="separator" aria-hidden="true">
+
+  {% if can_administer %}
+    {% if user.id == current_user().id and room_is_new %}
+      {{ tag('input', {type: 'hidden', name: 'user_ids[]', value: user.id}) }}
+      {{ image_tag('check.svg', {size: 20, class: 'colorize--black flex-item-no-shrink', aria: {hidden: 'true'}}) }}
+    {% else %}
+      <label class="switch flex-item-no-shrink">
+        {{ tag('input', {type: 'checkbox', name: 'user_ids[]', value: user.id, class: 'switch__input', checked: selected ? true : null}) }}
+        <span class="switch__btn round"></span>
+        <span class="for-screen-reader">Give {{ user.name }} access to this room</span>
+      </label>
+    {% endif %}
+  {% endif %}
+</li>

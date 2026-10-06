@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Fetch the same URLs from a reference and a Symfony candidate (both frozen at the seed clock, on a
+# fresh copy of the seed), signed in as a seed user, and diff the raw responses (headers + body).
+# For looking at responses the capture harness only hashes (turbo-frame bodies, fragments).
+#
+#   bench/bin/runner tools/parity/bin/probe [--as david] [--seed default] [-H 'Header: v'] PATH...
+#
+# Ports 3591 (reference) and 3592 (candidate); both are stopped on exit.
+set -euo pipefail
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+PARITY_RUST=${PARITY_RUST:-$BENCH_HOME/once-campfire-rust-symfony}
+HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+export PARITY_OWNER=${PARITY_OWNER:-symfony-probe}
+as=david seed=default headers=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --as) as=$2; shift 2 ;;
+    --seed) seed=$2; shift 2 ;;
+    -H) headers+=(-H "$2"); shift 2 ;;
+    *) break ;;
+  esac
+done
+labels=$PARITY_RUST/parity/.seed/$seed/labels.json
+lbl() { python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))[sys.argv[2]])' "$labels" "$1"; }
+time=$(lbl clock.now)
+REF=$PARITY_RUST/parity/bin/reference
+trap '"$REF" down --port 3591 >/dev/null 2>&1; "$HERE/candidate" down --port 3592 >/dev/null 2>&1' EXIT
+"$REF" up --seed "$seed" --port 3591 --time "$time" --freeze >/dev/null &
+"$HERE/candidate" up --seed "$seed" --port 3592 --time "$time" --freeze >/dev/null
+wait
+tmp=$(mktemp -d)
+for port in 3591 3592; do
+  jar=$tmp/$port.jar
+  page=$(curl -s -c "$jar" -b "$jar" "http://127.0.0.1:$port/session/new")
+  token=$(grep -o 'name="authenticity_token" value="[^"]*"' <<<"$page" | head -1 | sed 's/.*value="//; s/"$//')
+  curl -s -o /dev/null -c "$jar" -b "$jar" --data-urlencode "authenticity_token=$token" \
+    --data-urlencode "email_address=$(lbl "emails.$as")" --data-urlencode "password=$(lbl passwords.all)" \
+    "http://127.0.0.1:$port/session"
+  i=0
+  for path in "$@"; do
+    i=$((i + 1))
+    curl -s -D "$tmp/$port.$i.h" -o "$tmp/$port.$i.b" -b "$jar" "${headers[@]+"${headers[@]}"}" "http://127.0.0.1:$port$path"
+    grep -viE '^(date|x-request-id|x-runtime|set-cookie|etag|x-cache|content-length|server|link):' "$tmp/$port.$i.h" | tr -d '\r' | sort >"$tmp/$port.$i.hs"
+  done
+done
+i=0
+for path in "$@"; do
+  i=$((i + 1))
+  echo "######## $path"
+  diff "$tmp/3591.$i.hs" "$tmp/3592.$i.hs" && echo "(headers equal, ignoring date/ids/cookies/etag/link)"
+  # Asset digests differ by design (Propshaft vs AssetMapper)
+  sed -E 's#(/assets/[^"]+)-[0-9a-f]{8}\.#\1-D.#g' "$tmp/3591.$i.b" >"$tmp/r"; sed -E 's#(/assets/[^"]+)-[A-Za-z0-9_-]{7}\.#\1-D.#g' "$tmp/3592.$i.b" >"$tmp/c"
+  diff "$tmp/r" "$tmp/c" | head -${PROBE_LINES:-40} && echo "(body equal modulo asset digests)"
+done
+rm -rf "$tmp"

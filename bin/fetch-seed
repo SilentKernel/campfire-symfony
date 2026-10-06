@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Copy the parity seed built by bench/bin/setup (on the Docker VM, under $BENCH_HOME) into
+# var/seed/NAME, where tests and local runs read it.
+#
+#   bin/fetch-seed [NAME]     default: default
+#
+# The seed is a Rails-made database and Active Storage tree (see
+# .cache/once-campfire-rust/parity/seeds/README.md); labels.json names its rows.
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+NAME=${1:-default}
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+SOURCE=$BENCH_HOME/once-campfire-rust/parity/.seed/$NAME
+DEST=$ROOT/var/seed/$NAME
+
+if [ -f "$DEST/db/production.sqlite3" ] && [ -z "${FORCE:-}" ]; then
+  echo "fetch-seed: ${DEST#"$ROOT"/} already present (FORCE=1 refreshes it)"
+  exit 0
+fi
+
+docker run --rm -v "$SOURCE:/seed:ro" alpine test -f /seed/db/production.sqlite3 ||
+  { echo "fetch-seed: $SOURCE isn't built; run: bench/bin/runner bench/bin/setup" >&2; exit 1; }
+
+rm -rf "$DEST" && mkdir -p "$DEST"
+docker run --rm -v "$SOURCE:/seed:ro" alpine tar -C /seed -cf - . | tar -C "$DEST" -xf -
+echo "fetch-seed: $NAME -> ${DEST#"$ROOT"/} ($(du -sh "$DEST" | cut -f1))"

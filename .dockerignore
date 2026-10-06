@@ -1,0 +1,20 @@
+# Build context for the Dockerfile: the app, its tests (dev stage) and the container files.
+/.git
+/.gitmodules
+/.cache/
+/reference/
+/bench/
+/var/
+/vendor/
+/storage/
+/public/assets/
+/public/bundles/
+/.env.local
+/.env.local.php
+/.env.*.local
+/.phpunit.cache/
+/.php-cs-fixer.cache
+/.idea/
+/.vscode/
+/.claude/
+.DS_Store

@@ -1,0 +1,6 @@
+{#- reference/app/views/users/sidebars/rooms/_shared.html.erb; `room` is a SidebarRoom. -#}
+{%- set name %}
+
+  <span class="overflow-ellipsis">{{ room.name }}</span>
+{% endset -%}
+{{ link_to_room(room, {id: room.listDomId, data: {sorted_list_name: room.name}, style: '--column-gap: 0.5em', class: (unread ?? false) ? 'align-center gap room btn txt-nowrap unread' : 'align-center gap room btn txt-nowrap'}, name) }}

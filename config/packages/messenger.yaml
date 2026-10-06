@@ -1,0 +1,22 @@
+framework:
+    messenger:
+        failure_transport: failed
+        transports:
+            # Rails runs these on Resque; here a durable queue in storage/db/jobs.sqlite3, consumed
+            # by `bin/console messenger:consume async` (started by bin/start).
+            async:
+                dsn: 'doctrine://jobs?table_name=messenger_messages&queue_name=default&auto_setup=true'
+                retry_strategy:
+                    max_retries: 3
+                    delay: 1000
+                    multiplier: 2
+            failed: 'doctrine://jobs?table_name=messenger_messages&queue_name=failed&auto_setup=true'
+        routing:
+            'App\Job\AsyncJob': async
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                async: 'in-memory://'
+                failed: 'in-memory://'

@@ -1,0 +1,10 @@
+framework:
+    router:
+        # URLs generated outside a request (jobs, the cable server) use Rails' renderer default host.
+        default_uri: '%env(DEFAULT_URI)%'
+        utf8: true
+
+when@prod:
+    framework:
+        router:
+            strict_requirements: null

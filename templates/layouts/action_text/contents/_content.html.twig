@@ -1,0 +1,6 @@
+{#- reference/app/views/layouts/action_text/contents/_content.html.erb. `content` (Markup) is what the
+    content partial renders: `render_action_text_content(content)` and the partial's trailing
+    newline, which the layout's `-%>` keeps on its own line. App\RichText\Content::toRenderedHtmlWithLayout
+    writes the same markup. -#}
+<div class="lexxy-content">
+  {{ content }}</div>

@@ -1,0 +1,13 @@
+{#- reference/app/views/accounts/_help_contact.html.erb -#}
+{%- set owner = help_contact_owner() -%}
+{% if owner is not null %}
+  <div class="txt-align-center margin-block-double full-width">
+    {%- set contact %}
+      {{ image_tag('lifebuoy.svg', {aria: {hidden: 'true'}}) }}
+      <span>{{ owner.emailAddress }}</span>
+{% endset %}
+    {{ link_to(contact, 'mailto:"' ~ owner.name ~ '" <' ~ owner.emailAddress ~ '>', {class: 'btn center', title: 'Email ' ~ owner.name}) }}
+
+    <div class="txt-align-center center margin-block txt-subtle">Campfire&trade; version {{ version_badge() }}</div>
+  </div>
+{% endif %}

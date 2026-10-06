@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Prepare the shared benchmark/parity inputs inside the runner (bench/bin/runner bench/bin/setup).
+#
+#   1. $BENCH_HOME/once-campfire-rust: the Rust port at RUST_REF, whose parity harness, seed scripts,
+#      golden vectors and load generator every Campfire port is measured with. Its reference/
+#      submodule is moved to RAILS_REF, the Rails revision this port is pinned to.
+#   2. campfire-reference:app (the unmodified Rails production image) and campfire-reference (the
+#      parity image on top of it), built from that Rails source.
+#   3. The `default` seed: $BENCH_HOME/once-campfire-rust/parity/.seed/default.
+#   4. The load generator binary.
+#
+# Idempotent: finished steps are skipped (SETUP_FORCE=1 redoes them).
+set -euo pipefail
+
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+RUST_REPO=${RUST_REPO:-https://github.com/basecamp/once-campfire-rust.git}
+RUST_REF=${RUST_REF:-64f86353021145b63849fb1cd93adeb08f3b8dbb}
+RAILS_REF=${RAILS_REF:-254dd1d46f67f2bace6c79d77f0ac026ba4c9226}
+RUST=$BENCH_HOME/once-campfire-rust
+
+log() { echo "[setup $(date +%T)] $*" >&2; }
+mkdir -p "$BENCH_HOME"
+
+if [ ! -d "$RUST/.git" ]; then
+  log "cloning once-campfire-rust"
+  git clone -q "$RUST_REPO" "$RUST"
+fi
+git -C "$RUST" fetch -q origin "$RUST_REF" 2>/dev/null || true
+git -C "$RUST" -c advice.detachedHead=false checkout -q "$RUST_REF"
+git -C "$RUST" submodule update -q --init reference
+git -C "$RUST/reference" fetch -q origin "$RAILS_REF" 2>/dev/null || git -C "$RUST/reference" fetch -q origin
+git -C "$RUST/reference" -c advice.detachedHead=false checkout -q "$RAILS_REF"
+log "rust $(git -C "$RUST" rev-parse --short HEAD), rails reference $(git -C "$RUST/reference" rev-parse --short HEAD)"
+
+if [ -n "${SETUP_FORCE:-}" ] || ! docker image inspect campfire-reference:app >/dev/null 2>&1 || ! docker image inspect campfire-reference >/dev/null 2>&1; then
+  log "building the Rails reference images"
+  (cd "$RUST" && PARITY_RUNTIME=docker parity/bin/reference build)
+fi
+
+if [ -n "${SETUP_FORCE:-}" ] || [ ! -f "$RUST/parity/.seed/default/db/production.sqlite3" ]; then
+  log "building the default seed"
+  (cd "$RUST" && PARITY_RUNTIME=docker parity/bin/seed build default)
+fi
+
+if [ -n "${SETUP_FORCE:-}" ] || [ ! -x "$RUST/target/bench/release/loadgen" ]; then
+  log "building the load generator"
+  (cd "$RUST/bench/loadgen" && CARGO_TARGET_DIR="$RUST/target/bench" cargo build --release -q)
+fi
+
+log "ready: seed $(du -sh "$RUST/parity/.seed/default" | cut -f1), loadgen $RUST/target/bench/release/loadgen"

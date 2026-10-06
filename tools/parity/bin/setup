@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Prepare a private copy of once-campfire-rust's parity harness for the Symfony candidate.
+#
+#   bench/bin/runner tools/parity/bin/setup
+#
+# The Rust checkout ($BENCH_HOME/once-campfire-rust, made by bench/bin/setup) is never edited. This
+# copies it (minus .git and target/) to $PARITY_RUST (default $BENCH_HOME/once-campfire-rust-symfony)
+# and applies ONE normalization patch to the copy, so that layers other than the asset URLs can be
+# compared at all:
+#
+#   AssetMapper names digested assets `name-XXXXXXX.ext` (7 base64url characters), Propshaft
+#   `name-<8+ hex>.ext`. The harness only knows Propshaft's form, so without the patch every
+#   stylesheet/script/icon URL differs (and the network layer re-downloads every asset body). The
+#   patch maps both forms to `name-«digest».ext` and treats both as "named by its digest" in the
+#   network layer. Asset *names* (before the digest) and every asset *byte* that reaches the
+#   screenshot are still compared. The difference itself is reported in docs/internal/parity-report.md.
+#   Network-layer request paths of digested assets keep the raw digest (unpatched), so asset
+#   requests always differ there; tools/parity/bin/analyze splits those out.
+#   The same digest form is stripped in determinism.js's per-call-site Math.random keys.
+#
+# Seeds (parity/.seed/*, built by parity/bin/seed in the original) are copied: the capture container
+# only mounts the copy.
+set -euo pipefail
+
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+SRC=$BENCH_HOME/once-campfire-rust
+DST=${PARITY_RUST:-$BENCH_HOME/once-campfire-rust-symfony}
+
+[ -d "$SRC/parity" ] || { echo "setup: no $SRC; run bench/bin/runner bench/bin/setup first" >&2; exit 1; }
+
+rm -rf "$DST.tmp"; mkdir -p "$DST.tmp"
+tar -C "$SRC" --exclude=./.git --exclude=./target --exclude=./parity/.seed --exclude=./parity/out \
+  --exclude=./parity/node_modules -cf - . | tar -C "$DST.tmp" -xf -
+mkdir -p "$DST.tmp/parity/.seed"
+for d in "$SRC"/parity/.seed/*/; do cp -a "$d" "$DST.tmp/parity/.seed/"; done
+mkdir -p "$DST.tmp/parity/out"
+
+N=$DST.tmp/parity/capture/normalize.ts
+W=$DST.tmp/parity/capture/network.ts
+grep -q 'const ASSET_DIGEST = /\\/assets\\/(\[^\\s"'"'"'()?#\]+?)-(\[0-9a-f\]{7,64})' "$N" || { echo "setup: normalize.ts changed upstream; review the patch" >&2; exit 1; }
+# Propshaft hex digests OR AssetMapper's 7-char base64url digests.
+sed -i 's|-(\[0-9a-f\]{7,64})(\\\.\[A-Za-z0-9.\]+)/g|-([0-9a-f]{7,64}\|[A-Za-z0-9_-]{7})(\\.[A-Za-z0-9.]+)/g|' "$N"
+grep -q '\[A-Za-z0-9_-\]{7})' "$N" || { echo "setup: normalize.ts patch did not apply" >&2; exit 1; }
+sed -i 's|^const DIGESTED_ASSET = .*|const DIGESTED_ASSET = /^\\/assets\\/.+-(?:[0-9a-f]{8,}\|[A-Za-z0-9_-]{7})\\.[a-z0-9]+$/ // symfony-parity patch: AssetMapper digests|' "$W"
+grep -q 'symfony-parity patch' "$W" || { echo "setup: network.ts patch did not apply" >&2; exit 1; }
+
+# determinism.js seeds Math.random per call site, keyed by the script URL with Propshaft digests
+# stripped; strip AssetMapper's too, or Lexxy's random ids differ only because the URL differs.
+D=$DST.tmp/parity/capture/determinism.js
+grep -q 'replace(/-\[0-9a-f\]{7,64}(\\\.\[a-z\]+)/g, "\$1")' "$D" || { echo "setup: determinism.js changed upstream; review the patch" >&2; exit 1; }
+sed -i 's|replace(/-\[0-9a-f\]{7,64}(\\\.\[a-z\]+)/g, "\$1")|replace(/-(?:[0-9a-f]{7,64}\|[A-Za-z0-9_-]{7})(\\.[a-z]+)/g, "$1") /* symfony-parity patch */|' "$D"
+grep -q 'symfony-parity patch' "$D" || { echo "setup: determinism.js patch did not apply" >&2; exit 1; }
+
+rm -rf "$DST"; mv "$DST.tmp" "$DST"
+echo "setup: harness copy at $DST" >&2
+grep -n 'const ASSET_DIGEST' "$DST/parity/capture/normalize.ts" >&2
+grep -n 'const DIGESTED_ASSET' "$DST/parity/capture/network.ts" >&2

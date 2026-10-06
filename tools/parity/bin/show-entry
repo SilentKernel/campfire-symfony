@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+# Print the network-layer entries matching REGEX for one cell, reference and candidate.
+#   bench/bin/runner tools/parity/bin/show-entry OUT_DIR/SEED STATE REGEX [CELL]
+import sys,re,os
+base,state,pat=sys.argv[1:4]
+cell=sys.argv[4] if len(sys.argv)>4 else "chromium-desktop-light"
+for side in ("reference","candidate"):
+    f=os.path.join(base,side,state,cell+".network.txt")
+    if not os.path.exists(f):
+        import glob; f=sorted(glob.glob(os.path.join(base,side,state,"*.network.txt")))[0]
+    t=open(f).read(); out=[];cur=None
+    for l in t.splitlines():
+        if l and not l.startswith(" "): cur=[l]; out.append(cur)
+        elif cur: cur.append(l)
+    print("==",side,os.path.basename(f))
+    for e in out:
+        if re.search(pat,e[0]): print("\n".join(e))

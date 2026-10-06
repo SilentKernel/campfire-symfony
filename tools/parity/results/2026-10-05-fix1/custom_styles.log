@@ -1,0 +1,14 @@
+candidate: reference :4111 vs symfony candidate :4112 (seed custom_styles, clock frozen at 2026-03-02T16:00:00Z)
+breakpoint widths: {"chromium":[799,800,801],"firefox":[960,961],"webkit":[959,960]}
+8 cells (8 on shared servers, 0 on fresh servers in 3 slots) × 2 targets, 5 workers
+[1/8] account/edit/with_logo @ chromium-desktop-light fail
+[2/8] rooms/show/designers/custom_styles @ chromium-phone-light fail
+[3/8] rooms/show/designers/custom_styles @ chromium-phone-dark fail
+[4/8] rooms/show/designers/custom_styles @ chromium-desktop-dark fail
+[5/8] rooms/show/designers/custom_styles @ chromium-desktop-light fail
+[6/8] account/edit/with_logo @ chromium-desktop-dark fail
+[7/8] account/edit/with_logo @ chromium-phone-light fail
+[8/8] account/edit/with_logo @ chromium-phone-dark fail
+8 cells: 0 pass (0 flaky), 8 fail, 0 allowed, 0 error in 23.6s
+report: /opt/campfire-bench/once-campfire-rust-symfony/parity/out/fix1/custom_styles/report.html
+custom exit 1

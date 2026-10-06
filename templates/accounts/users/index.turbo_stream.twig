@@ -1,0 +1,7 @@
+{#- reference/app/views/accounts/users/index.turbo_stream.erb -#}
+{%- set records %}{% for user in page.records %}{{ include('accounts/users/_user.html.twig') }}{% endfor %}{% endset -%}
+{{ turbo_stream('replace', 'next_page_container', records) }}
+
+{% if not page.last %}
+  {{ turbo_stream('append', 'account_users', include('accounts/users/_next_page_container.html.twig', {page: page.next})) }}
+{% endif %}

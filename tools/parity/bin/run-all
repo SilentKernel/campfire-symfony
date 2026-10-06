@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Run the whole screens.yml inventory (lean matrix) against campfire-symfony, one seed at a time.
+#
+#   bench/bin/runner tools/parity/bin/run-all [OUT_NAME] [extra compare options...]
+#
+# Results: $PARITY_RUST/parity/out/OUT_NAME/<seed>/{report.html,report.json,reference/,candidate/,diff/}
+# and <seed>.log. No allowlist (the Rust port's allowlist describes the Rust port's own differences).
+# Summarize with: bench/bin/runner tools/parity/bin/analyze $PARITY_RUST/parity/out/OUT_NAME
+set -uo pipefail
+
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+PARITY_RUST=${PARITY_RUST:-$BENCH_HOME/once-campfire-rust-symfony}
+HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+name=${1:-full-$(date -u +%Y%m%dT%H%M%SZ)}; shift || true
+out=$PARITY_RUST/parity/out/$name
+mkdir -p "$out"
+export PARITY_OWNER=${PARITY_OWNER:-symfony-parity}
+
+status=0
+for seed in ${SEEDS:-default crowd custom_styles first_run restricted}; do
+  echo "== seed $seed ($(date -u +%T))"
+  "$HERE/candidate" compare --seed "$seed" --no-allowlist --workers "${WORKERS:-5}" \
+    --out "$out/$seed" "$@" >"$out/$seed.log" 2>&1 || status=1
+  grep -E 'cells:|report:' "$out/$seed.log" || tail -5 "$out/$seed.log"
+done
+echo "== done ($(date -u +%T)); results in $out"
+exit $status

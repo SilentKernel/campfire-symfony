@@ -1,0 +1,292 @@
+#!/usr/bin/env python3
+"""Summarize a tools/parity/bin/run-all output directory.
+
+    bench/bin/runner tools/parity/bin/analyze $BENCH_HOME/once-campfire-rust-symfony/parity/out/NAME [--excerpts N]
+
+Reads <out>/<seed>/report.json and the captured text layers, and prints (Markdown):
+  * status counts per seed (pass/fail/error/flaky)
+  * per layer: cells compared, equal, different
+  * the network layer split into "asset-only" differences (requests under /assets/, whose paths
+    keep AssetMapper's vs Propshaft's digest) and differences in app responses
+  * per state: the layers that differ (and in how many cells), with one diff excerpt per layer
+Writes <out>/analysis.json too.
+"""
+import difflib
+import json
+import os
+import re
+import sys
+from collections import defaultdict
+
+LAYER_FILES = {
+    "server": ".server.norm.html",
+    "live": ".live.norm.html",
+    "aria": ".aria.yml",
+    "network": ".network.txt",
+    "cable": ".cable.txt",
+}
+# Differences already diagnosed (docs/internal/parity-report.md): a changed line matching one of
+# these is set aside, so a cell's *other* differences still show. Keyed by bug name.
+SIGNATURES = {
+    "apple-glyph": re.compile(r"^\s*\uf8ff\s*$|\uf8ff"),
+    "escaped-switch-img": re.compile(r"the switch|the toggle button|&lt;img|<img alt=&quot;"),
+}
+PREFERRED_CELLS = ["chromium-desktop-light", "chromium-phone-light", "chromium-desktop-dark"]
+
+
+def network_entries(text):
+    """Split a network log into entries keyed by request line; drop /assets/ ones separately."""
+    entries, cur = [], None
+    for line in text.splitlines():
+        if line and not line.startswith(" "):
+            cur = [line]
+            entries.append(cur)
+        elif cur is not None:
+            cur.append(line)
+    app, assets = [], []
+    for e in entries:
+        block = "\n".join(e)
+        (assets if re.match(r"^[A-Z]+ /assets/", e[0]) else app).append(block)
+    return app, assets
+
+
+# Headers a front proxy adds or drops (Thruster for Rails, Caddy for Symfony): x-cache, gzip,
+# range support and the static-file validators. Their *shape* is compared separately.
+PROXY_HEADERS = {"x-cache", "content-encoding", "accept-ranges", "etag", "last-modified"}
+
+
+def clean_entry(block):
+    out = []
+    lines = block.split("\n")
+    vary_left = any(l.startswith("  vary:") and ({x.strip() for x in l[7:].split(",")} - {"accept-encoding"}) for l in lines)
+    for l in lines:
+        if l.startswith("  headers:") and not vary_left:
+            l = " ".join(h for h in l.split(" ") if h != "vary")
+        if l.startswith("  headers:"):
+            l = "  headers: " + " ".join(h for h in l.split()[1:] if h not in PROXY_HEADERS)
+        elif l.startswith("  vary:"):
+            v = sorted({x.strip() for x in l[7:].split(",")} - {"accept-encoding"})
+            if not v:
+                continue
+            l = "  vary: " + ", ".join(v)
+        out.append(l)
+    return "\n".join(out)
+
+
+def strip_noise(block):
+    # header *names* that only differ because of cookies/security headers on the same response
+    lines = [l for l in block.split("\n") if not l.startswith("  set-cookie:") and not l.startswith("  headers:")]
+    return "\n".join(lines)
+
+
+def network_signature(ra, ca):
+    """Classify app-response differences after proxy headers are removed.
+
+    Returns (signatures, residual_request_lines)."""
+    key = lambda b: asset_key(b.split("\n")[0])
+    a = {key(b): clean_entry(b) for b in ra}
+    c = {key(b): clean_entry(b) for b in ca}
+    sigs, rest = set(), []
+    for k in sorted(set(a) | set(c)):
+        x, y = a.get(k), c.get(k)
+        if x == y:
+            continue
+        if x and y:
+            if "public" in x and strip_noise(x) == strip_noise(y):
+                cookies = lambda b: [l for l in b.split("\n") if l.startswith("  set-cookie:")]
+                # Set-Cookie differs (bug 4), or only the header-name list does (Rails' default
+                # security headers on send_file responses, docs/internal/known-differences.md).
+                sigs.add("set-cookie-on-public-response" if cookies(x) != cookies(y) else "public-response-header-names")
+                continue
+            if "/refresh?" in k and "no-cache" in y and "body: empty" in y:
+                sigs.add("refresh-empty-body")
+                continue
+            if "(navigation)" in k or re.match(r"^GET /rooms/\d+ ", k):
+                if strip_noise(re.sub(r"body: .*", "", x)) == strip_noise(re.sub(r"body: .*", "", y)):
+                    sigs.add("page-body-hash")
+                    continue
+        rest.append(k)
+    return sigs, rest
+
+
+def asset_key(block):
+    # name with the digest removed, plus headers: comparable across Propshaft/AssetMapper
+    return re.sub(r"-(?:[0-9a-f]{7,64}|[A-Za-z0-9_-]{7})(\.[A-Za-z0-9.]+)", r"-«digest»\1", block, count=1)
+
+
+def residual(a, b):
+    """Changed lines of a vs b that no known signature explains, and the signatures that matched."""
+    hits = set()
+    rest = []
+    for tag, line in [(l[0], l[2:]) for l in difflib.ndiff(a.splitlines(), b.splitlines()) if l[:1] in "+-"]:
+        sig = next((n for n, rx in SIGNATURES.items() if rx.search(line)), None)
+        if sig:
+            hits.add(sig)
+        else:
+            rest.append(tag + line)
+    return rest, hits
+
+
+def read(path):
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            return f.read()
+    except FileNotFoundError:
+        return None
+
+
+def excerpt(a, b, n=25):
+    if a is None or b is None:
+        return f"(missing file: reference={'yes' if a is not None else 'no'}, candidate={'yes' if b is not None else 'no'})"
+    d = list(difflib.unified_diff(a.splitlines(), b.splitlines(), "reference", "candidate", n=1, lineterm=""))
+    return "\n".join(d[:n]) + ("\n…" if len(d) > n else "")
+
+
+def main():
+    out = sys.argv[1]
+    n_ex = 25
+    if "--excerpts" in sys.argv:
+        n_ex = int(sys.argv[sys.argv.index("--excerpts") + 1])
+    seeds = sorted(d for d in os.listdir(out) if os.path.isfile(os.path.join(out, d, "report.json")))
+    totals = defaultdict(int)
+    layer_tot = defaultdict(lambda: defaultdict(int))
+    states = {}
+    analysis = {"seeds": {}, "states": {}}
+    for seed in seeds:
+        rep = json.load(open(os.path.join(out, seed, "report.json")))
+        counts = dict(rep["info"]["counts"])
+        counts["flaky"] = rep["info"].get("flaky", 0)
+        analysis["seeds"][seed] = {"counts": counts, "cells": len(rep["results"]), "durationMs": rep["info"].get("durationMs")}
+        for k, v in counts.items():
+            totals[k] += v
+        for r in rep["results"]:
+            st = states.setdefault(r["state"], {"seed": seed, "cells": 0, "status": defaultdict(int), "layers": defaultdict(list), "errors": []})
+            st["cells"] += 1
+            st["status"]["flaky" if r.get("flaky") else r["status"]] += 1
+            if r.get("error"):
+                st["errors"].append(f'{r["cell"]}: {r["error"].splitlines()[0][:300]}')
+            for l in r["layers"]:
+                name = l["layer"]
+                layer_tot[name]["compared"] += 1
+                if l["equal"]:
+                    layer_tot[name]["equal"] += 1
+                    continue
+                layer_tot[name]["different"] += 1
+                info = {"cell": r["cell"]}
+                if name == "network":
+                    base = os.path.join(out, seed, "{}", r["state"], r["cell"] + LAYER_FILES["network"])
+                    ref, cand = read(base.format("reference")), read(base.format("candidate"))
+                    if ref is not None and cand is not None:
+                        ra, rs = network_entries(ref)
+                        ca, cs = network_entries(cand)
+                        app_equal = sorted(ra) == sorted(ca)
+                        sigs, rest = network_signature(ra, ca)
+                        info["net_sigs"] = sorted(sigs)
+                        info["net_residual"] = rest
+                        if not rest:
+                            layer_tot["network"]["explained"] += 1
+                        assets_named_equal = sorted(map(asset_key, rs)) == sorted(map(asset_key, cs))
+                        info["app_equal"] = app_equal
+                        info["asset_shape_equal"] = assets_named_equal
+                        if app_equal:
+                            layer_tot["network"]["asset_only"] += 1
+                        else:
+                            layer_tot["network"]["app_different"] += 1
+                if name in ("server", "live", "aria", "cable"):
+                    base = os.path.join(out, seed, "{}", r["state"], r["cell"] + LAYER_FILES[name])
+                    ref, cand = read(base.format("reference")), read(base.format("candidate"))
+                    if ref is not None and cand is not None:
+                        rest, hits = residual(ref, cand)
+                        info["known"] = sorted(hits)
+                        info["residual"] = len(rest)
+                        if not rest:
+                            layer_tot[name]["known_only"] += 1
+                if name == "pixels" and l.get("pixels"):
+                    info["diffPixels"] = l["pixels"].get("diffPixels")
+                    info["size"] = (l["pixels"].get("width"), l["pixels"].get("height"))
+                st["layers"][name].append(info)
+
+    # Excerpts: one cell per (state, layer).
+    for sid, st in states.items():
+        seed = st["seed"]
+        ex = {}
+        for layer, infos in st["layers"].items():
+            if layer == "network":
+                app = [i for i in infos if i.get("app_equal") is False]
+                if not app:
+                    continue
+                infos = app
+            if layer in ("server", "live", "aria", "cable"):
+                unexplained = [i for i in infos if i.get("residual", 1)]
+                if not unexplained:
+                    continue
+                infos = unexplained
+            cells = [i["cell"] for i in infos]
+            cell = next((c for c in PREFERRED_CELLS if c in cells), cells[0])
+            if layer in LAYER_FILES:
+                base = os.path.join(out, seed, "{}", sid, cell + LAYER_FILES[layer])
+                a, b = read(base.format("reference")), read(base.format("candidate"))
+                if layer == "network" and a and b:
+                    a = "\n".join(sorted(network_entries(a)[0]))
+                    b = "\n".join(sorted(network_entries(b)[0]))
+                if layer in ("server", "live", "aria", "cable") and a is not None and b is not None:
+                    rest, _ = residual(a, b)
+                    ex[layer] = {"cell": cell, "diff": "\n".join(rest[:n_ex]) + ("\n…" if len(rest) > n_ex else "")}
+                else:
+                    ex[layer] = {"cell": cell, "diff": excerpt(a, b, n_ex)}
+            elif layer == "pixels":
+                i = next(i for i in infos if i["cell"] == cell)
+                ex[layer] = {"cell": cell, "diff": f"diffPixels={i.get('diffPixels')} size={i.get('size')}"}
+            else:
+                ex[layer] = {"cell": cell, "diff": "(see report.html)"}
+        analysis["states"][sid] = {
+            "seed": seed, "cells": st["cells"], "status": dict(st["status"]),
+            "layers": {k: len(v) for k, v in st["layers"].items()},
+            "residual_cells": {k: sum(1 for i in v if i.get("residual", 1)) for k, v in st["layers"].items() if k in ("server", "live", "aria", "cable")},
+            "known": sorted({h for v in st["layers"].values() for i in v for h in i.get("known", [])}),
+            "network_sigs": sorted({x for i in st["layers"].get("network", []) for x in i.get("net_sigs", [])}),
+            "network_residual": sorted({x for i in st["layers"].get("network", []) for x in i.get("net_residual", [])})[:10],
+            "network_app_cells": sum(1 for i in st["layers"].get("network", []) if i.get("app_equal") is False),
+            "errors": st["errors"][:5], "excerpts": ex,
+        }
+    analysis["totals"] = dict(totals)
+    analysis["layers"] = {k: dict(v) for k, v in layer_tot.items()}
+    json.dump(analysis, open(os.path.join(out, "analysis.json"), "w"), indent=1)
+
+    p = print
+    p(f"# Parity analysis: {out}\n")
+    p("| seed | cells | pass | flaky | fail | error |\n|---|---|---|---|---|---|")
+    for seed, s in analysis["seeds"].items():
+        c = s["counts"]
+        p(f"| {seed} | {s['cells']} | {c.get('pass',0)} | {c.get('flaky',0)} | {c.get('fail',0)} | {c.get('error',0)} |")
+    p(f"| **all** | {sum(s['cells'] for s in analysis['seeds'].values())} | {totals['pass']} | {totals['flaky']} | {totals['fail']} | {totals['error']} |\n")
+    p("| layer | compared | equal | different | notes |\n|---|---|---|---|---|")
+    for layer in ["server", "live", "aria", "pixels", "network", "cable"] + [l for l in layer_tot if l not in LAYER_FILES and l != "pixels"]:
+        if layer not in layer_tot:
+            continue
+        t = layer_tot[layer]
+        note = f"asset-only {t['asset_only']}, app responses differ {t['app_different']}, explained by proxy headers + known signatures {t['explained']}" if layer == "network" else (f"explained only by known bugs: {t['known_only']}" if layer in ("server", "live", "aria", "cable") else "")
+        p(f"| {layer} | {t['compared']} | {t['equal']} | {t['different']} | {note} |")
+    p("\n## States with differences (beyond asset-only network)\n")
+    for sid in sorted(analysis["states"]):
+        s = analysis["states"][sid]
+        layers = {k: v for k, v in s["layers"].items() if k != "network"}
+        if s["network_app_cells"]:
+            layers["network(app)"] = s["network_app_cells"]
+        if not layers and not s["errors"]:
+            continue
+        p(f"### {sid} (seed {s['seed']}, {s['cells']} cells, {s['status']})")
+        p("layers: " + ", ".join(f"{k}×{v}" for k, v in layers.items()) + f"; cells with unexplained text diffs: {s['residual_cells']}; known: {s['known']}")
+        for e in s["errors"]:
+            p(f"- error: {e}")
+        if s["network_sigs"] or s["network_residual"]:
+            p(f"network signatures: {s['network_sigs']}; unexplained network entries: {s['network_residual']}")
+        for layer, e in s["excerpts"].items():
+            if layer == "network" and not s["network_residual"]:
+                continue
+            p(f"\n{layer} @ {e['cell']}:\n```diff\n{e['diff']}\n```")
+        p("")
+
+
+if __name__ == "__main__":
+    main()

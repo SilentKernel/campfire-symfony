@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+# Prove that each app's "post a message" throughput is real, persisted work:
+#
+#   bench/bin/runner bench/bin/verify-writes [APP ...]      default: every app in bench/lib/apps.sh
+#
+# Per app, in turn: a fresh copy of the seed (bench/run's start_app: same image, user, environment
+# and process model), the app pinned to SERVER_CPUS (0-3), the load generator posting messages
+# (16 clients, 8 s, pinned to LOADGEN_CPUS 4-7, the same request as bench/run's post_message route),
+# then `docker stop` (graceful) and, on the stopped app's database (bench/lib/validate.py writes):
+#
+#   acknowledged posts (2xx/3xx) == new rows in messages
+#                                == new messages whose action_text_rich_texts body has "bench write N"
+#                                == new messages in message_search_index (by rowid, and by MATCH)
+#   PRAGMA integrity_check == ok
+#
+# posts/s are indicative only (no warm-up, one sample). Exits 1 if any app fails. Knobs:
+# SERVER_CPUS LOADGEN_CPUS PORT VERIFY_CONC=16 VERIFY_SECS=8 START_TIMEOUT=180, the images and
+# <APP>_EXTRA_ENV as for bench/run.
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
+BENCH=$ROOT/bench
+BENCH_HOME=${BENCH_HOME:-/opt/campfire-bench}
+RUST=${RUST_HOME:-$BENCH_HOME/once-campfire-rust}
+SEED=$RUST/parity/.seed/default
+ENV_FILE=$RUST/parity/.env.reference
+LOADGEN=$RUST/target/bench/release/loadgen
+SERVER_CPUS=${SERVER_CPUS:-0-3}
+LOADGEN_CPUS=${LOADGEN_CPUS:-4-7}
+PORT=${PORT:-4390}
+BASE=http://127.0.0.1:$PORT
+START_TIMEOUT=${START_TIMEOUT:-180}
+VERIFY_CONC=${VERIFY_CONC:-16}
+VERIFY_SECS=${VERIFY_SECS:-8}
+WORK=${BENCH_WORK:-$BENCH_HOME/work}/verify
+CONTAINER=verify-writes-$PORT
+REDIS_CONTAINER=verify-writes-redis-$PORT
+
+log() { echo "[$(date +%T)] $*" >&2; }
+die() { log "error: $*"; exit 1; }
+label() { python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))[sys.argv[2]])' "$SEED/labels.json" "$1"; }
+json() { python3 -c 'import json,sys; v=json.loads(sys.argv[1])[sys.argv[2]]; print(v if v is not None else "")' "$1" "$2"; }
+# shellcheck source=../lib/apps.sh
+. "$BENCH/lib/apps.sh"
+
+[ -f "$SEED/db/production.sqlite3" ] && [ -x "$LOADGEN" ] || die "no seed or loadgen under $RUST: run bench/bin/setup (inside bench/bin/runner)"
+command -v taskset >/dev/null || die "run this inside the runner: bench/bin/runner bench/bin/verify-writes"
+
+cleanup() { docker rm -f "$CONTAINER" "$REDIS_CONTAINER" >/dev/null 2>&1 || true; }
+trap cleanup EXIT
+trap 'exit 130' INT TERM
+
+# One app: prints the check's JSON (with the load generator's numbers) on stdout.
+verify_one() {
+  local app=$1 db mark login cookie scrape csrf res code acked check
+  start_app "$app" >/dev/null
+  db=$WORK/$app/db/production.sqlite3
+  mark=$(as_db_owner "$db" python3 "$BENCH/lib/validate.py" writes-mark "$db")
+  login=$(taskset -c "$LOADGEN_CPUS" "$LOADGEN" login --base "$BASE" --email "$(label emails.david)" --password "$(label passwords.all)") || die "$app: login failed"
+  cookie=$(json "$login" cookie)
+  scrape=$(taskset -c "$LOADGEN_CPUS" "$LOADGEN" scrape --base "$BASE" --cookie "$cookie" --room "$(label rooms.watercooler)") || die "$app: scrape failed"
+  csrf=$(json "$scrape" csrf)
+  [ -n "$csrf" ] || [ "$(csrf_mode "$app")" = sec-fetch-site ] || die "$app: no CSRF token on the room page"
+  res=$(taskset -c "$LOADGEN_CPUS" "$LOADGEN" http --base "$BASE" --cookie "$cookie" --post-room "$(label rooms.hq)" --csrf "$csrf" \
+    --conc "$VERIFY_CONC" --duration "$VERIFY_SECS")
+  docker stop -t 30 "$CONTAINER" >/dev/null
+  code=$(docker inspect -f '{{.State.ExitCode}}' "$CONTAINER")
+  acked=$(python3 -c 'import json,sys; print(sum(v for k, v in json.loads(sys.argv[1])["statuses"].items() if 200 <= int(k) < 400))' "$res")
+  check=$(as_db_owner "$db" python3 "$BENCH/lib/validate.py" writes "$db" "$mark" "$acked" 0)
+  python3 -c 'import json,sys; r=json.loads(sys.argv[1]); w=json.loads(sys.argv[2]); w.update(rps=r["rps"], statuses=r["statuses"], errors=r["errors"], exit_code=int(sys.argv[3])); print(json.dumps(w))' "$res" "$check" "$code"
+}
+
+apps=()
+for a in "${@:-$ALL_APPS}"; do for b in ${a//,/ }; do apps+=("$(canonical "$b")"); done; done
+
+echo "write verification $(date -Is): seed $(sha256sum "$SEED/db/production.sqlite3" | cut -c1-16), loadgen $(sha256sum "$LOADGEN" | cut -c1-16)"
+echo "server cpus $SERVER_CPUS, loadgen cpus $LOADGEN_CPUS; loadgen http --post-room hq --conc $VERIFY_CONC --duration $VERIFY_SECS; checked after docker stop"
+echo
+results=()
+failed=0
+for app in "${apps[@]}"; do
+  img=$(image_for "$app")
+  if ! docker image inspect "$img" >/dev/null 2>&1; then
+    echo "$app: SKIPPED, image $img not found"; results+=("$app|$img|-|-|-|-|-|-|-|-|-|not built"); failed=1; continue
+  fi
+  read -r plat id rev _ <<<"$(image_info "$img")"
+  case "$rev" in none*) rev="unlabelled" ;; *) rev=${rev:0:12} ;; esac
+  rev="$rev, ${id#sha256:}"; rev=${rev:0:26}
+  log "$app: starting $img ($plat, revision/id $rev)"
+  set +e; out=$(set -e; verify_one "$app"); rc=$?; set -e
+  if [ "$rc" != 0 ]; then
+    echo "$app: FAILED to run (see the log above)"; results+=("$app|$img|$rev|-|-|-|-|-|-|-|-|could not run"); failed=1; cleanup; continue
+  fi
+  cleanup
+  line=$(python3 - "$app" "$img" "$rev" "$out" <<'PY'
+import json, sys
+app, img, rev, w = sys.argv[1], sys.argv[2], sys.argv[3], json.loads(sys.argv[4])
+other = {k: v for k, v in w["statuses"].items() if not 200 <= int(k) < 400}
+verdict = "OK" if w["ok"] and not w["errors"] and not other else "MISMATCH: " + "; ".join(w["problems"] + ([f"{w['errors']} transport errors"] if w["errors"] else []) + ([f"non-2xx/3xx {other}"] if other else []))
+print("|".join(map(str, [app, img, rev, w["rps"], w["acknowledged"], w["new_messages"], w["with_bench_rich_text"], w["in_fts"], w["fts_match"], w["integrity"], w["statuses"], verdict])))
+PY
+)
+  echo "$app: $(echo "$line" | awk -F'|' '{print $4" posts/s, acknowledged "$5", new messages "$6", with bench text "$7", in FTS "$8" (MATCH "$9"), integrity "$10", statuses "$11" -> "$12}')"
+  results+=("$line")
+  [[ "$line" = *"|OK" ]] || failed=1
+done
+
+echo
+echo "| App | Image | Revision, image id | posts/s (indicative) | Acknowledged | New messages | 'bench write' rich text | In FTS (rowid) | FTS MATCH | integrity_check | Statuses | Verdict |"
+echo "|---|---|---|---:|---:|---:|---:|---:|---:|---|---|---|"
+for line in "${results[@]}"; do echo "| ${line//|/ | } |"; done
+exit "$failed"

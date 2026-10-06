@@ -1,0 +1,114 @@
+{#- reference/app/views/users/profiles/show.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = user.name %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back() }}
+  </div>
+
+  <div class="flex-item-justify-end">
+    {{ form_with({url: path('session.delete'), method: 'delete', data: {controller: 'sessions'}}) }}
+      <input type="hidden" name="push_subscription_endpoint" id="push_subscription_endpoint" data-sessions-target="pushSubscriptionEndpoint" />
+
+      <button class="btn" data-action="sessions#logout:prevent">
+        {{ image_tag('logout.svg', {aria: {hidden: 'true'}}) }}
+        <span class="for-screen-reader">Log out</span>
+      </button>
+</form>  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel flex flex-column gap" style="view-transition-name: avatar-{{ user.id }}">
+  {{ include('pwa/_install_instructions.html.twig') }}
+
+  <div class="align-center center avatar__form gap" data-controller="upload-preview">
+    {{ profile_form_with({class: 'txt-medium', multipart: true}) }}
+      <label class="btn input--file">
+        {{ image_tag('camera.svg', {aria: {hidden: 'true'}, size: 20}) }}
+        <input id="file" class="input" accept="image/*" data-upload-preview-target="input" data-action="upload-preview#previewImage change-&gt;form#submit" type="file" name="user[avatar]" />
+        <span class="for-screen-reader">Upload avatar</span>
+      </label>
+</form>
+    {{ profile_form_with({multipart: true}) }}
+      <label class="btn avatar input--file txt-xx-large">
+        {{ image_tag(fresh_user_avatar_path(user), {aria: {hidden: 'true'}, size: 300, data: {upload_preview_target: 'image'}}) }}
+        <input id="file" class="input" accept="image/*" data-upload-preview-target="input" data-action="upload-preview#previewImage change-&gt;form#submit" type="file" name="user[avatar]" />
+        <span class="for-screen-reader">Avatar</span>
+      </label>
+</form>
+{% if user_avatar_attached(user) %}
+      {%- set delete_avatar %}
+        {{ image_tag('minus.svg', {aria: {hidden: 'true'}, size: 20}) }}
+        <span class="for-screen-reader">Delete avatar</span>
+{% endset %}
+      {{ button_to(delete_avatar, path('user_avatar.delete', {user_id: user.id}), {method: 'delete', class: 'btn btn--negative txt-small avatar__delete-btn'}) }}
+{% endif %}
+  </div>
+
+  {{ profile_form_with() }}
+    <div class="flex flex-column gap">
+      <div class="flex align-center gap">
+        {{ translation_button('user_name') }}
+
+        <label class="flex align-center gap flex-item-grow input input--actor">
+          <input class="input txt-large " autocomplete="name" placeholder="Enter your name" autofocus="autofocus" required="required" data-1p-ignore="true" type="text" value="{{ user.name }}" name="user[name]" id="user_name" />
+          {{ image_tag('person.svg', {aria: {hidden: 'true'}, size: 24, class: 'colorize--black'}) }}
+        </label>
+      </div>
+
+      <div class="flex align-center gap">
+        {{ translation_button('email_address') }}
+
+        <label class="flex align-center gap flex-item-grow input input--actor">
+          <input class="input txt-large"{% if user.emailAddress is not null %} value="{{ user.emailAddress }}"{% endif %} autocomplete="username" placeholder="Enter your email address" type="email" name="user[email_address]" id="user_email_address" />
+          {{ image_tag('email.svg', {aria: {hidden: 'true'}, size: 24, class: 'colorize--black'}) }}
+        </label>
+      </div>
+
+      <div class="flex align-center gap">
+        {{ translation_button('update_password') }}
+
+        <label class="flex align-center gap flex-item-grow input input--actor">
+          <input class="input txt-large" autocomplete="new-password" placeholder="Change password" maxlength="72" size="72" type="password" name="user[password]" id="user_password" />
+          {{ image_tag('password.svg', {aria: {hidden: 'true'}, size: 24, class: 'colorize--black'}) }}
+        </label>
+      </div>
+
+      <div class="flex align-start gap">
+        {{ translation_button('bio') }}
+
+        <label class="flex align--center gap flex-item--grow input input--actor">
+          <textarea class="input txt-large" placeholder="A few words about yourself…" maxlength="200" rows="3" name="user[bio]" id="user_bio">
+{{ user.bio }}</textarea>
+          {{ image_tag('bio.svg', {aria: {hidden: 'true'}, size: 24, class: 'colorize--black'}) }}
+        </label>
+      </div>
+
+      {{ profile_form_submit_button() }}
+    </div>
+</form>
+  <div class="margin-block pad-inline pad-block fill-shade border-radius">
+    <menu class="flex flex-column gap margin-none pad">
+      {% for membership in shared_memberships %}{{ include('users/profiles/_membership.html.twig') }}{% endfor %}
+
+{% if direct_memberships is not empty and shared_memberships is not empty %}
+        <hr class="separator full-width" style="--border-style: solid">
+{% endif %}
+
+      {% for membership in direct_memberships %}{{ include('users/profiles/_membership.html.twig') }}{% endfor %}
+    </menu>
+  </div>
+
+  {{ include('users/profiles/_transfer.html.twig', {user: user}) }}
+{% if app.environment == 'dev' %}
+    <fieldset>
+      <legend>
+        {{ image_tag('key.svg', {aria: {hidden: 'true'}, size: 36, class: 'colorize--black'}) }}
+      </legend>
+      {{ link_to('Push Notifications Dev Mode', url('user_push_subscriptions'), {class: 'btn txt-small center'}) }}
+    </fieldset>
+{% endif %}
+</section>
+{% endblock %}

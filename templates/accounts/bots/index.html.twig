@@ -1,0 +1,35 @@
+{#- reference/app/views/accounts/bots/index.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'Chat bots' %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back_to(path('edit_account')) }}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel--wide txt-align-center flex flex-column position-relative" style="view-transition-name: chat-bots">
+  <div class="flex align-center gap">
+    <div class="panel__button">
+      {{ translation_button('chat_bots') }}
+    </div>
+    <div class="pad-inline-double center">
+      <h1 class="margin-none">Chat bots</h1>
+      <p class="margin-none-block-start">With Chat bots, other sites and services can post updates directly to Campfire.</p>
+
+      {%- set add %}
+        {{ image_tag('bot.svg', {aria: {hidden: 'true'}, size: 20}) }}
+        {{ image_tag('add.svg', {aria: {hidden: 'true'}, size: 20}) }}
+{% endset %}
+      {{ link_to(add, path('new_account_bot'), {class: 'btn btn--reversed txt-large', aria: {label: 'Add a chat bot'}}) }}    </div>
+  </div>
+
+  <div class="pad-inline pad-block-start ">
+    <menu class="flex flex-column gap margin-none pad">
+      {% for bot in bots %}{{ include('accounts/bots/_bot.html.twig') }}{% endfor %}
+    </menu>
+  </div>
+</section>
+{% endblock %}

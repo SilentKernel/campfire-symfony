@@ -1,0 +1,5 @@
+{#- reference/app/views/users/_mention.html.erb. Variables: user. A span rather than a div: mentions
+    render inline inside the <p> paragraphs the editor produces, and block elements would make the
+    browser split the paragraph when parsing. (App\RichText\Attachables\Attachments::renderMention
+    renders the same markup for Action Text attachments.) -#}
+<span class="mention" sgid="{{ attachable_sgid(user) }}">{{ avatar_tag(user) }} {{ user.name }}</span>

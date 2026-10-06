@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=../vendor/symfony/routing/Loader/schema/routing.schema.json
+
+# Routes are #[Route] attributes on src/Controller, one per Rails route (reference/config/routes.rb
+# plus the routes drawn by turbo-rails, Action Mailbox and Active Storage), named as in
+# `bin/rails routes`; extra verbs on a named path are "<name>.<verb>" (room.patch).
+#
+# Rails matches routes in definition order, so each route's `priority` is its position from the end
+# of `bin/rails routes` (root = 177): GET /rooms/opens is rooms#show, not rooms/opens#index.
+#
+# Rails' default segment requirement is /[^\/.?]+/ (no dots, so ".json" is the format); the
+# optional "(.:format)" suffix is ".{_format}" with a null default (json for bot routes).
+controllers:
+    resource: routing.controllers
+    requirements:
+        id: '[^/.]+'
+        room_id: '[^/.]+'
+        message_id: '[^/.]+'
+        user_id: '[^/.]+'
+        bot_id: '[^/.]+'
+        bot_key: '[^/.]+'
+        join_code: '[^/.]+'
+        push_subscription_id: '[^/.]+'
+        signed_id: '[^/.]+'
+        signed_blob_id: '[^/.]+'
+        variation_key: '[^/.]+'
+        encoded_key: '[^/.]+'
+        encoded_token: '[^/.]+'
+        inbound_email_id: '[^/.]+'
+        _format: '[^/.]+'

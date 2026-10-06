@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# The container's entrypoint: what reference/bin/boot runs from reference/Procfile, as one
+# supervisor for
+#
+#   web      frankenphp run (docker/Caddyfile): Caddy + PHP worker threads, Thruster's job too
+#   cable    bin/console campfire:cable, the Action Cable server on 127.0.0.1:$TARGET_PORT
+#   workers  JOB_CONCURRENCY x bin/console messenger:consume async (Rails: resque-pool)
+#
+# cable and workers are restarted whenever they exit; when frankenphp exits, everything stops and
+# the container exits non-zero. TERM/INT stop every process.
+#
+# Environment (besides the app's own, see .env):
+#   SECRET_KEY_BASE   required
+#   HTTP_PORT         80; HTTPS_PORT 443 (with TLS_DOMAIN)
+#   TARGET_PORT       HTTP_PORT + 1, where campfire:cable listens (loopback only)
+#   TLS_DOMAIN        comma-separated domains for automatic HTTPS (Let's Encrypt, or
+#                     ACME_DIRECTORY); certificates are kept in storage/caddy. Ignored with DISABLE_SSL.
+#   FRANKENPHP_MODE   worker (default): Symfony booted once per thread; classic: per-request boot
+#   PHP_WORKERS       FrankenPHP worker threads, 2 x CPUs (FrankenPHP's default)
+#   PHP_THREADS       non-worker PHP threads, 1 (every request goes to the worker)
+#   JOB_CONCURRENCY   messenger:consume processes, 1
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+: "${SECRET_KEY_BASE:?SECRET_KEY_BASE is required}"
+
+export APP_ENV="${APP_ENV:-prod}"
+export HTTP_PORT="${HTTP_PORT:-80}"
+export HTTPS_PORT="${HTTPS_PORT:-443}"
+export TARGET_PORT="${TARGET_PORT:-$((HTTP_PORT + 1))}"
+export CAMPFIRE_STORAGE_PATH="${CAMPFIRE_STORAGE_PATH:-$PWD/storage}"
+export PHP_WORKERS="${PHP_WORKERS:-$(($(nproc) * 2))}"
+export FRANKENPHP_MODE="${FRANKENPHP_MODE:-worker}"
+case "$FRANKENPHP_MODE" in
+  # Threads beyond the workers (FrankenPHP adds the worker threads to num_threads).
+  worker) export PHP_THREADS="${PHP_THREADS:-1}" ;;
+  # No workers: the same number of threads, each running every request from scratch.
+  classic) export PHP_THREADS="${PHP_THREADS:-$PHP_WORKERS}" ;;
+  *) echo "FRANKENPHP_MODE must be worker or classic, not '$FRANKENPHP_MODE'" >&2; exit 1 ;;
+esac
+JOB_CONCURRENCY="${JOB_CONCURRENCY:-1}"
+
+if [ -n "${TLS_DOMAIN:-}" ] && [ -z "${DISABLE_SSL:-}" ]; then
+  export CAMPFIRE_SITE_ADDRESS="${TLS_DOMAIN//,/, }"
+  # Certificates survive restarts and upgrades, like Thruster's storage/thruster.
+  export XDG_DATA_HOME="$CAMPFIRE_STORAGE_PATH/caddy"
+else
+  export CAMPFIRE_SITE_ADDRESS="http://:$HTTP_PORT"
+  export XDG_DATA_HOME=/tmp/caddy/data
+fi
+# Writable under any --user uid (the base image's /config and /data are root's).
+export XDG_CONFIG_HOME=/tmp/caddy/config
+
+mkdir -p "$CAMPFIRE_STORAGE_PATH/db" "$CAMPFIRE_STORAGE_PATH/files" var/run "$XDG_DATA_HOME" "$XDG_CONFIG_HOME"
+
+log() { echo "bin/start: $*" >&2; }
+
+commands=$(php bin/console list --raw --no-ansi 2>/dev/null | awk '{print $1}') || commands=
+has_command() { grep -qx "$1" <<<"$commands"; }
+
+if has_command campfire:install; then
+  php bin/console campfire:install --no-interaction
+else
+  log "campfire:install is not available; skipping"
+fi
+
+pids=()
+
+# Runs a command again whenever it exits, until this loop gets TERM/INT.
+supervise() {
+  local name=$1 child=0
+  shift
+  trap '[ "$child" -gt 0 ] && kill -TERM "$child" 2>/dev/null; wait "$child" 2>/dev/null; exit 0' TERM INT
+  while :; do
+    "$@" &
+    child=$!
+    wait "$child" && status=0 || status=$?
+    log "$name exited ($status); restarting"
+    sleep 1
+  done
+}
+
+if has_command campfire:cable; then
+  supervise cable php bin/console campfire:cable &
+  pids+=($!)
+else
+  log "campfire:cable is not available; Action Cable is disabled"
+fi
+
+for ((i = 1; i <= JOB_CONCURRENCY; i++)); do
+  supervise "worker $i" php bin/console messenger:consume async \
+    --sleep=0.1 --time-limit=3600 --memory-limit=256M --no-interaction &
+  pids+=($!)
+done
+
+frankenphp run --config docker/Caddyfile --adapter caddyfile &
+web=$!
+
+stop() {
+  trap - TERM INT
+  kill -TERM "$web" "${pids[@]}" 2>/dev/null || true
+  wait || true
+}
+
+trap 'stop; exit 0' TERM INT
+
+wait "$web" && status=0 || status=$?
+log "frankenphp exited ($status)"
+stop
+exit $((status == 0 ? 1 : status))

@@ -1,0 +1,31 @@
+{#- reference/app/views/sessions/incompatible_browser.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = platform().appleMessages() ? 'Campfire' : 'Unsupported browser' %}
+
+{% block content %}
+
+<div class="panel center">
+  <header>
+    <h1 class="txt-x-large txt-tight-lines txt-align-center margin-none-block-start margin-block-end">
+      Upgrade to a supported web browser
+    </h1>
+    <div class="flex align-start gap">
+      {{ translation_button('incompatible_browser_messsage') }}
+      <p class="margin-none-block-start">Campfire requires a modern web browser. Please use one of the browsers listed below and make sure auto-updates are enabled.</p>
+    </div>
+  </header>
+
+  <div class="browser-list flex align-center flex-wrap gap justify-center margin-block">
+{% for browser, version in allow_browser_versions() %}
+
+      <div class="browser flex flex-column">
+        {{ image_tag('browsers/' ~ browser ~ '.svg', {aria: {hidden: 'true'}, class: 'center'}) }}
+        <div class="flex flex-column align-center margin-block-start-half">
+          <strong>{{ browser|ruby_capitalize }}</strong>
+          <span> {{ version }}+</span>
+        </div>
+      </div>
+{% endfor %}
+  </div>
+</div>
+{% endblock %}

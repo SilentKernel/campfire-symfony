@@ -1,0 +1,366 @@
+#!/usr/bin/env python3
+"""Summarize a bench/run results dir: median [min–max] across reps, one column per app.
+
+  bench/report bench/results/<stamp>
+
+Adapted from once-campfire-rust's bench/report (Copyright (c) 37signals, LLC, MIT) for any number
+of apps. "×Rails" factors are computed from the medians: >1 means better than Rails (higher
+throughput, or lower latency/memory/time). The Validation section lists every rep that failed or
+did not validate (non-2xx/3xx responses, transport errors, undelivered cable messages, no upload
+thumbnail); numbers from such reps are still shown, so read that section first.
+"""
+import glob, json, os, re, statistics, sys
+
+out = sys.argv[1]
+ORDER = ["rails", "reference", "django", "laravel", "laravel-frankenphp-classic", "laravel-frankenphp", "express", "elixir", "go", "rust",
+         "symfony-classic", "symfony"]
+NAMES = {"rails": "Rails", "reference": "Rails", "django": "Django", "laravel": "Laravel", "laravel-frankenphp-classic": "Laravel FrankenPHP classic",
+         "laravel-frankenphp": "Laravel Octane",
+         "express": "Express", "elixir": "Elixir", "go": "Go", "rust": "Rust", "symfony-classic": "Symfony classic", "symfony": "Symfony"}
+runs, failed = {}, {}
+for f in sorted(glob.glob(os.path.join(out, "*-*.json"))):
+    r = json.load(open(f))
+    runs.setdefault(r["app"], []).append(r)
+for f in sorted(glob.glob(os.path.join(out, "*-*.failed"))):
+    app, rep = re.match(r"(.+)-(\d+)\.failed$", os.path.basename(f)).groups()
+    failed.setdefault(app, []).append(int(rep))
+apps = sorted(set(runs) | set(failed), key=lambda a: (ORDER.index(a) if a in ORDER else 99, a))
+for a in apps:
+    runs.setdefault(a, [])
+    runs[a].sort(key=lambda r: r["rep"])
+base = next((a for a in ("rails", "reference") if runs.get(a)), None)
+
+
+def fmt_for(m):
+    return (lambda v: f"{v:,.0f}") if m >= 100 else (lambda v: f"{v:.1f}") if m >= 10 else (lambda v: f"{v:.2f}")
+
+
+def cell(vals):
+    vals = [v for v in vals if v is not None]
+    if not vals:
+        return None, "–"
+    m = statistics.median(vals)
+    fmt = fmt_for(m)
+    spread = f" [{fmt(min(vals))}–{fmt(max(vals))}]" if len(vals) > 1 else ""
+    return m, fmt(m) + spread
+
+
+def values(a, getter):
+    vals = []
+    for r in runs[a]:
+        try:
+            vals.append(getter(r))
+        except (KeyError, IndexError, TypeError, StopIteration, statistics.StatisticsError):
+            vals.append(None)
+    return vals
+
+
+def row(name, getter, higher_better):
+    cells, meds = [], {}
+    for a in apps:
+        meds[a], c = cell(values(a, getter))
+        cells.append(c)
+    print(f"| {name} | " + " | ".join(cells) + " |")
+    return meds
+
+
+def header(title, note=""):
+    print(f"\n### {title}\n")
+    if note:
+        print(note + "\n")
+    print("| Metric | " + " | ".join(NAMES.get(a, a) for a in apps) + " |")
+    print("|---|" + "---|" * len(apps))
+
+
+env = os.path.join(out, "env.txt")
+if os.path.exists(env):
+    print("```\n" + open(env).read().strip() + "\n```")
+print("\nReps: " + ", ".join(f"{NAMES.get(a, a)} {len(runs[a])}" + (f" (+{len(failed[a])} failed)" if a in failed else "") for a in apps)
+      + ". Cells: median [min–max] across reps.")
+
+# --- Validation -------------------------------------------------------------------------------
+print("\n### Validation\n")
+print("Each rep must sign in, find the CSRF token, stream sources and stylesheet, get only 2xx/3xx with no transport")
+print("errors, persist every acknowledged post (a new message with its rich text body, in the FTS index; integrity_check ok),")
+print("deliver every cable message to every client, and serve the uploaded image's thumbnail.\n")
+print("| App | Rep | Result |")
+print("|---|---|---|")
+for a in apps:
+    for r in runs[a]:
+        v = r.get("validation") or {"ok": None, "problems": ["not validated"]}
+        res = "pass" if v["ok"] else "**FAIL**: " + "; ".join(v["problems"])[:600]
+        print(f"| {NAMES.get(a, a)} | {r['rep']} | {res} |")
+    for rep in failed.get(a, []):
+        print(f"| {NAMES.get(a, a)} | {rep} | **FAILED to run** (see logs/{a}-{rep}.log, run.log) |")
+
+any_run = next((runs[a][0] for a in apps if runs[a]), None)
+if not any_run:
+    sys.exit(0)
+
+routes = []
+for a in apps:
+    for r in runs[a][:1]:
+        for h in r["http"]:
+            if (h["route"], h["conc"]) not in routes:
+                routes.append((h["route"], h["conc"]))
+
+
+def http(route, conc, key):
+    def get(r):
+        h = next(h for h in r["http"] if h["route"] == route and h["conc"] == conc)
+        if h["latency"].get("n", 0) == 0 or h["ok"] == 0:
+            return None
+        if key == "rps":
+            return h["rps"]
+        if key == "avg_bytes":
+            return h["avg_bytes"]
+        return h["latency"][key]
+    return get
+
+
+cables = []
+for a in apps:
+    for r in runs[a][:1]:
+        for c in r["cable"]:
+            if c["clients"] not in cables:
+                cables.append(c["clients"])
+
+
+def cab(n, f):
+    return lambda r: f(next(c for c in r["cable"] if c["clients"] == n))
+
+
+# --- Headline ---------------------------------------------------------------------------------
+HEADLINE = [("room_show", "Room page"), ("messages_page", "Messages page"), ("sidebar", "Sidebar"),
+            ("search", "Search"), ("post_message", "Post a message"), ("up", "/up")]
+concs = sorted({c for _, c in routes})
+hc = 16 if 16 in concs else (concs[len(concs) // 2] if concs else None)
+
+
+def med(a, getter):
+    v = [x for x in values(a, getter) if x is not None]
+    return statistics.median(v) if v else None
+
+
+if hc is not None:
+    print(f"\n### HTTP throughput, {hc} concurrent clients (req/s, median)\n")
+    print("| Route | " + " | ".join(NAMES.get(a, a) for a in apps) + " |")
+    print("|---|" + "---:|" * len(apps))
+    for route, label in HEADLINE:
+        if (route, hc) in routes:
+            print(f"| {label} | " + " | ".join(fmt_for(m)(m) if m else "–" for m in (med(a, http(route, hc, "rps")) for a in apps)) + " |")
+    others = [a for a in apps if a != base]
+    if base and others:
+        print(f"\n×Rails (>1: more req/s than Rails):\n")
+        print("| Route | " + " | ".join(NAMES.get(a, a) for a in others) + " |")
+        print("|---|" + "---:|" * len(others))
+        for route, label in HEADLINE:
+            if (route, hc) in routes:
+                b = med(base, http(route, hc, "rps"))
+                print(f"| {label} | " + " | ".join(f"{m / b:.2f}×" if m and b else "–" for m in (med(a, http(route, hc, "rps")) for a in others)) + " |")
+
+# --- What the pages contain -------------------------------------------------------------------
+PAGES = [("room_show", "Room page"), ("messages_page", "Messages page"), ("search", "Search"), ("sidebar", "Sidebar")]
+
+
+def page(name, key):
+    def get(r):
+        p = r["pages"][name]
+        return None if "error" in p else p[key]
+    return get
+
+
+def first_page(a, name):
+    return next((r["pages"][name] for r in runs[a] if r.get("pages") and "error" not in r["pages"].get(name, {"error": 1})), None)
+
+
+if any(r.get("pages") for a in apps for r in runs[a]):
+    papps = [a for a in apps if any(r.get("pages") for r in runs[a])]
+    print("\n### What one request returns (untimed GET per rep, same cookie and Accept-Encoding as loadgen)\n")
+    print("Messages shown, all elements (start tags), decoded HTML, gzip wire size, visible text, and the hidden CSRF inputs\n"
+          "with their distinct values. The work behind a request is only comparable between apps that show the same messages\n"
+          "with comparable markup; \"window differs\" marks message ids (in order) unlike the first app's. A CSRF token masked\n"
+          "per form (Rails, Symfony: one distinct value per form) is incompressible, so those pages are about twice as big\n"
+          "on the wire as pages that repeat one token, for the same HTML.\n")
+    print("| Page | Metric | " + " | ".join(NAMES.get(a, a) for a in papps) + " |")
+    print("|---|---|" + "---:|" * len(papps))
+    for name, label in PAGES:
+        firsts = {a: first_page(a, name) for a in papps}
+        ref = next((p for p in firsts.values() if p), None)
+        if not ref:
+            continue
+        print(f"| {label} | messages | " + " | ".join(
+            "–" if not p else f"{p['messages']}" + ("" if p["message_ids_sha"] == ref["message_ids_sha"] else " (window differs)") for p in firsts.values()) + " |")
+        print(f"| {label} | elements | " + " | ".join("–" if not p else f"{p['elements']:,}" for p in firsts.values()) + " |")
+        print(f"| {label} | decoded KB | " + " | ".join("–" if not p else f"{p['decoded_bytes'] / 1024:,.0f}" for p in firsts.values()) + " |")
+        print(f"| {label} | gzip KB | " + " | ".join("–" if not p else f"{p['wire_bytes'] / 1024:,.1f}" for p in firsts.values()) + " |")
+        print(f"| {label} | visible text KB | " + " | ".join("–" if not p else f"{p['text_bytes'] / 1024:,.1f}" for p in firsts.values()) + " |")
+        print(f"| {label} | CSRF inputs (distinct values) | " + " | ".join(
+            "–" if not p or "csrf_inputs" not in p else f"{p['csrf_inputs']} ({p['distinct_csrf_values']})" for p in firsts.values()) + " |")
+
+# --- Laravel vs Symfony on the same FrankenPHP runtime ----------------------------------------
+GRID = [("classic", "laravel-frankenphp-classic", "symfony-classic"), ("worker", "laravel-frankenphp", "symfony")]
+pairs = [(mode, l, s_) for mode, l, s_ in GRID if runs.get(l) and runs.get(s_)]
+if pairs:
+    print("\n### Laravel vs Symfony (same FrankenPHP runtime)\n")
+    print("Both on FrankenPHP with PHP 8.4, the same thread counts and the same SQLite; classic = no worker (the framework\n"
+          "boots on every request), worker = booted once per thread (Laravel Octane / Symfony runtime). Medians; S/L > 1 means\n"
+          f"Symfony does better (more req/s or msgs/s, fewer ms, bytes or MB). HTTP at c={hc}.\n")
+    cols = []
+    for mode, l, s_ in pairs:
+        cols += [(l, None), (s_, None), (None, (mode, l, s_))]
+    print("| Metric | " + " | ".join(NAMES.get(c[0], c[0]) if c[0] else f"S/L {c[1][0]}" for c in cols) + " |")
+    print("|---|" + "---:|" * len(cols))
+
+    def grid_row(label, getter, higher_better):
+        cells = []
+        for a, pair in cols:
+            if a:
+                m = med(a, getter)
+                cells.append(fmt_for(m)(m) if m is not None else "–")
+            else:
+                _, l, s_ = pair
+                ml, ms = med(l, getter), med(s_, getter)
+                cells.append(("–" if not ml or not ms else f"{(ms / ml if higher_better else ml / ms):.2f}×"))
+        print(f"| {label} | " + " | ".join(cells) + " |")
+
+    if hc is not None:
+        for route, label in HEADLINE:
+            if (route, hc) in routes:
+                grid_row(f"{label} req/s", http(route, hc, "rps"), True)
+        for route, label in HEADLINE[:5]:
+            if (route, hc) in routes:
+                grid_row(f"{label} p50 ms", http(route, hc, "p50_ms"), False)
+        for route, label in HEADLINE[:5]:
+            if (route, hc) in routes:
+                grid_row(f"{label} avg response bytes (gzip)", http(route, hc, "avg_bytes"), False)
+    if cables:
+        n = max(cables)
+        grid_row(f"Cable {n} clients: delivered msgs/s", cab(n, lambda c: c["throughput"]["delivered_msgs_per_sec"]), True)
+        grid_row(f"Cable {n} clients: paced post→all p50 ms", cab(n, lambda c: c["latency"]["all_clients"]["p50_ms"]), False)
+    grid_row("Upload: POST → first <img> (ms)", lambda r: r["upload"]["median_total_ms"], False)
+    grid_row("Idle memory.current (MB)", lambda r: r["memory"]["idle_current_mb"], False)
+    grid_row("Peak memory.current (MB)", lambda r: r["memory"]["peak_current_mb"], False)
+    grid_row("Cold start (ms)", lambda r: r["cold_start_ms"], False)
+
+    print("\nDo the two apps render equivalent pages? (first rep of each; the throughput ratios above only compare like\n"
+          "work if they do)\n")
+    print("| Mode | Page | Same message window | Messages L / S | Elements L / S | Decoded KB L / S | Visible text KB L / S | gzip KB L / S | CSRF inputs (distinct) L / S | Verdict |")
+    print("|---|---|---|---|---|---|---|---|---|---|")
+    for mode, l, s_ in pairs:
+        for name, label in PAGES:
+            pl, ps = first_page(l, name), first_page(s_, name)
+            if not pl or not ps:
+                print(f"| {mode} | {label} | – | – | – | – | – | – | – | no page data |")
+                continue
+            same = pl["message_ids_sha"] == ps["message_ids_sha"]
+            er = pl["elements"] / ps["elements"] if ps["elements"] else 0
+            br = pl["decoded_bytes"] / ps["decoded_bytes"] if ps["decoded_bytes"] else 0
+            ok = same and 0.9 <= er <= 1.1 and 0.8 <= br <= 1.25
+            verdict = "equivalent" if ok else ("**different**: " + ", ".join(
+                x for x in [("other messages" if not same else ""), (f"elements ×{er:.2f}" if not 0.9 <= er <= 1.1 else ""),
+                            (f"HTML size ×{br:.2f}" if not 0.8 <= br <= 1.25 else "")] if x))
+            tok = lambda p: f"{p['csrf_inputs']} ({p['distinct_csrf_values']})" if "csrf_inputs" in p else "–"
+            print(f"| {mode} | {label} | {'yes' if same else 'no'} | {pl['messages']} / {ps['messages']} | {pl['elements']:,} / {ps['elements']:,} | "
+                  f"{pl['decoded_bytes'] / 1024:,.0f} / {ps['decoded_bytes'] / 1024:,.0f} | {pl['text_bytes'] / 1024:,.1f} / {ps['text_bytes'] / 1024:,.1f} | "
+                  f"{pl['wire_bytes'] / 1024:,.1f} / {ps['wire_bytes'] / 1024:,.1f} | {tok(pl)} / {tok(ps)} | {verdict} |")
+
+# --- Full tables ------------------------------------------------------------------------------
+header("Startup and memory")
+row("cold start: docker run → /up 200 (ms)", lambda r: r["cold_start_ms"], False)
+row("idle memory.current (MB)", lambda r: r["memory"]["idle_current_mb"], False)
+row("idle anon (MB)", lambda r: r["memory"]["idle_anon_mb"], False)
+row("peak memory.current under load (MB)", lambda r: r["memory"]["peak_current_mb"], False)
+row("peak anon under load (MB)", lambda r: r["memory"]["peak_anon_mb"], False)
+if any("sidecar_redis" in r["memory"] for a in apps for r in runs[a]):
+    row("Redis sidecar idle memory.current (MB, not in the above)", lambda r: r["memory"]["sidecar_redis"]["idle_current_mb"], False)
+    row("Redis sidecar peak memory (MB, not in the above)", lambda r: r["memory"]["sidecar_redis"]["cgroup_peak_mb"], False)
+
+header("HTTP (signed in as david; keep-alive; c = concurrent connections)")
+for route, conc in routes:
+    row(f"{route} c={conc} req/s", http(route, conc, "rps"), True)
+    row(f"{route} c={conc} p50 ms", http(route, conc, "p50_ms"), False)
+    row(f"{route} c={conc} p99 ms", http(route, conc, "p99_ms"), False)
+
+header("HTTP response size (average bytes as received, gzip where offered)",
+       note="A sanity check that every app returns the full page: very different sizes deserve a look.")
+for route, conc in routes:
+    if conc == (hc if hc is not None else conc):
+        row(f"{route}", http(route, conc, "avg_bytes"), False)
+
+print("\n### HTTP errors / non-2xx-3xx (all reps)\n")
+for a in apps:
+    bad = [f"rep {r['rep']} {h['route']} c={h['conc']}: {h['statuses']} errors={h['errors']}" for r in runs[a] for h in r["http"]
+           if h["errors"] or any(not 200 <= int(k) < 400 for k in h["statuses"])]
+    print(f"- {NAMES.get(a, a)}: " + ("; ".join(bad) if bad else "none"))
+
+if any(r.get("writes") for a in apps for r in runs[a]):
+    header("Persisted writes (post_message route, warm-up included; checked before the cable suite)",
+           note="Acknowledged = 2xx/3xx responses. Each must be a new messages row with its rich text body and an FTS entry.")
+    row("acknowledged posts", lambda r: r["writes"]["acknowledged"], True)
+    row("new messages rows", lambda r: r["writes"]["new_messages"], True)
+    row("…with the 'bench write' rich text body", lambda r: r["writes"]["with_bench_rich_text"], True)
+    row("…in message_search_index (MATCH)", lambda r: r["writes"]["fts_match"], True)
+    print("| integrity_check | " + " | ".join(", ".join(sorted({str(r["writes"].get("integrity")) for r in runs[a] if r.get("writes")})) or "–" for a in apps) + " |")
+
+header("Action Cable fan-out (one room; chatter.js subscriptions per client)")
+for n in cables:
+    row(f"{n} clients: subscribed", cab(n, lambda c: c["ready"]), True)
+    row(f"{n} clients: connect+subscribe all (s)", cab(n, lambda c: c["connect_secs"]), False)
+    row(f"{n} clients: paced messages delivered to all", cab(n, lambda c: c["latency"]["complete"]), True)
+    row(f"{n} clients: paced post→one client p50 ms", cab(n, lambda c: c["latency"]["per_client"]["p50_ms"]), False)
+    row(f"{n} clients: paced post→all clients p50 ms", cab(n, lambda c: c["latency"]["all_clients"]["p50_ms"]), False)
+    row(f"{n} clients: paced post→all clients p99 ms", cab(n, lambda c: c["latency"]["all_clients"]["p99_ms"]), False)
+    row(f"{n} clients: max sustained msgs/s (delivered to all)", cab(n, lambda c: c["throughput"]["delivered_msgs_per_sec"]), True)
+    row(f"{n} clients: deliveries/s (client×message)", cab(n, lambda c: c["throughput"]["frames_per_sec"]), True)
+    row(f"{n} clients: saturated post→all p50 ms", cab(n, lambda c: c["throughput"]["all_clients"]["p50_ms"]), False)
+    row(f"{n} clients: saturated POST p50 ms", cab(n, lambda c: c["throughput"]["post"]["p50_ms"]), False)
+
+header("Upload + thumbnail (black_hole.jpg, 505 KB)",
+       note="loadgen's \"then GET\" follows the response's first <img>, which is the author's avatar; the thumbnail\n"
+            "check is one more, untimed upload whose own <img class=\"message__attachment\"> must return an image.")
+med = lambda key: (lambda r: statistics.median([x[key] for x in r["upload"]["runs"] if key in x]))
+row("POST with attachment (ms)", med("post_ms"), False)
+row("then GET first <img> → 200 (ms)", med("thumb_ms"), False)
+row("POST → first <img> served (ms)", lambda r: r["upload"]["median_total_ms"], False)
+row("thumbnail check: POST → thumbnail bytes (ms)", lambda r: r["upload_check"]["total_ms"] if r["upload_check"]["ok"] else None, False)
+row("thumbnail check: thumbnail size (bytes)", lambda r: r["upload_check"]["thumb_bytes"] if r["upload_check"]["ok"] else None, False)
+
+APP_ROLES = {"rails": ["puma"], "reference": ["puma"], "django": ["uvicorn"], "laravel": ["php-fpm"], "laravel-frankenphp": ["frankenphp"],
+             "express": ["node"], "elixir": ["beam"], "go": ["campfire"], "rust": ["campfire"],
+             "symfony-classic": ["frankenphp"], "symfony": ["frankenphp"]}
+SERVING = {"rails": ["puma", "redis", "thrust"], "reference": ["puma", "redis", "thrust"], "django": ["uvicorn"],
+           "laravel": ["php-fpm", "nginx", "cable"], "laravel-frankenphp": ["frankenphp", "cable"], "express": ["node"],
+           "elixir": ["beam", "thrust", "redis"], "go": ["campfire"], "rust": ["campfire"],
+           "symfony-classic": ["frankenphp", "cable"], "symfony": ["frankenphp", "cable"]}
+
+
+def procmem(n, phase, what):
+    def get(r):
+        c = next(c for c in r["cable"] if c["clients"] == n)
+        p = c["process_memory"][phase]
+        roles = p["roles"]
+        if what == "app":
+            return sum(roles[k]["peak_pss_mb"] for k in APP_ROLES[r["app"]] if k in roles) or None
+        if what == "app_anon":
+            return sum(roles[k]["peak_anon_mb"] for k in APP_ROLES[r["app"]] if k in roles) or None
+        if what == "serving":
+            return sum(roles[k]["peak_pss_mb"] for k in SERVING[r["app"]] if k in roles) or None
+        return p["peak_total_pss_mb"]
+    return get
+
+
+if cables and all("process_memory" in c for a in apps for r in runs[a] for c in r["cable"]):
+    header("Memory during cable fan-out, by process (MB, peak within the phase)", note=(
+        "App process: Rails' Puma master and workers (Action Cable runs in them); Django's Uvicorn processes (HTTP, Cable\n"
+        "and jobs); Laravel's PHP-FPM master and children; Laravel Octane's and Symfony's FrankenPHP; Express's Node\n"
+        "cluster; Elixir's BEAM; the Go and Rust binaries. Serving: everything that takes part in a cable delivery:\n"
+        "Rails + Redis + Thruster; Django (its Redis sidecar is outside the container); Laravel + nginx + the Workerman\n"
+        "cable process; Laravel Octane and Symfony + their cable process; Elixir + Thruster + Redis. Pss counts pages\n"
+        "shared between forked workers once; RssAnon counts them in every process."))
+    for n in cables:
+        for phase, label in (("connected", "all subscribed, idle"), ("saturated", "saturated fan-out")):
+            row(f"{n} clients, {label}: app process Pss", procmem(n, phase, "app"), False)
+            row(f"{n} clients, {label}: app process RssAnon", procmem(n, phase, "app_anon"), False)
+            row(f"{n} clients, {label}: serving processes Pss", procmem(n, phase, "serving"), False)
+            row(f"{n} clients, {label}: whole container Pss", procmem(n, phase, "total"), False)

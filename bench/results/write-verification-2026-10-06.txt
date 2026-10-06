@@ -1,0 +1,28 @@
+write verification 2026-10-06T07:54:53+00:00: seed 50a76ba5a2f63b93, loadgen dbb998a3ba2cdf13
+server cpus 0-3, loadgen cpus 4-7; loadgen http --post-room hq --conc 16 --duration 8; checked after docker stop
+
+rails: 246.8 posts/s, acknowledged 1982, new messages 1982, with bench text 1982, in FTS 1982 (MATCH 1982), integrity ok, statuses {'200': 1982} -> OK
+django: 217.1 posts/s, acknowledged 1757, new messages 1757, with bench text 1757, in FTS 1757 (MATCH 1757), integrity ok, statuses {'200': 1757} -> OK
+laravel: 52.1 posts/s, acknowledged 514, new messages 514, with bench text 514, in FTS 514 (MATCH 514), integrity ok, statuses {'200': 514} -> OK
+laravel-frankenphp-classic: 16.9 posts/s, acknowledged 193, new messages 193, with bench text 193, in FTS 193 (MATCH 193), integrity ok, statuses {'200': 193} -> OK
+laravel-frankenphp: 38.3 posts/s, acknowledged 494, new messages 494, with bench text 494, in FTS 494 (MATCH 494), integrity ok, statuses {'200': 494} -> OK
+express: 1494.0 posts/s, acknowledged 11960, new messages 11960, with bench text 11960, in FTS 11960 (MATCH 11960), integrity ok, statuses {'200': 11960} -> OK
+elixir: 523.9 posts/s, acknowledged 4198, new messages 4198, with bench text 4198, in FTS 4198 (MATCH 4198), integrity ok, statuses {'200': 4198} -> OK
+go: 4480.7 posts/s, acknowledged 35861, new messages 35861, with bench text 35861, in FTS 35861 (MATCH 35861), integrity ok, statuses {'200': 35861} -> OK
+rust: 6778.7 posts/s, acknowledged 54243, new messages 54243, with bench text 54243, in FTS 54243 (MATCH 54243), integrity ok, statuses {'200': 54243} -> OK
+symfony-classic: 245.2 posts/s, acknowledged 1975, new messages 1975, with bench text 1975, in FTS 1975 (MATCH 1975), integrity ok, statuses {'200': 1975} -> OK
+symfony: 1539.5 posts/s, acknowledged 12341, new messages 12341, with bench text 12341, in FTS 12341 (MATCH 12341), integrity ok, statuses {'200': 12341} -> OK
+
+| App | Image | Revision, image id | posts/s (indicative) | Acknowledged | New messages | 'bench write' rich text | In FTS (rowid) | FTS MATCH | integrity_check | Statuses | Verdict |
+|---|---|---|---:|---:|---:|---:|---:|---:|---|---|---|
+| rails | campfire-reference:app | 254dd1d46f67, 28a60771be65 | 246.8 | 1982 | 1982 | 1982 | 1982 | 1982 | ok | {'200': 1982} | OK |
+| django | once-campfire-django:bench | 7cff970b9860, 32be9db68264 | 217.1 | 1757 | 1757 | 1757 | 1757 | 1757 | ok | {'200': 1757} | OK |
+| laravel | once-campfire-laravel:bench | 608d46590436, b90afeddd8c2 | 52.1 | 514 | 514 | 514 | 514 | 514 | ok | {'200': 514} | OK |
+| laravel-frankenphp-classic | once-campfire-laravel-frankenphp:bench | unlabelled, 094b88f17f2fab | 16.9 | 193 | 193 | 193 | 193 | 193 | ok | {'200': 193} | OK |
+| laravel-frankenphp | once-campfire-laravel-frankenphp:bench | unlabelled, 094b88f17f2fab | 38.3 | 494 | 494 | 494 | 494 | 494 | ok | {'200': 494} | OK |
+| express | once-campfire-express:bench | 361330a0ecfb, 45226fee5db0 | 1494.0 | 11960 | 11960 | 11960 | 11960 | 11960 | ok | {'200': 11960} | OK |
+| elixir | once-campfire-elixir:bench | f15fc9eb6092, b1964eabffd7 | 523.9 | 4198 | 4198 | 4198 | 4198 | 4198 | ok | {'200': 4198} | OK |
+| go | once-campfire-go:bench | 8d2f7f24f56d, ca8d0af681ed | 4480.7 | 35861 | 35861 | 35861 | 35861 | 35861 | ok | {'200': 35861} | OK |
+| rust | once-campfire-rust:bench | ccece30e8e16, ad5c4263480d | 6778.7 | 54243 | 54243 | 54243 | 54243 | 54243 | ok | {'200': 54243} | OK |
+| symfony-classic | campfire-symfony:app | unlabelled, aeabf684ed8d7f | 245.2 | 1975 | 1975 | 1975 | 1975 | 1975 | ok | {'200': 1975} | OK |
+| symfony | campfire-symfony:app | unlabelled, aeabf684ed8d7f | 1539.5 | 12341 | 12341 | 12341 | 12341 | 12341 | ok | {'200': 12341} | OK |

@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Per-process memory of a container, by role, while a cable run goes on (bench/run).
+
+  procmem.py sample CGROUP_DIR OUT.jsonl        # every 250 ms until killed or the cgroup goes
+  procmem.py phases OUT.jsonl LOADGEN.stderr    # peak per role within each loadgen PHASE window
+
+Adapted from once-campfire-rust bench/lib/procmem.py (Copyright (c) 37signals, LLC, MIT): roles
+for the Django, Laravel, Express, Elixir, Go and Symfony ports added.
+
+Roles, from each process's command line:
+  Rails    `puma` (Puma's master and workers, which also serve Action Cable), `thrust` (Thruster),
+           `redis` (cable pub/sub and the Resque queue), `jobs` (resque-pool and its workers)
+  Django   `uvicorn` (the supervisor and its workers, spawned by multiprocessing; HTTP, Action
+           Cable and the job thread all run in them). Its Redis is a separate container.
+  Laravel  `nginx`, `php-fpm` (master and workers), `cable` (php bin/cable, Workerman),
+           `jobs` (php artisan queue:work)
+  Laravel/Octane  `frankenphp` (Octane's FrankenPHP server and its master), `cable`, `jobs`
+  Symfony  `frankenphp` (Caddy + PHP worker threads), `cable` (bin/console campfire:cable),
+           `jobs` (bin/console messenger:consume)
+  Express  `node` (the cluster primary, which runs the jobs, and its HTTP/WebSocket workers)
+  Elixir   `beam` (the BEAM: Bandit, Action Cable, jobs), `thrust`, `redis`, and its native
+           helpers (campfire-vips, campfire-html) as `helper`
+  Go, Rust `campfire` (one process, its own front server included)
+and `other`. Each sample sums, per role, Pss (proportional set size, so pages forked workers share
+with their master count once) and RssAnon (anonymous resident memory, counted in every process
+that maps it), both from /proc/PID/smaps_rollup, in MB.
+"""
+import json, os, re, sys, time
+
+
+def role(cmdline):
+    # Order matters: the PHP and Python command lines mention "campfire" too (campfire:cable,
+    # campfire.asgi), and a PHP CLI may run through the frankenphp binary (frankenphp php-cli).
+    if "redis-server" in cmdline:
+        return "redis"
+    if "thrust" in cmdline:
+        return "thrust"
+    if "puma" in cmdline:
+        return "puma"
+    if "resque" in cmdline or "queue:work" in cmdline or "messenger:consume" in cmdline:
+        return "jobs"
+    if "uvicorn" in cmdline or "multiprocessing.spawn" in cmdline or "multiprocessing-fork" in cmdline:
+        return "uvicorn"
+    if "php-fpm" in cmdline:
+        return "php-fpm"
+    if "nginx" in cmdline:
+        return "nginx"
+    if "cable" in cmdline:
+        return "cable"
+    if "frankenphp" in cmdline:
+        return "frankenphp"
+    if "beam.smp" in cmdline:
+        return "beam"
+    if "campfire-vips" in cmdline or "campfire-html" in cmdline:
+        return "helper"
+    if cmdline.split(" ", 1)[0].rsplit("/", 1)[-1] in ("node", "nodejs"):
+        return "node"
+    if "campfire" in cmdline:
+        return "campfire"
+    return "other"
+
+
+def rollup(pid):
+    out = {}
+    with open(f"/proc/{pid}/smaps_rollup") as f:
+        for line in f:
+            k, _, v = line.partition(":")
+            if k in ("Pss", "Anonymous"):
+                out[k] = int(v.split()[0]) / 1024
+    return out
+
+
+def sample(cgroup, path):
+    with open(path, "w") as out:
+        while os.path.isdir(cgroup):
+            roles = {}
+            try:
+                pids = open(f"{cgroup}/cgroup.procs").read().split()
+            except OSError:
+                break
+            for pid in pids:
+                try:
+                    cmd = open(f"/proc/{pid}/cmdline").read().replace("\0", " ")
+                    m = rollup(pid)
+                except OSError:
+                    continue
+                r = roles.setdefault(role(cmd), {"pss_mb": 0.0, "anon_mb": 0.0, "procs": 0})
+                r["pss_mb"] += m.get("Pss", 0)
+                r["anon_mb"] += m.get("Anonymous", 0)
+                r["procs"] += 1
+            out.write(json.dumps({"t": int(time.time() * 1000), "roles": roles}) + "\n")
+            out.flush()
+            time.sleep(0.25)
+
+
+def phases(path, stderr_path):
+    samples = [json.loads(l) for l in open(path) if l.strip()]
+    marks = [(m.group(1), int(m.group(2))) for m in re.finditer(r"PHASE (\w+) (\d+)", open(stderr_path).read())]
+    bounds = marks + [("after", 10**15)]
+    result = {}
+    for (name, t0), (_, t1) in zip(bounds, bounds[1:]):
+        window = [s for s in samples if s["t"] < t0][-1:] + [s for s in samples if t0 <= s["t"] < t1]
+        if not window:
+            continue
+        roles = {}
+        for s in window:
+            for r, v in s["roles"].items():
+                cur = roles.setdefault(r, {"peak_pss_mb": 0.0, "peak_anon_mb": 0.0})
+                cur["peak_pss_mb"] = round(max(cur["peak_pss_mb"], v["pss_mb"]), 1)
+                cur["peak_anon_mb"] = round(max(cur["peak_anon_mb"], v["anon_mb"]), 1)
+                cur["procs"] = v["procs"]
+        total = max(sum(v["pss_mb"] for v in s["roles"].values()) for s in window)
+        result[name] = {"roles": roles, "peak_total_pss_mb": round(total, 1)}
+    return result
+
+
+if __name__ == "__main__":
+    if sys.argv[1] == "sample":
+        sample(sys.argv[2], sys.argv[3])
+    elif sys.argv[1] == "phases":
+        print(json.dumps(phases(sys.argv[2], sys.argv[3])))
+    else:
+        sys.exit(__doc__)

@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# Unexplained app-response differences (after analyze's proxy-header and signature filtering), deduplicated.
+#   bench/bin/runner tools/parity/bin/residual-network OUT_DIR
+import sys,os,re,importlib.util,importlib.machinery,glob,collections
+loader=importlib.machinery.SourceFileLoader("an",os.path.join(os.path.dirname(__file__),"analyze"))
+spec=importlib.util.spec_from_loader("an",loader); an=importlib.util.module_from_spec(spec); loader.exec_module(an)
+out=sys.argv[1]; seen=collections.OrderedDict()
+for ref in glob.glob(os.path.join(out,"*","reference","**","*.network.txt"),recursive=True):
+    cand=ref.replace("/reference/","/candidate/",1)
+    if not os.path.exists(cand): continue
+    ra,_=an.network_entries(open(ref).read()); ca,_=an.network_entries(open(cand).read())
+    sigs,rest=an.network_signature(ra,ca)
+    key=lambda b: an.asset_key(b.split("\n")[0])
+    A={key(b):an.clean_entry(b) for b in ra}; C={key(b):an.clean_entry(b) for b in ca}
+    for k in rest:
+        kk=re.sub(r"\d{6,}","N",k)
+        d=(A.get(k),C.get(k))
+        sig=re.sub(r"\d{6,}","N",str(d))
+        seen.setdefault((kk,sig),[]).append(ref.split("/reference/")[1])
+for (k,_),cells in seen.items():
+    print("####",k,len(cells),cells[:3])

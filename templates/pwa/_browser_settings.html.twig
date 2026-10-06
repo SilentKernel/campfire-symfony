@@ -1,0 +1,102 @@
+{#- reference/app/views/pwa/_browser_settings.html.erb -#}
+{% set p = platform() %}
+{% set switch %}{{ image_tag('external/switch.svg', {alt: 'the switch', size: 22}) }}{% endset %}
+{% import _self as steps %}
+{% macro apple(p, switch) %}
+            <li>Click <em aria-label="the Apple menu"></em> in the top left.</li>
+            <li>Click <em>System Settings…</em>.</li>
+            <li>Click <em>Notifications</em>.</li>
+            <li>Click <em>{{ p.browser()|ruby_capitalize }}</em>.</li>
+            <li>Click <em>{{ switch }}</em> to <em>Allow notifications</em>.</li>
+{% endmacro %}
+{% if not ((p.safari() or p.chrome()) and p.ios()) %}
+  <details class="notifications-help" data-notifications-target="details">
+    <summary class="btn">
+      {{ image_tag('external/web.svg', {aria: {hidden: 'true'}, size: 20}) }}
+      <strong>Check your {{ p.browser()|ruby_capitalize }} settings</strong>
+      {{ image_tag('disclosure.svg', {aria: {hidden: 'true'}, size: 10, class: 'disclosure'}) }}
+    </summary>
+
+{% if p.firefox() and p.android() %}
+        <ol>
+          <li>Tap <em>{{ image_tag('lock.svg', {alt: 'the View site information button', size: 20}) }}</em> in the address bar.</li>
+          <li>Tap <em>Notification</em> to change to <em>Allowed</em>.</li>
+        </ol>
+{% elseif p.edge() and p.desktop() %}
+        <h2 class="txt-normal txt-medium margin-block-start">Turn on notifications for this website.</h2>
+        <ol>
+          <li>Click <em>{{ image_tag('lock.svg', {alt: 'the View site information button', size: 20}) }}</em> left of the address bar.</li>
+          <li>Under <em>Permissions for this site &gt; Notifications</em>, choose <em>Allow</em>.</li>
+        </ol>
+        <h2 class="txt-normal txt-medium margin-block-start">Turn on notifications for {{ p.browser()|ruby_capitalize }}.</h2>
+        <ol>
+{% if p.windows() %}
+            <li>Click <em>Start</em>, then <em>Settings</em>.</li>
+            <li>Go to <em>System &gt; Notification</em>.</li>
+            <li>Click <em>{{ switch }}</em> <em>ON</em> for {{ p.browser()|ruby_capitalize }}.</li>
+{% else %}
+{{ steps.apple(p, switch) }}
+{% endif %}
+        </ol>
+{% elseif p.firefox() and p.desktop() %}
+        <h2 class="txt-normal txt-medium margin-block-start">Turn on notifications for this website.</h2>
+        <ol>
+          <li>Click <em>{{ p.browser()|ruby_capitalize }}</em> in the top left.</li>
+          <li>Click <em>Settings…</em>.</li>
+          <li>Click <em>Privacy & Security</em> in the sidebar.</li>
+          <li>Scroll down to <em>Permissions</em>.</li>
+          <li>Click <em>Settings</em> next to <em>Notifications</em>.</li>
+          <li>Select <em>Allow</em> next to <em>{{ url('root') }}</em>.</li>
+        </ol>
+
+        <h2 class="txt-normal txt-medium margin-block-start">Turn on notifications for {{ p.browser()|ruby_capitalize }}.</h2>
+        <ol>
+{% if p.windows() %}
+            <li>Click <em>Start</em>, then <em>Settings</em>.</li>
+            <li>Go to <em>System &gt; Notification</em>.</li>
+            <li>Click <em>{{ image_tag('external/switch.svg', {alt: 'the toggle button', size: 22}) }}</em> <em>ON</em> for {{ p.browser()|ruby_capitalize }}.</li>
+{% else %}
+{{ steps.apple(p, switch) }}
+{% endif %}
+        </ol>
+{% elseif p.chrome() and p.desktop() %}
+        <h2 class="txt-normal txt-medium margin-block-start">Turn on notifications for this website.</h2>
+        <ol>
+          <li>Click the <em>{{ image_tag('external/sliders.svg', {alt: 'View site information', size: 20}) }}</em> icon in the address bar.</li>
+          <li>Click <em>Site Settings</em>.</li>
+          <li>Ensure notifications are <em>Allowed</em>.</li>
+        </ol>
+
+        <h2 class="txt-normal txt-medium margin-block-start">Turn on notifications for {{ p.browser()|ruby_capitalize }}.</h2>
+        <ol>
+{% if p.windows() %}
+            <li>Click <em>Start</em>, then <em>Settings</em>.</li>
+            <li>Go to <em>System &gt; Notification</em>.</li>
+            <li>Click <em>{{ switch }}</em> <em>ON</em> for {{ p.browser()|ruby_capitalize }}.</li>
+{% else %}
+{{ steps.apple(p, switch) }}
+{% endif %}
+        </ol>
+{% elseif p.chrome() and p.android() %}
+        <ol>
+          <li>Tap the <em>{{ image_tag('menu-dots-vertical.svg', {alt: 'More options', size: 16}) }}</em> menu button.</li>
+          <li>Tap <em>Settings</em>.</li>
+          <li>Tap <em>Notifications</em>.</li>
+          <li>Tap <em>{{ switch }}</em> to <em>Allow {{ p.browser()|ruby_capitalize }} notifications</em>.</li>
+          <li>Tap <em>{{ switch }}</em> next to <em>Web apps</em>.</li>
+          <li>Tap <em>{{ image_tag('notification-bell-alert.svg', {alt: 'the notification bell', size: 16}) }}</em> and select <em>Allow</em>.</li>
+        </ol>
+{% elseif p.safari() and p.desktop() %}
+        <ol>
+          <li>Click <em>{{ p.browser()|ruby_capitalize }}</em> in the top left.</li>
+          <li>Click <em>Settings…</em>.</li>
+          <li>Click the <em>Websites</em> tab.</li>
+          <li>Click <em>Notifications</em> in the sidebar.</li>
+          <li>Click <em>{{ url('root') }}</em> in the list.</li>
+          <li>Select <em>Allow</em>.</li>
+        </ol>
+{% else %}
+        <p>Ensure notifications are enabled for <em>{{ url('root') }}</em> in your web browser settings.</p>
+{% endif %}
+  </details>
+{% endif %}

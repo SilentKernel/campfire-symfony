@@ -1,0 +1,8 @@
+# vendor/bin/phpstan analyse (bin/check runs it in the dev image).
+parameters:
+    level: 6
+    paths:
+        - src
+    tmpDir: var/cache/phpstan
+    # Doctrine hydrates entities and Symfony injects services in ways PHPDoc can't promise.
+    treatPhpDocTypesAsCertain: false

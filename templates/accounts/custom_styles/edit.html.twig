@@ -1,0 +1,37 @@
+{#- reference/app/views/accounts/custom_styles/edit.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% set page_title = 'Custom styles' %}
+
+{% block nav %}
+  <div class="flex-item-justify-start">
+    {{ link_back_to(path('edit_account')) }}
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel panel--wide txt-align-center flex flex-column position-relative" style="view-transition-name: custom-styles">
+  {{ form_with({url: url('account_custom_styles'), method: 'patch', class: 'flex flex-column gap', data: {controller: 'form', action: 'keydown.ctrl+enter->form#submit keydown.meta+enter->form#submit'}}) }}
+    <div class="panel__button">
+      {{ translation_button('custom_styles') }}
+    </div>
+
+    <div class="pad-inline-double margin-inline">
+      <h1 class="margin-none">Custom CSS</h1>
+      <p class="flex flex-wrap align-center justify-center gap margin-none-block-start" style="--column-gap: 0.5ch; --row-gap: 0">
+        <span>Add custom CSS styles.</span>
+        {{ image_tag('alert.svg', {class: 'flex-inline colorize--black', size: 16, aria: {hidden: 'true'}}) }}
+        <span>Use Caution: you could break things.</span>
+      </p>
+    </div>
+
+    <label class="flex align-start gap flex-item-grow">
+      <textarea class="input input--code txt--small" placeholder="Add CSS styles…" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" rows="16" name="account[custom_styles]" id="account_custom_styles">
+{{ account.customStyles }}</textarea>
+    </label>
+
+    <button name="button" type="submit" class="btn btn--reversed center txt-large">
+      {{ image_tag('check.svg', {aria: {hidden: 'true'}, size: 20}) }}
+      <span class="for-screen-reader">Save changes</span>
+</button></form></section>
+{% endblock %}

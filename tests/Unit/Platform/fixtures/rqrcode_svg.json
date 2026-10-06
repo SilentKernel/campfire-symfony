@@ -1,0 +1,34 @@
+[
+  {
+    "input": "http://127.0.0.1:3291/join/CRMu-l8Ge-KB9B",
+    "sha256": "4c5450d96297d0d58343510cd21bd57ed7931b9a76b6d39360f13317406e73f0"
+  },
+  {
+    "input": "https://campfire.example.com/session/transfers/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MzI2MTQxLCJleHAiOiIyMDI2LTAzLTAyVDIwOjAwOjAwLjAwMFoiLCJwdXIiOiJ1c2VyL3RyYW5zZmVyIn19--476cf868cb8cf4840014cdfa2913750a0adb93110f2e0ecb9c8ff1a32edd0161",
+    "sha256": "2fc31e3f9646945a4b094f75368f26a45d6e23b6ab6a728322cc47378c570923"
+  },
+  {
+    "input": "a",
+    "sha256": "94c7a7086d2f2384a47dbd8c9438fe5eb010337b3c20eb775864e9fe9f092598"
+  },
+  {
+    "input": "HELLO WORLD",
+    "sha256": "451bd6a1b9818329a716e16320a8512944c00ade65406819c5d863878e47ac6e"
+  },
+  {
+    "input": "12345",
+    "sha256": "258ff3afa079964127ae1e1161aa972ab793eb405b4b3fb7dc4e38ac69de6e91"
+  },
+  {
+    "input": "http://localhost/join/abcd-efgh-ijkl",
+    "sha256": "e4cd0ee433b2251d9ea16e44ab7ef63d66348f04a46e43f6f8d4674392b17a7b"
+  },
+  {
+    "input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "sha256": "c8bd7689bd0d69ed0dbba04864945dfede459bd6dbdb4922a6c8b9eb3bcdeda5"
+  },
+  {
+    "input": "http://example.com/yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+    "sha256": "24b70ab464070402c7f8c23cccbdf66e204339b83f77b75713717cd0e1daf89b"
+  }
+]

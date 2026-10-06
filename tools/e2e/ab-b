@@ -1,0 +1,3 @@
+#!/bin/sh
+# Browser session for user B (agent-browser).
+exec agent-browser --session "${E2E_PREFIX:-cfe2e}-b" --ignore-https-errors "$@"

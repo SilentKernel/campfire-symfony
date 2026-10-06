@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Refresh assets/ from the reference app: the app's own frontend is copied from reference/, the
+# gem-provided assets and the Rails fixtures come from the campfire-reference:app image (whose
+# build ran assets:precompile). See assets/PROVENANCE.md.
+#
+#   assets/script/revendor
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
+IMAGE=${CAMPFIRE_REFERENCE_IMAGE:-campfire-reference:app}
+
+for dir in images sounds stylesheets; do
+  rm -rf "$ROOT/assets/$dir" && cp -R "$ROOT/reference/app/assets/$dir" "$ROOT/assets/$dir"
+done
+rm -rf "$ROOT/assets/javascript" && cp -R "$ROOT/reference/app/javascript" "$ROOT/assets/javascript"
+rm -rf "$ROOT/assets/vendor/javascript" && mkdir -p "$ROOT/assets/vendor" &&
+  cp -R "$ROOT/reference/vendor/javascript" "$ROOT/assets/vendor/javascript"
+
+docker run --rm -i --user "$(id -u):$(id -g)" --entrypoint bin/rails \
+  -e RAILS_ENV=production -e SECRET_KEY_BASE_DUMMY=1 -e DISABLE_SSL=1 -e OUT=/work \
+  -v "$ROOT/assets:/work/assets" -v "$ROOT/tests/fixtures:/work/tests/fixtures" \
+  "$IMAGE" runner /work/assets/script/export_reference.rb

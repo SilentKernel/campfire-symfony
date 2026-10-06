@@ -1,0 +1,7 @@
+# FRANKENPHP_MODE=classic: no worker; every request runs public/index.php from scratch (autoloader,
+# kernel boot, compiled container from var/cache, OPcache and preloading still apply), the way
+# PHP-FPM serves PHP. bin/start gives it as many PHP threads as worker mode has workers.
+php_server {
+	root /rails/public
+	file_server off
+}

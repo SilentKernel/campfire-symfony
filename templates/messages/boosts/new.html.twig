@@ -1,0 +1,25 @@
+{#- reference/app/views/messages/boosts/new.html.erb. Variables: message. #}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+{% block content %}
+<turbo-frame id="{{ dom_id(message, 'new_boost') }}">
+  <div class="boost flex-inline postion--relative max-width fill-white" style="--column-gap: var(--inline-space-half)">
+    {{ form_with({url: path('message_boosts', {message_id: message.id}), class: 'boost__form flex align-center gap expanded', data: {controller: 'form scroll-into-view', turbo_frame: dom_id(message, 'boosting'), action: 'keydown.esc->form#cancel'}}) }}
+      <label class="boost__form-label flex gap" style="--column-gap: 0.7ch;" role="button" tabindex="0" aria-label="Add a boost">
+        <figure class="avatar boost__avatar flex-item-no-shrink">
+          {{ avatar_tag(current_user()) }}
+          <span class="for-screen-reader">{{ current_user().name }}</span>
+        </figure>
+
+        <input autofocus="autofocus" autocomplete="off" autocorrect="off" maxlength="16" required="required" pattern="\S+.*" data-boost-form-target="input" class="input input--boost txt-small" size="16" type="text" name="boost[content]" />
+      </label>
+
+      <button name="button" type="submit" class="btn btn--reversed">
+        {{ image_tag('check.svg', {aria: {hidden: 'true'}}) }}
+        <span class="for-screen-reader">Submit</span>
+</button>
+      <a data-turbo-frame="{{ dom_id(message, 'boosts') }}" data-form-target="cancel" class="btn btn--negative" href="{{ path('message_boosts', {message_id: message.id}) }}">
+        {{ image_tag('minus.svg', {aria: {hidden: 'true'}}) }}
+        <span class="for-screen-reader">Cancel</span>
+</a></form>  </div>
+</turbo-frame>
+{% endblock %}

@@ -1,0 +1,6 @@
+{#- reference/app/views/sessions/transfers/show.html.erb -#}
+{% extends turbo_frame_request() ? 'layouts/turbo_rails/frame.html.twig' : 'layouts/application.html.twig' %}
+
+{% block content %}
+{{ auto_submit_form_with({method: 'put'}) }}
+{% endblock %}

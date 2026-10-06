@@ -1,0 +1,3895 @@
+{
+  "generated_by": "tests/fixtures/richtext/generate_seed.rb",
+  "request_host": "once.campfire.test",
+  "cases": [
+    {
+      "message_id": 136976342,
+      "body": "When we are not sure, we are alive.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  When we are not sure, we are alive.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "When we are not sure, we are alive."
+      },
+      "editable": {
+        "ok": "When we are not sure, we are alive."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  When we are not sure, we are alive.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "When we are not sure, we are alive."
+      }
+    },
+    {
+      "message_id": 217777555,
+      "body": "I don't care a damn about men who are loyal to the people who pay them, to organizations...I don't think even my country means all that much. There are many countries in our blood, aren't there, but only one person. Would the world be in the mess it is if we were loyal to love and not to countries?",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  I don't care a damn about men who are loyal to the people who pay them, to organizations...I don't think even my country means all that much. There are many countries in our blood, aren't there, but only one person. Would the world be in the mess it is if we were loyal to love and not to countries?\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "I don't care a damn about men who are loyal to the people who pay them, to organizations...I don't think even my country means all that much. There are many countries in our blood, aren't there, but only one person. Would the world be in the mess it is if we were loyal to love and not to countries?"
+      },
+      "editable": {
+        "ok": "I don't care a damn about men who are loyal to the people who pay them, to organizations...I don't think even my country means all that much. There are many countries in our blood, aren't there, but only one person. Would the world be in the mess it is if we were loyal to love and not to countries?"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  I don't care a damn about men who are loyal to the people who pay them, to organizations...I don't think even my country means all that much. There are many countries in our blood, aren't there, but only one person. Would the world be in the mess it is if we were loyal to love and not to countries?\n</div>\n"
+      },
+      "canonical": {
+        "ok": "I don't care a damn about men who are loyal to the people who pay them, to organizations...I don't think even my country means all that much. There are many countries in our blood, aren't there, but only one person. Would the world be in the mess it is if we were loyal to love and not to countries?"
+      }
+    },
+    {
+      "message_id": 303968118,
+      "body": "Champagne, if you are seeking the truth, is better than a lie detector.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  Champagne, if you are seeking the truth, is better than a lie detector.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Champagne, if you are seeking the truth, is better than a lie detector."
+      },
+      "editable": {
+        "ok": "Champagne, if you are seeking the truth, is better than a lie detector."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  Champagne, if you are seeking the truth, is better than a lie detector.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "Champagne, if you are seeking the truth, is better than a lie detector."
+      }
+    },
+    {
+      "message_id": 309456473,
+      "body": "First post!",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  First post!\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "First post!"
+      },
+      "editable": {
+        "ok": "First post!"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  First post!\n</div>\n"
+      },
+      "canonical": {
+        "ok": "First post!"
+      }
+    },
+    {
+      "message_id": 366357198,
+      "body": "Hate is a lack of imagination.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  Hate is a lack of imagination.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Hate is a lack of imagination."
+      },
+      "editable": {
+        "ok": "Hate is a lack of imagination."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  Hate is a lack of imagination.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "Hate is a lack of imagination."
+      }
+    },
+    {
+      "message_id": 421488677,
+      "body": "People who like quotes love meaningless generalizations",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  People who like quotes love meaningless generalizations\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "People who like quotes love meaningless generalizations"
+      },
+      "editable": {
+        "ok": "People who like quotes love meaningless generalizations"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  People who like quotes love meaningless generalizations\n</div>\n"
+      },
+      "canonical": {
+        "ok": "People who like quotes love meaningless generalizations"
+      }
+    },
+    {
+      "message_id": 607264868,
+      "body": "Third time's a charm.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  Third time's a charm.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Third time's a charm."
+      },
+      "editable": {
+        "ok": "Third time's a charm."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  Third time's a charm.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "Third time's a charm."
+      }
+    },
+    {
+      "message_id": 684468941,
+      "body": "A story has no beginning or end—arbitrarily one chooses that moment of experience from which to look back or from which to look ahead.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  A story has no beginning or end—arbitrarily one chooses that moment of experience from which to look back or from which to look ahead.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "A story has no beginning or end—arbitrarily one chooses that moment of experience from which to look back or from which to look ahead."
+      },
+      "editable": {
+        "ok": "A story has no beginning or end—arbitrarily one chooses that moment of experience from which to look back or from which to look ahead."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  A story has no beginning or end—arbitrarily one chooses that moment of experience from which to look back or from which to look ahead.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "A story has no beginning or end—arbitrarily one chooses that moment of experience from which to look back or from which to look ahead."
+      }
+    },
+    {
+      "message_id": 746403085,
+      "body": "And innocence is a kind of insanity",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  And innocence is a kind of insanity\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "And innocence is a kind of insanity"
+      },
+      "editable": {
+        "ok": "And innocence is a kind of insanity"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  And innocence is a kind of insanity\n</div>\n"
+      },
+      "canonical": {
+        "ok": "And innocence is a kind of insanity"
+      }
+    },
+    {
+      "message_id": 749124092,
+      "body": "The sense of unhappiness is so much easier to convey than that of happiness. In misery we seem aware of our own existence, even though it may be in the form of a monstrous egotism—this pain of mine is individual, this nerve that winces belongs to me and to no other. But happiness annihilates us—we lose our identity.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  The sense of unhappiness is so much easier to convey than that of happiness. In misery we seem aware of our own existence, even though it may be in the form of a monstrous egotism—this pain of mine is individual, this nerve that winces belongs to me and to no other. But happiness annihilates us—we lose our identity.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "The sense of unhappiness is so much easier to convey than that of happiness. In misery we seem aware of our own existence, even though it may be in the form of a monstrous egotism—this pain of mine is individual, this nerve that winces belongs to me and to no other. But happiness annihilates us—we lose our identity."
+      },
+      "editable": {
+        "ok": "The sense of unhappiness is so much easier to convey than that of happiness. In misery we seem aware of our own existence, even though it may be in the form of a monstrous egotism—this pain of mine is individual, this nerve that winces belongs to me and to no other. But happiness annihilates us—we lose our identity."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  The sense of unhappiness is so much easier to convey than that of happiness. In misery we seem aware of our own existence, even though it may be in the form of a monstrous egotism—this pain of mine is individual, this nerve that winces belongs to me and to no other. But happiness annihilates us—we lose our identity.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "The sense of unhappiness is so much easier to convey than that of happiness. In misery we seem aware of our own existence, even though it may be in the form of a monstrous egotism—this pain of mine is individual, this nerve that winces belongs to me and to no other. But happiness annihilates us—we lose our identity."
+      }
+    },
+    {
+      "message_id": 908005739,
+      "body": "Seconded.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  Seconded.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Seconded."
+      },
+      "editable": {
+        "ok": "Seconded."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  Seconded.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "Seconded."
+      }
+    },
+    {
+      "message_id": 925779126,
+      "body": "Pain is easy to write. In pain we're all happily individual. But what can one write about happiness?",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  Pain is easy to write. In pain we're all happily individual. But what can one write about happiness?\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Pain is easy to write. In pain we're all happily individual. But what can one write about happiness?"
+      },
+      "editable": {
+        "ok": "Pain is easy to write. In pain we're all happily individual. But what can one write about happiness?"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  Pain is easy to write. In pain we're all happily individual. But what can one write about happiness?\n</div>\n"
+      },
+      "canonical": {
+        "ok": "Pain is easy to write. In pain we're all happily individual. But what can one write about happiness?"
+      }
+    },
+    {
+      "message_id": 933434481,
+      "body": "You know what the fellow said – in Italy, for thirty years under the Borgias, they had warfare, terror, murder and bloodshed, but they produced Michelangelo, Leonardo da Vinci and the Renaissance. In Switzerland, they had brotherly love, they had five hundred years of democracy and peace – and what did that produce? The cuckoo clock.",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  You know what the fellow said – in Italy, for thirty years under the Borgias, they had warfare, terror, murder and bloodshed, but they produced Michelangelo, Leonardo da Vinci and the Renaissance. In Switzerland, they had brotherly love, they had five hundred years of democracy and peace – and what did that produce? The cuckoo clock.\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "You know what the fellow said – in Italy, for thirty years under the Borgias, they had warfare, terror, murder and bloodshed, but they produced Michelangelo, Leonardo da Vinci and the Renaissance. In Switzerland, they had brotherly love, they had five hundred years of democracy and peace – and what did that produce? The cuckoo clock."
+      },
+      "editable": {
+        "ok": "You know what the fellow said – in Italy, for thirty years under the Borgias, they had warfare, terror, murder and bloodshed, but they produced Michelangelo, Leonardo da Vinci and the Renaissance. In Switzerland, they had brotherly love, they had five hundred years of democracy and peace – and what did that produce? The cuckoo clock."
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  You know what the fellow said – in Italy, for thirty years under the Borgias, they had warfare, terror, murder and bloodshed, but they produced Michelangelo, Leonardo da Vinci and the Renaissance. In Switzerland, they had brotherly love, they had five hundred years of democracy and peace – and what did that produce? The cuckoo clock.\n</div>\n"
+      },
+      "canonical": {
+        "ok": "You know what the fellow said – in Italy, for thirty years under the Borgias, they had warfare, terror, murder and bloodshed, but they produced Michelangelo, Leonardo da Vinci and the Renaissance. In Switzerland, they had brotherly love, they had five hundred years of democracy and peace – and what did that produce? The cuckoo clock."
+      }
+    },
+    {
+      "message_id": 933434482,
+      "body": "<p>Morning! Anyone around?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Morning! Anyone around?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Morning! Anyone around?"
+      },
+      "editable": {
+        "ok": "<p>Morning! Anyone around?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Morning! Anyone around?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Morning! Anyone around?</p>"
+      }
+    },
+    {
+      "message_id": 933434483,
+      "body": "<p>Coffee first, then the launch plan.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Coffee first, then the launch plan.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Coffee first, then the launch plan."
+      },
+      "editable": {
+        "ok": "<p>Coffee first, then the launch plan.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Coffee first, then the launch plan.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Coffee first, then the launch plan.</p>"
+      }
+    },
+    {
+      "message_id": 933434484,
+      "body": "<p>Here's the plan for the <strong>spring launch</strong>, as discussed on <em>Friday</em>:</p> <ol><li>Finish the onboarding copy</li><li>Record the walkthrough video</li><li>Ship it on <code>2026-03-16</code></li></ol> <blockquote>Simplicity is prerequisite for reliability.</blockquote> <p>Everything else can wait. The details are on <a href=\"https://example.com/launch\">the launch page</a>.</p> <ul><li>Design review on Tuesday</li><li>Copy review on Wednesday</li></ul> <h2>Open questions</h2> <p>We still need to decide whether the walkthrough video should autoplay, how long the free trial runs, and who owns the announcement post. None of these block the build, but all of them block the launch, so let's get answers by Thursday. If you have opinions, now is the time to share them, preferably with reasons, alternatives, and a rough idea of what each option would cost us in time and attention.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Here's the plan for the <strong>spring launch</strong>, as discussed on <em>Friday</em>:</p> <ol><li>Finish the onboarding copy</li><li>Record the walkthrough video</li><li>Ship it on <code>2026-03-16</code></li></ol> <blockquote>Simplicity is prerequisite for reliability.</blockquote> <p>Everything else can wait. The details are on <a href=\"https://example.com/launch\">the launch page</a>.</p> <ul><li>Design review on Tuesday</li><li>Copy review on Wednesday</li></ul> <h2>Open questions</h2> <p>We still need to decide whether the walkthrough video should autoplay, how long the free trial runs, and who owns the announcement post. None of these block the build, but all of them block the launch, so let's get answers by Thursday. If you have opinions, now is the time to share them, preferably with reasons, alternatives, and a rough idea of what each option would cost us in time and attention.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Here's the plan for the spring launch, as discussed on Friday:\n\n 1. Finish the onboarding copy\n2. Record the walkthrough video\n3. Ship it on 2026-03-16\n\n “Simplicity is prerequisite for reliability.”\n\n Everything else can wait. The details are on the launch page.\n\n • Design review on Tuesday\n• Copy review on Wednesday\n\n Open questions We still need to decide whether the walkthrough video should autoplay, how long the free trial runs, and who owns the announcement post. None of these block the build, but all of them block the launch, so let's get answers by Thursday. If you have opinions, now is the time to share them, preferably with reasons, alternatives, and a rough idea of what each option would cost us in time and attention."
+      },
+      "editable": {
+        "ok": "<p>Here's the plan for the <strong>spring launch</strong>, as discussed on <em>Friday</em>:</p> <ol><li>Finish the onboarding copy</li><li>Record the walkthrough video</li><li>Ship it on <code>2026-03-16</code></li></ol> <blockquote>Simplicity is prerequisite for reliability.</blockquote> <p>Everything else can wait. The details are on <a href=\"https://example.com/launch\">the launch page</a>.</p> <ul><li>Design review on Tuesday</li><li>Copy review on Wednesday</li></ul> <h2>Open questions</h2> <p>We still need to decide whether the walkthrough video should autoplay, how long the free trial runs, and who owns the announcement post. None of these block the build, but all of them block the launch, so let's get answers by Thursday. If you have opinions, now is the time to share them, preferably with reasons, alternatives, and a rough idea of what each option would cost us in time and attention.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Here's the plan for the <strong>spring launch</strong>, as discussed on <em>Friday</em>:</p> <ol><li>Finish the onboarding copy</li><li>Record the walkthrough video</li><li>Ship it on <code>2026-03-16</code></li></ol> <blockquote>Simplicity is prerequisite for reliability.</blockquote> <p>Everything else can wait. The details are on <a href=\"https://example.com/launch\">the launch page</a>.</p> <ul><li>Design review on Tuesday</li><li>Copy review on Wednesday</li></ul> <h2>Open questions</h2> <p>We still need to decide whether the walkthrough video should autoplay, how long the free trial runs, and who owns the announcement post. None of these block the build, but all of them block the launch, so let's get answers by Thursday. If you have opinions, now is the time to share them, preferably with reasons, alternatives, and a rough idea of what each option would cost us in time and attention.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Here's the plan for the <strong>spring launch</strong>, as discussed on <em>Friday</em>:</p> <ol><li>Finish the onboarding copy</li><li>Record the walkthrough video</li><li>Ship it on <code>2026-03-16</code></li></ol> <blockquote>Simplicity is prerequisite for reliability.</blockquote> <p>Everything else can wait. The details are on <a href=\"https://example.com/launch\">the launch page</a>.</p> <ul><li>Design review on Tuesday</li><li>Copy review on Wednesday</li></ul> <h2>Open questions</h2> <p>We still need to decide whether the walkthrough video should autoplay, how long the free trial runs, and who owns the announcement post. None of these block the build, but all of them block the launch, so let's get answers by Thursday. If you have opinions, now is the time to share them, preferably with reasons, alternatives, and a rough idea of what each option would cost us in time and attention.</p>"
+      }
+    },
+    {
+      "message_id": 933434485,
+      "body": "<p>🎉🔥</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>🎉🔥</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "🎉🔥"
+      },
+      "editable": {
+        "ok": "<p>🎉🔥</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>🎉🔥</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>🎉🔥</p>"
+      }
+    },
+    {
+      "message_id": 933434486,
+      "body": "<p>The helper we talked about:</p><pre data-language=\"ruby\">def greet(name)<br>  \"Hello, #{name}!\"<br>end</pre>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>The helper we talked about:</p><pre data-language=\"ruby\">def greet(name)<br>  \"Hello, #{name}!\"<br>end</pre>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "The helper we talked about:\n\ndef greet(name)\n  \"Hello, #{name}!\"\nend"
+      },
+      "editable": {
+        "ok": "<p>The helper we talked about:</p><pre data-language=\"ruby\">def greet(name)<br>  \"Hello, #{name}!\"<br>end</pre>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>The helper we talked about:</p><pre data-language=\"ruby\">def greet(name)<br>  \"Hello, #{name}!\"<br>end</pre>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>The helper we talked about:</p><pre data-language=\"ruby\">def greet(name)<br>  \"Hello, #{name}!\"<br>end</pre>"
+      }
+    },
+    {
+      "message_id": 933434487,
+      "body": "<pre>plain preformatted\n  text without a language</pre>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <pre>plain preformatted\n  text without a language</pre>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "plain preformatted\n  text without a language"
+      },
+      "editable": {
+        "ok": "<pre>plain preformatted\n  text without a language</pre>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <pre>plain preformatted\n  text without a language</pre>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<pre>plain preformatted\n  text without a language</pre>"
+      }
+    },
+    {
+      "message_id": 933434488,
+      "body": "<figure class=\"lexxy-content__table-wrapper\"><table><tbody> <tr><th><p>Name</p></th><th><p>Role</p></th><th><p>Points</p></th></tr> <tr><td><p>Jason</p></td><td><p>Design</p></td><td><p>10</p></td></tr> <tr><td><p>Kevin</p></td><td><p>Programming</p></td><td><p>7</p></td></tr> </tbody></table></figure>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <table><tbody> <tr><th><p>Name</p></th><th><p>Role</p></th><th><p>Points</p></th></tr> <tr><td><p>Jason</p></td><td><p>Design</p></td><td><p>10</p></td></tr> <tr><td><p>Kevin</p></td><td><p>Programming</p></td><td><p>7</p></td></tr> </tbody></table>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": " Name\n\nRole\n\nPoints\n\n Jason\n\nDesign\n\n10\n\n Kevin\n\nProgramming\n\n7\n\n "
+      },
+      "editable": {
+        "ok": "<figure class=\"lexxy-content__table-wrapper\"><table><tbody> <tr><th><p>Name</p></th><th><p>Role</p></th><th><p>Points</p></th></tr> <tr><td><p>Jason</p></td><td><p>Design</p></td><td><p>10</p></td></tr> <tr><td><p>Kevin</p></td><td><p>Programming</p></td><td><p>7</p></td></tr> </tbody></table></figure>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <figure class=\"lexxy-content__table-wrapper\"><table><tbody> <tr><th><p>Name</p></th><th><p>Role</p></th><th><p>Points</p></th></tr> <tr><td><p>Jason</p></td><td><p>Design</p></td><td><p>10</p></td></tr> <tr><td><p>Kevin</p></td><td><p>Programming</p></td><td><p>7</p></td></tr> </tbody></table></figure>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<figure class=\"lexxy-content__table-wrapper\"><table><tbody> <tr><th><p>Name</p></th><th><p>Role</p></th><th><p>Points</p></th></tr> <tr><td><p>Jason</p></td><td><p>Design</p></td><td><p>10</p></td></tr> <tr><td><p>Kevin</p></td><td><p>Programming</p></td><td><p>7</p></td></tr> </tbody></table></figure>"
+      }
+    },
+    {
+      "message_id": 933434489,
+      "body": "<p>Hello <s>struck</s> <u>underlined</u> <mark>marked</mark> and <strong>bold</strong> <em>italic</em> <del>deleted</del>.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Hello <s>struck</s> <u>underlined</u> <mark>marked</mark> and <strong>bold</strong> <em>italic</em> <del>deleted</del>.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Hello struck underlined marked and bold italic deleted."
+      },
+      "editable": {
+        "ok": "<p>Hello <s>struck</s> <u>underlined</u> <mark>marked</mark> and <strong>bold</strong> <em>italic</em> <del>deleted</del>.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Hello <s>struck</s> <u>underlined</u> <mark>marked</mark> and <strong>bold</strong> <em>italic</em> <del>deleted</del>.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Hello <s>struck</s> <u>underlined</u> <mark>marked</mark> and <strong>bold</strong> <em>italic</em> <del>deleted</del>.</p>"
+      }
+    },
+    {
+      "message_id": 933434490,
+      "body": "<p>Hey <action-text-attachment sgid=\"eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvNzEyMDY0NTQ4P2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--d0a40415a4467fadc57ebdbbb08a6714ece2decf\" content-type=\"application/vnd.campfire.mention\" content=\"<span class=\" mention\"=\"\"></action-text-attachment>, can you check the table above?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Hey <span class=\"mention\"><a title=\"Kevin – Programmer\" class=\"btn avatar\" href=\"/users/712064548\"><img src=\"/users/eyJfcmFpbHMiOnsiZGF0YSI6NzEyMDY0NTQ4LCJwdXIiOiJ1c2VyL2F2YXRhciJ9fQ--24266f3c12491a2bac3805904b69ddeab0735455b7506b41b2cafe75aa085301/avatar?v=20260102190000\" width=\"48\" height=\"48\"></a> Kevin</span>, can you check the table above?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Hey @Kevin, can you check the table above?"
+      },
+      "editable": {
+        "ok": "<p>Hey <action-text-attachment sgid=\"eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvNzEyMDY0NTQ4P2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--d0a40415a4467fadc57ebdbbb08a6714ece2decf\" content-type=\"application/vnd.campfire.mention\" content=\"&quot;\\u003cspan class=\\&quot;mention\\&quot; sgid=\\&quot;eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvNzEyMDY0NTQ4P2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--d0a40415a4467fadc57ebdbbb08a6714ece2decf\\&quot;\\u003e\\u003ca title=\\&quot;Kevin – Programmer\\&quot; class=\\&quot;btn avatar\\&quot; data-turbo-frame=\\&quot;_top\\&quot; href=\\&quot;/users/712064548\\&quot;\\u003e\\u003cimg aria-hidden=\\&quot;true\\&quot; src=\\&quot;/users/eyJfcmFpbHMiOnsiZGF0YSI6NzEyMDY0NTQ4LCJwdXIiOiJ1c2VyL2F2YXRhciJ9fQ--24266f3c12491a2bac3805904b69ddeab0735455b7506b41b2cafe75aa085301/avatar?v=20260102190000\\&quot; width=\\&quot;48\\&quot; height=\\&quot;48\\&quot; /\\u003e\\u003c/a\\u003e Kevin\\u003c/span\\u003e&quot;\" mention\"=\"\"></action-text-attachment>, can you check the table above?</p>"
+      },
+      "mentioned": {
+        "ok": [
+          712064548
+        ]
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Hey <action-text-attachment sgid=\"eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvNzEyMDY0NTQ4P2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--d0a40415a4467fadc57ebdbbb08a6714ece2decf\" content-type=\"application/vnd.campfire.mention\"><span class=\"mention\" sgid=\"eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvNzEyMDY0NTQ4P2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--d0a40415a4467fadc57ebdbbb08a6714ece2decf\"><a title=\"Kevin – Programmer\" class=\"btn avatar\" href=\"/users/712064548\"><img src=\"/users/eyJfcmFpbHMiOnsiZGF0YSI6NzEyMDY0NTQ4LCJwdXIiOiJ1c2VyL2F2YXRhciJ9fQ--24266f3c12491a2bac3805904b69ddeab0735455b7506b41b2cafe75aa085301/avatar?v=20260102190000\" width=\"48\" height=\"48\"></a> Kevin</span></action-text-attachment>, can you check the table above?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Hey <action-text-attachment sgid=\"eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvNzEyMDY0NTQ4P2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--d0a40415a4467fadc57ebdbbb08a6714ece2decf\" content-type=\"application/vnd.campfire.mention\" content=\"<span class=\" mention\"=\"\"></action-text-attachment>, can you check the table above?</p>"
+      }
+    },
+    {
+      "message_id": 933434491,
+      "body": "<div>Thanks <action-text-attachment sgid=\"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaUpuYVdRNkx5OWpZVzF3Wm1seVpTOVZjMlZ5THpFeU56TXlOakUwTVFZNkJrVlUiLCJleHAiOm51bGwsInB1ciI6ImF0dGFjaGFibGUifX0=--0123456789abcdef0123456789abcdef01234567\" content-type=\"application/vnd.campfire.mention\"></action-text-attachment>, that was from the old days.</div>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <div>Thanks <span class=\"mention\"><a title=\"David\" class=\"btn avatar\" href=\"/users/127326141\"><img src=\"/users/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MzI2MTQxLCJwdXIiOiJ1c2VyL2F2YXRhciJ9fQ--0ac8233a4786ee6c413408416bb81e7107534db5702d351533dc2ecd3876e97f/avatar?v=20260102160000\" width=\"48\" height=\"48\"></a> David</span>, that was from the old days.</div>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Thanks @David, that was from the old days."
+      },
+      "editable": {
+        "ok": "<div>Thanks <action-text-attachment sgid=\"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaUpuYVdRNkx5OWpZVzF3Wm1seVpTOVZjMlZ5THpFeU56TXlOakUwTVFZNkJrVlUiLCJleHAiOm51bGwsInB1ciI6ImF0dGFjaGFibGUifX0=--0123456789abcdef0123456789abcdef01234567\" content-type=\"application/vnd.campfire.mention\" content=\"&quot;\\u003cspan class=\\&quot;mention\\&quot; sgid=\\&quot;eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvMTI3MzI2MTQxP2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--1414c176d887b93f598c6ee1ebd1bff537c56421\\&quot;\\u003e\\u003ca title=\\&quot;David\\&quot; class=\\&quot;btn avatar\\&quot; data-turbo-frame=\\&quot;_top\\&quot; href=\\&quot;/users/127326141\\&quot;\\u003e\\u003cimg aria-hidden=\\&quot;true\\&quot; src=\\&quot;/users/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MzI2MTQxLCJwdXIiOiJ1c2VyL2F2YXRhciJ9fQ--0ac8233a4786ee6c413408416bb81e7107534db5702d351533dc2ecd3876e97f/avatar?v=20260102160000\\&quot; width=\\&quot;48\\&quot; height=\\&quot;48\\&quot; /\\u003e\\u003c/a\\u003e David\\u003c/span\\u003e&quot;\"></action-text-attachment>, that was from the old days.</div>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <div>Thanks <action-text-attachment sgid=\"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaUpuYVdRNkx5OWpZVzF3Wm1seVpTOVZjMlZ5THpFeU56TXlOakUwTVFZNkJrVlUiLCJleHAiOm51bGwsInB1ciI6ImF0dGFjaGFibGUifX0=--0123456789abcdef0123456789abcdef01234567\" content-type=\"application/vnd.campfire.mention\"><span class=\"mention\" sgid=\"eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2NhbXBmaXJlL1VzZXIvMTI3MzI2MTQxP2V4cGlyZXNfaW4iLCJwdXIiOiJhdHRhY2hhYmxlIn19--1414c176d887b93f598c6ee1ebd1bff537c56421\"><a title=\"David\" class=\"btn avatar\" href=\"/users/127326141\"><img src=\"/users/eyJfcmFpbHMiOnsiZGF0YSI6MTI3MzI2MTQxLCJwdXIiOiJ1c2VyL2F2YXRhciJ9fQ--0ac8233a4786ee6c413408416bb81e7107534db5702d351533dc2ecd3876e97f/avatar?v=20260102160000\" width=\"48\" height=\"48\"></a> David</span></action-text-attachment>, that was from the old days.</div>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<div>Thanks <action-text-attachment sgid=\"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaUpuYVdRNkx5OWpZVzF3Wm1seVpTOVZjMlZ5THpFeU56TXlOakUwTVFZNkJrVlUiLCJleHAiOm51bGwsInB1ciI6ImF0dGFjaGFibGUifX0=--0123456789abcdef0123456789abcdef01234567\" content-type=\"application/vnd.campfire.mention\"></action-text-attachment>, that was from the old days.</div>"
+      }
+    },
+    {
+      "message_id": 933434492,
+      "body": "/play 56k",
+      "content_type": "sound",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": "/play 56k"
+      },
+      "editable": {
+        "ok": "/play 56k"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  /play 56k\n</div>\n"
+      },
+      "canonical": {
+        "ok": "/play 56k"
+      }
+    },
+    {
+      "message_id": 933434493,
+      "body": "/play bell",
+      "content_type": "sound",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": "/play bell"
+      },
+      "editable": {
+        "ok": "/play bell"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  /play bell\n</div>\n"
+      },
+      "canonical": {
+        "ok": "/play bell"
+      }
+    },
+    {
+      "message_id": 933434494,
+      "body": "<p>This is what we're up against: <a href=\"https://example.com/cookies\">https://example.com/cookies</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"<actiontext-opengraph-embed><div class=&quot;og-embed gap &quot;> <div class=&quot;og-embed__content&quot;><div class=&quot;og-embed__title&quot;><a href=&quot;https://example.com/cookies&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;>Free cookies for everyone</a></div> <div class=&quot;og-embed__description&quot;>A bakery gives away a cookie to anyone who asks nicely, every day at noon.</div></div><div class=&quot;og-embed__image&quot;><img src=&quot;https://example.com/og/cookies.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot; /></div></div></actiontext-opengraph-embed>\"></action-text-attachment>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>This is what we're up against: <a href=\"https://example.com/cookies\">https://example.com/cookies</a></p> \n  \n    <div class=\"og-embed gap \">\n      <div class=\"og-embed__content\">\n        <div class=\"og-embed__title\">\n          <a href=\"https://example.com/cookies\">Free cookies for everyone</a>\n        </div>\n        <div class=\"og-embed__description\">A bakery gives away a cookie to anyone who asks nicely, every day at noon.</div>\n      </div>\n        <div class=\"og-embed__image\">\n          <img src=\"https://example.com/og/cookies.jpg\" class=\"image center\" alt=\"\">\n        </div>\n    </div>\n  \n\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "This is what we're up against: https://example.com/cookies\n\n "
+      },
+      "editable": {
+        "ok": "<p>This is what we're up against: <a href=\"https://example.com/cookies\">https://example.com/cookies</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"&quot;\\u003cfigure class=\\&quot;attachment attachment--content attachment--og\\&quot;\\u003e\\n  \\u003cactiontext-opengraph-embed\\u003e\\n    \\u003cdiv class=\\&quot;og-embed gap \\&quot;\\u003e\\n      \\u003cdiv class=\\&quot;og-embed__content\\&quot;\\u003e\\n        \\u003cdiv class=\\&quot;og-embed__title\\&quot;\\u003e\\n          \\u003ca rel=\\&quot;noreferrer\\&quot; target=\\&quot;_blank\\&quot; href=\\&quot;https://example.com/cookies\\&quot;\\u003eFree cookies for everyone\\u003c/a\\u003e\\n        \\u003c/div\\u003e\\n        \\u003cdiv class=\\&quot;og-embed__description\\&quot;\\u003eA bakery gives away a cookie to anyone who asks nicely, every day at noon.\\u003c/div\\u003e\\n      \\u003c/div\\u003e\\n        \\u003cdiv class=\\&quot;og-embed__image\\&quot;\\u003e\\n          \\u003cimg src=\\&quot;https://example.com/og/cookies.jpg\\&quot; class=\\&quot;image center\\&quot; alt=\\&quot;\\&quot;\\u003e\\n        \\u003c/div\\u003e\\n    \\u003c/div\\u003e\\n  \\u003c/actiontext-opengraph-embed\\u003e\\n\\u003c/figure\\u003e&quot;\"></action-text-attachment>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>This is what we're up against: <a href=\"https://example.com/cookies\">https://example.com/cookies</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"<div class=&quot;og-embed gap &quot;> <div class=&quot;og-embed__content&quot;><div class=&quot;og-embed__title&quot;><a href=&quot;https://example.com/cookies&quot;>Free cookies for everyone</a></div> <div class=&quot;og-embed__description&quot;>A bakery gives away a cookie to anyone who asks nicely, every day at noon.</div></div><div class=&quot;og-embed__image&quot;><img src=&quot;https://example.com/og/cookies.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot;></div></div>\"><figure class=\"attachment attachment--content attachment--og\">\n  \n    <div class=\"og-embed gap \">\n      <div class=\"og-embed__content\">\n        <div class=\"og-embed__title\">\n          <a href=\"https://example.com/cookies\">Free cookies for everyone</a>\n        </div>\n        <div class=\"og-embed__description\">A bakery gives away a cookie to anyone who asks nicely, every day at noon.</div>\n      </div>\n        <div class=\"og-embed__image\">\n          <img src=\"https://example.com/og/cookies.jpg\" class=\"image center\" alt=\"\">\n        </div>\n    </div>\n  \n</figure></action-text-attachment>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>This is what we're up against: <a href=\"https://example.com/cookies\">https://example.com/cookies</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"<actiontext-opengraph-embed><div class=&quot;og-embed gap &quot;> <div class=&quot;og-embed__content&quot;><div class=&quot;og-embed__title&quot;><a href=&quot;https://example.com/cookies&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;>Free cookies for everyone</a></div> <div class=&quot;og-embed__description&quot;>A bakery gives away a cookie to anyone who asks nicely, every day at noon.</div></div><div class=&quot;og-embed__image&quot;><img src=&quot;https://example.com/og/cookies.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot; /></div></div></actiontext-opengraph-embed>\"></action-text-attachment>"
+      }
+    },
+    {
+      "message_id": 933434495,
+      "body": "<p><a href=\"https://example.com/launch\">https://example.com/launch</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"<actiontext-opengraph-embed><div class=&quot;og-embed gap &quot;> <div class=&quot;og-embed__content&quot;><div class=&quot;og-embed__title&quot;><a href=&quot;https://example.com/launch&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;>Spring launch</a></div> <div class=&quot;og-embed__description&quot;>Everything you need to know about the spring launch.</div></div><div class=&quot;og-embed__image&quot;><img src=&quot;https://example.com/og/launch.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot; /></div></div></actiontext-opengraph-embed>\"></action-text-attachment>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p><a href=\"https://example.com/launch\">https://example.com/launch</a></p> \n  \n    <div class=\"og-embed gap \">\n      <div class=\"og-embed__content\">\n        <div class=\"og-embed__title\">\n          <a href=\"https://example.com/launch\">Spring launch</a>\n        </div>\n        <div class=\"og-embed__description\">Everything you need to know about the spring launch.</div>\n      </div>\n        <div class=\"og-embed__image\">\n          <img src=\"https://example.com/og/launch.jpg\" class=\"image center\" alt=\"\">\n        </div>\n    </div>\n  \n\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "https://example.com/launch\n\n "
+      },
+      "editable": {
+        "ok": "<p><a href=\"https://example.com/launch\">https://example.com/launch</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"&quot;\\u003cfigure class=\\&quot;attachment attachment--content attachment--og\\&quot;\\u003e\\n  \\u003cactiontext-opengraph-embed\\u003e\\n    \\u003cdiv class=\\&quot;og-embed gap \\&quot;\\u003e\\n      \\u003cdiv class=\\&quot;og-embed__content\\&quot;\\u003e\\n        \\u003cdiv class=\\&quot;og-embed__title\\&quot;\\u003e\\n          \\u003ca rel=\\&quot;noreferrer\\&quot; target=\\&quot;_blank\\&quot; href=\\&quot;https://example.com/launch\\&quot;\\u003eSpring launch\\u003c/a\\u003e\\n        \\u003c/div\\u003e\\n        \\u003cdiv class=\\&quot;og-embed__description\\&quot;\\u003eEverything you need to know about the spring launch.\\u003c/div\\u003e\\n      \\u003c/div\\u003e\\n        \\u003cdiv class=\\&quot;og-embed__image\\&quot;\\u003e\\n          \\u003cimg src=\\&quot;https://example.com/og/launch.jpg\\&quot; class=\\&quot;image center\\&quot; alt=\\&quot;\\&quot;\\u003e\\n        \\u003c/div\\u003e\\n    \\u003c/div\\u003e\\n  \\u003c/actiontext-opengraph-embed\\u003e\\n\\u003c/figure\\u003e&quot;\"></action-text-attachment>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p><a href=\"https://example.com/launch\">https://example.com/launch</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"<div class=&quot;og-embed gap &quot;> <div class=&quot;og-embed__content&quot;><div class=&quot;og-embed__title&quot;><a href=&quot;https://example.com/launch&quot;>Spring launch</a></div> <div class=&quot;og-embed__description&quot;>Everything you need to know about the spring launch.</div></div><div class=&quot;og-embed__image&quot;><img src=&quot;https://example.com/og/launch.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot;></div></div>\"><figure class=\"attachment attachment--content attachment--og\">\n  \n    <div class=\"og-embed gap \">\n      <div class=\"og-embed__content\">\n        <div class=\"og-embed__title\">\n          <a href=\"https://example.com/launch\">Spring launch</a>\n        </div>\n        <div class=\"og-embed__description\">Everything you need to know about the spring launch.</div>\n      </div>\n        <div class=\"og-embed__image\">\n          <img src=\"https://example.com/og/launch.jpg\" class=\"image center\" alt=\"\">\n        </div>\n    </div>\n  \n</figure></action-text-attachment>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p><a href=\"https://example.com/launch\">https://example.com/launch</a></p> <action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" content=\"<actiontext-opengraph-embed><div class=&quot;og-embed gap &quot;> <div class=&quot;og-embed__content&quot;><div class=&quot;og-embed__title&quot;><a href=&quot;https://example.com/launch&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot;>Spring launch</a></div> <div class=&quot;og-embed__description&quot;>Everything you need to know about the spring launch.</div></div><div class=&quot;og-embed__image&quot;><img src=&quot;https://example.com/og/launch.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot; /></div></div></actiontext-opengraph-embed>\"></action-text-attachment>"
+      }
+    },
+    {
+      "message_id": 933434496,
+      "body": "<div>https://twitter.com/37signals/status/1750290547908952568<action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" url=\"https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg\" href=\"https://twitter.com/37signals/status/1750290547908952568\" filename=\"37signals (@37signals)\" caption=\"We're back up on all apps, everyone.\"></action-text-attachment></div>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <div>\n  \n    <div class=\"og-embed gap og-embed--twitter-avatar\">\n      <div class=\"og-embed__content\">\n        <div class=\"og-embed__title\">\n          <a href=\"https://twitter.com/37signals/status/1750290547908952568\">37signals (@37signals)</a>\n        </div>\n        <div class=\"og-embed__description\">We're back up on all apps, everyone.</div>\n      </div>\n        <div class=\"og-embed__image\">\n          <img src=\"https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg\" class=\"image center\" alt=\"\">\n        </div>\n    </div>\n  \n</div>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "https://twitter.com/37signals/status/1750290547908952568"
+      },
+      "editable": {
+        "ok": "<div>https://twitter.com/37signals/status/1750290547908952568<action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" url=\"https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg\" href=\"https://twitter.com/37signals/status/1750290547908952568\" filename=\"37signals (@37signals)\" caption=\"We're back up on all apps, everyone.\" content=\"<figure class=&quot;attachment attachment--content attachment--og&quot;>\n  <actiontext-opengraph-embed>\n    <div class=&quot;og-embed gap og-embed--twitter-avatar&quot;>\n      <div class=&quot;og-embed__content&quot;>\n        <div class=&quot;og-embed__title&quot;>\n          <a rel=&quot;noreferrer&quot; target=&quot;_blank&quot; href=&quot;https://twitter.com/37signals/status/1750290547908952568&quot;>37signals (@37signals)</a>\n        </div>\n        <div class=&quot;og-embed__description&quot;>We&amp;#39;re back up on all apps, everyone.</div>\n      </div>\n        <div class=&quot;og-embed__image&quot;>\n          <img src=&quot;https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg&quot; class=&quot;image center&quot; alt=&quot;&quot;>\n        </div>\n    </div>\n  </actiontext-opengraph-embed>\n</figure>\"></action-text-attachment></div>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <div>https://twitter.com/37signals/status/1750290547908952568<action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" url=\"https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg\" href=\"https://twitter.com/37signals/status/1750290547908952568\" filename=\"37signals (@37signals)\" caption=\"We're back up on all apps, everyone.\"><figure class=\"attachment attachment--content attachment--og\">\n  \n    <div class=\"og-embed gap og-embed--twitter-avatar\">\n      <div class=\"og-embed__content\">\n        <div class=\"og-embed__title\">\n          <a href=\"https://twitter.com/37signals/status/1750290547908952568\">37signals (@37signals)</a>\n        </div>\n        <div class=\"og-embed__description\">We're back up on all apps, everyone.</div>\n      </div>\n        <div class=\"og-embed__image\">\n          <img src=\"https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg\" class=\"image center\" alt=\"\">\n        </div>\n    </div>\n  \n</figure></action-text-attachment></div>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<div>https://twitter.com/37signals/status/1750290547908952568<action-text-attachment content-type=\"application/vnd.actiontext.opengraph-embed\" url=\"https://pbs.twimg.com/profile_images/1671940407633010689/avatar_200x200.jpg\" href=\"https://twitter.com/37signals/status/1750290547908952568\" filename=\"37signals (@37signals)\" caption=\"We're back up on all apps, everyone.\"></action-text-attachment></div>"
+      }
+    },
+    {
+      "message_id": 933434497,
+      "body": "<p>Docs are at https://example.com/docs and the old ones at http://example.org/docs</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Docs are at <a target=\"_blank\" href=\"https://example.com/docs\">https://example.com/docs</a> and the old ones at <a target=\"_blank\" href=\"http://example.org/docs\">http://example.org/docs</a></p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Docs are at https://example.com/docs and the old ones at http://example.org/docs"
+      },
+      "editable": {
+        "ok": "<p>Docs are at https://example.com/docs and the old ones at http://example.org/docs</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Docs are at https://example.com/docs and the old ones at http://example.org/docs</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Docs are at https://example.com/docs and the old ones at http://example.org/docs</p>"
+      }
+    },
+    {
+      "message_id": 933434498,
+      "body": null,
+      "content_type": "attachment",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": ""
+      },
+      "editable": {
+        "ok": null
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": ""
+      },
+      "canonical": {
+        "ok": null
+      }
+    },
+    {
+      "message_id": 933434499,
+      "body": null,
+      "content_type": "attachment",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": ""
+      },
+      "editable": {
+        "ok": null
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": ""
+      },
+      "canonical": {
+        "ok": null
+      }
+    },
+    {
+      "message_id": 933434500,
+      "body": null,
+      "content_type": "attachment",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": ""
+      },
+      "editable": {
+        "ok": null
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": ""
+      },
+      "canonical": {
+        "ok": null
+      }
+    },
+    {
+      "message_id": 933434501,
+      "body": null,
+      "content_type": "attachment",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": ""
+      },
+      "editable": {
+        "ok": null
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": ""
+      },
+      "canonical": {
+        "ok": null
+      }
+    },
+    {
+      "message_id": 933434502,
+      "body": null,
+      "content_type": "attachment",
+      "presentation": {
+        "ok": null
+      },
+      "plain_text": {
+        "ok": ""
+      },
+      "editable": {
+        "ok": null
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": ""
+      },
+      "canonical": {
+        "ok": null
+      }
+    },
+    {
+      "message_id": 933434503,
+      "body": "<p>Deployed campfire@4f2c1e9 to production ✅</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Deployed campfire@4f2c1e9 to production ✅</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Deployed campfire@4f2c1e9 to production ✅"
+      },
+      "editable": {
+        "ok": "<p>Deployed campfire@4f2c1e9 to production ✅</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Deployed campfire@4f2c1e9 to production ✅</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Deployed campfire@4f2c1e9 to production ✅</p>"
+      }
+    },
+    {
+      "message_id": 933434504,
+      "body": "<p>I'll be out of office next week.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>I'll be out of office next week.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "I'll be out of office next week."
+      },
+      "editable": {
+        "ok": "<p>I'll be out of office next week.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>I'll be out of office next week.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>I'll be out of office next week.</p>"
+      }
+    },
+    {
+      "message_id": 933434505,
+      "body": "<p>Launch is on the 16th.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Launch is on the 16th.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Launch is on the 16th."
+      },
+      "editable": {
+        "ok": "<p>Launch is on the 16th.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Launch is on the 16th.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Launch is on the 16th.</p>"
+      }
+    },
+    {
+      "message_id": 933434506,
+      "body": "<p>Nobody boosted this one.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Nobody boosted this one.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Nobody boosted this one."
+      },
+      "editable": {
+        "ok": "<p>Nobody boosted this one.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Nobody boosted this one.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Nobody boosted this one.</p>"
+      }
+    },
+    {
+      "message_id": 933434507,
+      "body": "<p>Big news: the beta is open!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Big news: the beta is open!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Big news: the beta is open!"
+      },
+      "editable": {
+        "ok": "<p>Big news: the beta is open!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Big news: the beta is open!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Big news: the beta is open!</p>"
+      }
+    },
+    {
+      "message_id": 933434508,
+      "body": "<p>Lunch is here.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Lunch is here.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Lunch is here."
+      },
+      "editable": {
+        "ok": "<p>Lunch is here.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Lunch is here.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Lunch is here.</p>"
+      }
+    },
+    {
+      "message_id": 933434509,
+      "body": "<p>Who's reviewing the copy?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Who's reviewing the copy?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Who's reviewing the copy?"
+      },
+      "editable": {
+        "ok": "<p>Who's reviewing the copy?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Who's reviewing the copy?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Who's reviewing the copy?</p>"
+      }
+    },
+    {
+      "message_id": 933434510,
+      "body": "<p>001. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>001. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "001. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>001. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>001. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>001. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434511,
+      "body": "<p>002. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>002. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "002. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>002. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>002. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>002. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434512,
+      "body": "<p>003. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>003. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "003. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>003. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>003. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>003. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434513,
+      "body": "<p>004. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>004. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "004. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>004. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>004. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>004. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434514,
+      "body": "<p>005. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>005. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "005. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>005. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>005. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>005. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434515,
+      "body": "<p>006. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>006. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "006. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>006. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>006. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>006. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434516,
+      "body": "<p>007. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>007. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "007. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>007. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>007. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>007. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434517,
+      "body": "<p>008. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>008. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "008. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>008. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>008. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>008. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434518,
+      "body": "<p>009. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>009. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "009. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>009. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>009. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>009. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434519,
+      "body": "<p>010. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>010. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "010. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>010. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>010. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>010. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434520,
+      "body": "<p>011. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>011. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "011. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>011. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>011. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>011. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434521,
+      "body": "<p>012. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>012. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "012. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>012. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>012. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>012. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434522,
+      "body": "<p>013. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>013. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "013. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>013. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>013. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>013. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434523,
+      "body": "<p>014. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>014. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "014. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>014. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>014. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>014. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434524,
+      "body": "<p>015. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>015. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "015. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>015. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>015. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>015. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434525,
+      "body": "<p>016. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>016. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "016. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>016. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>016. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>016. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434526,
+      "body": "<p>017. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>017. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "017. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>017. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>017. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>017. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434527,
+      "body": "<p>018. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>018. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "018. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>018. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>018. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>018. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434528,
+      "body": "<p>019. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>019. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "019. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>019. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>019. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>019. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434529,
+      "body": "<p>020. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>020. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "020. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>020. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>020. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>020. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434530,
+      "body": "<p>021. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>021. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "021. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>021. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>021. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>021. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434531,
+      "body": "<p>022. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>022. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "022. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>022. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>022. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>022. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434532,
+      "body": "<p>023. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>023. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "023. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>023. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>023. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>023. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434533,
+      "body": "<p>024. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>024. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "024. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>024. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>024. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>024. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434534,
+      "body": "<p>025. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>025. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "025. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>025. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>025. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>025. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434535,
+      "body": "<p>026. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>026. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "026. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>026. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>026. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>026. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434536,
+      "body": "<p>027. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>027. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "027. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>027. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>027. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>027. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434537,
+      "body": "<p>028. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>028. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "028. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>028. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>028. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>028. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434538,
+      "body": "<p>029. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>029. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "029. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>029. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>029. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>029. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434539,
+      "body": "<p>030. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>030. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "030. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>030. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>030. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>030. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434540,
+      "body": "<p>031. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>031. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "031. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>031. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>031. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>031. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434541,
+      "body": "<p>032. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>032. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "032. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>032. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>032. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>032. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434542,
+      "body": "<p>033. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>033. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "033. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>033. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>033. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>033. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434543,
+      "body": "<p>034. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>034. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "034. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>034. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>034. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>034. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434544,
+      "body": "<p>035. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>035. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "035. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>035. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>035. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>035. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434545,
+      "body": "<p>036. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>036. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "036. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>036. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>036. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>036. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434546,
+      "body": "<p>037. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>037. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "037. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>037. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>037. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>037. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434547,
+      "body": "<p>038. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>038. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "038. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>038. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>038. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>038. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434548,
+      "body": "<p>039. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>039. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "039. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>039. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>039. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>039. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434549,
+      "body": "<p>040. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>040. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "040. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>040. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>040. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>040. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434550,
+      "body": "<p>041. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>041. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "041. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>041. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>041. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>041. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434551,
+      "body": "<p>042. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>042. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "042. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>042. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>042. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>042. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434552,
+      "body": "<p>043. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>043. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "043. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>043. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>043. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>043. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434553,
+      "body": "<p>044. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>044. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "044. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>044. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>044. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>044. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434554,
+      "body": "<p>045. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>045. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "045. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>045. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>045. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>045. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434555,
+      "body": "<p>046. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>046. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "046. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>046. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>046. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>046. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434556,
+      "body": "<p>047. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>047. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "047. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>047. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>047. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>047. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434557,
+      "body": "<p>048. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>048. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "048. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>048. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>048. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>048. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434558,
+      "body": "<p>049. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>049. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "049. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>049. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>049. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>049. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434559,
+      "body": "<p>050. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>050. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "050. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>050. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>050. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>050. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434560,
+      "body": "<p>051. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>051. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "051. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>051. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>051. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>051. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434561,
+      "body": "<p>052. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>052. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "052. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>052. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>052. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>052. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434562,
+      "body": "<p>053. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>053. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "053. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>053. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>053. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>053. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434563,
+      "body": "<p>054. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>054. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "054. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>054. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>054. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>054. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434564,
+      "body": "<p>055. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>055. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "055. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>055. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>055. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>055. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434565,
+      "body": "<p>056. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>056. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "056. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>056. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>056. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>056. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434566,
+      "body": "<p>057. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>057. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "057. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>057. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>057. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>057. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434567,
+      "body": "<p>058. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>058. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "058. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>058. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>058. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>058. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434568,
+      "body": "<p>059. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>059. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "059. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>059. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>059. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>059. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434569,
+      "body": "<p>060. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>060. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "060. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>060. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>060. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>060. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434570,
+      "body": "<p>061. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>061. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "061. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>061. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>061. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>061. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434571,
+      "body": "<p>062. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>062. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "062. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>062. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>062. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>062. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434572,
+      "body": "<p>063. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>063. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "063. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>063. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>063. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>063. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434573,
+      "body": "<p>064. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>064. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "064. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>064. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>064. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>064. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434574,
+      "body": "<p>065. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>065. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "065. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>065. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>065. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>065. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434575,
+      "body": "<p>066. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>066. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "066. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>066. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>066. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>066. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434576,
+      "body": "<p>067. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>067. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "067. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>067. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>067. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>067. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434577,
+      "body": "<p>068. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>068. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "068. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>068. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>068. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>068. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434578,
+      "body": "<p>069. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>069. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "069. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>069. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>069. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>069. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434579,
+      "body": "<p>070. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>070. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "070. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>070. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>070. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>070. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434580,
+      "body": "<p>071. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>071. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "071. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>071. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>071. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>071. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434581,
+      "body": "<p>072. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>072. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "072. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>072. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>072. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>072. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434582,
+      "body": "<p>073. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>073. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "073. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>073. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>073. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>073. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434583,
+      "body": "<p>074. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>074. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "074. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>074. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>074. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>074. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434584,
+      "body": "<p>075. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>075. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "075. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>075. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>075. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>075. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434585,
+      "body": "<p>076. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>076. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "076. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>076. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>076. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>076. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434586,
+      "body": "<p>077. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>077. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "077. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>077. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>077. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>077. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434587,
+      "body": "<p>078. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>078. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "078. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>078. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>078. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>078. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434588,
+      "body": "<p>079. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>079. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "079. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>079. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>079. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>079. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434589,
+      "body": "<p>080. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>080. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "080. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>080. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>080. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>080. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434590,
+      "body": "<p>081. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>081. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "081. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>081. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>081. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>081. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434591,
+      "body": "<p>082. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>082. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "082. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>082. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>082. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>082. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434592,
+      "body": "<p>083. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>083. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "083. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>083. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>083. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>083. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434593,
+      "body": "<p>084. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>084. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "084. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>084. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>084. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>084. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434594,
+      "body": "<p>085. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>085. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "085. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>085. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>085. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>085. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434595,
+      "body": "<p>086. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>086. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "086. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>086. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>086. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>086. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434596,
+      "body": "<p>087. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>087. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "087. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>087. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>087. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>087. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434597,
+      "body": "<p>088. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>088. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "088. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>088. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>088. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>088. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434598,
+      "body": "<p>089. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>089. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "089. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>089. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>089. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>089. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434599,
+      "body": "<p>090. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>090. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "090. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>090. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>090. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>090. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434600,
+      "body": "<p>091. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>091. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "091. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>091. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>091. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>091. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434601,
+      "body": "<p>092. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>092. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "092. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>092. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>092. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>092. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434602,
+      "body": "<p>093. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>093. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "093. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>093. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>093. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>093. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434603,
+      "body": "<p>094. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>094. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "094. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>094. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>094. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>094. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434604,
+      "body": "<p>095. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>095. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "095. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>095. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>095. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>095. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434605,
+      "body": "<p>096. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>096. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "096. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>096. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>096. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>096. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434606,
+      "body": "<p>097. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>097. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "097. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>097. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>097. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>097. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434607,
+      "body": "<p>098. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>098. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "098. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>098. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>098. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>098. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434608,
+      "body": "<p>099. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>099. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "099. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>099. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>099. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>099. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434609,
+      "body": "<p>100. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>100. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "100. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>100. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>100. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>100. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434610,
+      "body": "<p>101. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>101. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "101. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>101. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>101. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>101. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434611,
+      "body": "<p>102. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>102. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "102. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>102. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>102. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>102. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434612,
+      "body": "<p>103. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>103. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "103. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>103. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>103. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>103. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434613,
+      "body": "<p>104. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>104. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "104. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>104. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>104. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>104. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434614,
+      "body": "<p>105. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>105. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "105. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>105. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>105. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>105. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434615,
+      "body": "<p>106. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>106. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "106. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>106. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>106. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>106. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434616,
+      "body": "<p>107. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>107. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "107. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>107. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>107. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>107. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434617,
+      "body": "<p>108. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>108. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "108. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>108. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>108. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>108. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434618,
+      "body": "<p>109. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>109. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "109. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>109. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>109. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>109. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434619,
+      "body": "<p>110. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>110. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "110. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>110. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>110. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>110. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434620,
+      "body": "<p>111. Coffee machine is fixed!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>111. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "111. Coffee machine is fixed!"
+      },
+      "editable": {
+        "ok": "<p>111. Coffee machine is fixed!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>111. Coffee machine is fixed!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>111. Coffee machine is fixed!</p>"
+      }
+    },
+    {
+      "message_id": 933434621,
+      "body": "<p>112. I'm heading out for lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>112. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "112. I'm heading out for lunch."
+      },
+      "editable": {
+        "ok": "<p>112. I'm heading out for lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>112. I'm heading out for lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>112. I'm heading out for lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434622,
+      "body": "<p>113. New plants in the kitchen.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>113. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "113. New plants in the kitchen."
+      },
+      "editable": {
+        "ok": "<p>113. New plants in the kitchen.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>113. New plants in the kitchen.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>113. New plants in the kitchen.</p>"
+      }
+    },
+    {
+      "message_id": 933434623,
+      "body": "<p>114. Who took my stapler?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>114. Who took my stapler?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "114. Who took my stapler?"
+      },
+      "editable": {
+        "ok": "<p>114. Who took my stapler?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>114. Who took my stapler?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>114. Who took my stapler?</p>"
+      }
+    },
+    {
+      "message_id": 933434624,
+      "body": "<p>115. Friday demo is at 3pm.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>115. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "115. Friday demo is at 3pm."
+      },
+      "editable": {
+        "ok": "<p>115. Friday demo is at 3pm.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>115. Friday demo is at 3pm.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>115. Friday demo is at 3pm.</p>"
+      }
+    },
+    {
+      "message_id": 933434625,
+      "body": "<p>116. The wifi is flaky again.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>116. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "116. The wifi is flaky again."
+      },
+      "editable": {
+        "ok": "<p>116. The wifi is flaky again.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>116. The wifi is flaky again.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>116. The wifi is flaky again.</p>"
+      }
+    },
+    {
+      "message_id": 933434626,
+      "body": "<p>117. Congrats on the launch!</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>117. Congrats on the launch!</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "117. Congrats on the launch!"
+      },
+      "editable": {
+        "ok": "<p>117. Congrats on the launch!</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>117. Congrats on the launch!</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>117. Congrats on the launch!</p>"
+      }
+    },
+    {
+      "message_id": 933434627,
+      "body": "<p>118. Anyone up for a walk?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>118. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "118. Anyone up for a walk?"
+      },
+      "editable": {
+        "ok": "<p>118. Anyone up for a walk?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>118. Anyone up for a walk?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>118. Anyone up for a walk?</p>"
+      }
+    },
+    {
+      "message_id": 933434628,
+      "body": "<p>119. Back in 5.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>119. Back in 5.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "119. Back in 5."
+      },
+      "editable": {
+        "ok": "<p>119. Back in 5.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>119. Back in 5.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>119. Back in 5.</p>"
+      }
+    },
+    {
+      "message_id": 933434629,
+      "body": "<p>120. Did anyone see the game last night?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>120. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "120. Did anyone see the game last night?"
+      },
+      "editable": {
+        "ok": "<p>120. Did anyone see the game last night?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>120. Did anyone see the game last night?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>120. Did anyone see the game last night?</p>"
+      }
+    },
+    {
+      "message_id": 933434630,
+      "body": "<p>Build 1043 passed.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Build 1043 passed.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Build 1043 passed."
+      },
+      "editable": {
+        "ok": "<p>Build 1043 passed.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Build 1043 passed.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Build 1043 passed.</p>"
+      }
+    },
+    {
+      "message_id": 933434631,
+      "body": "<p>Got a minute?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Got a minute?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Got a minute?"
+      },
+      "editable": {
+        "ok": "<p>Got a minute?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Got a minute?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Got a minute?</p>"
+      }
+    },
+    {
+      "message_id": 933434632,
+      "body": "<p>Sure, what's up?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Sure, what's up?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Sure, what's up?"
+      },
+      "editable": {
+        "ok": "<p>Sure, what's up?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Sure, what's up?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Sure, what's up?</p>"
+      }
+    },
+    {
+      "message_id": 933434633,
+      "body": "<p>The pricing page. Let's talk after lunch.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>The pricing page. Let's talk after lunch.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "The pricing page. Let's talk after lunch."
+      },
+      "editable": {
+        "ok": "<p>The pricing page. Let's talk after lunch.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>The pricing page. Let's talk after lunch.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>The pricing page. Let's talk after lunch.</p>"
+      }
+    },
+    {
+      "message_id": 933434634,
+      "body": "<p>Your nightly report is ready.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Your nightly report is ready.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Your nightly report is ready."
+      },
+      "editable": {
+        "ok": "<p>Your nightly report is ready.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Your nightly report is ready.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Your nightly report is ready.</p>"
+      }
+    },
+    {
+      "message_id": 933434635,
+      "body": "<p>Group ping: who's in for Thursday?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Group ping: who's in for Thursday?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Group ping: who's in for Thursday?"
+      },
+      "editable": {
+        "ok": "<p>Group ping: who's in for Thursday?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Group ping: who's in for Thursday?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Group ping: who's in for Thursday?</p>"
+      }
+    },
+    {
+      "message_id": 933434636,
+      "body": "<p>Can you approve my PR?</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Can you approve my PR?</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "Can you approve my PR?"
+      },
+      "editable": {
+        "ok": "<p>Can you approve my PR?</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>Can you approve my PR?</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>Can you approve my PR?</p>"
+      }
+    },
+    {
+      "message_id": 933434637,
+      "body": "<p>This message lost its author.</p>",
+      "content_type": "text",
+      "presentation": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>This message lost its author.</p>\n</div>\n"
+      },
+      "plain_text": {
+        "ok": "This message lost its author."
+      },
+      "editable": {
+        "ok": "<p>This message lost its author.</p>"
+      },
+      "mentioned": {
+        "ok": []
+      },
+      "to_s": {
+        "ok": "<div class=\"lexxy-content\">\n  <p>This message lost its author.</p>\n</div>\n"
+      },
+      "canonical": {
+        "ok": "<p>This message lost its author.</p>"
+      }
+    }
+  ]
+}

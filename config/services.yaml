@@ -1,0 +1,42 @@
+# Campfire's settings come from the same environment variables as the Rails app (see .env).
+parameters:
+    env(CAMPFIRE_STORAGE_PATH): '%kernel.project_dir%/storage'
+    env(CAMPFIRE_DATABASE_NAME): 'production'
+    env(APP_VERSION): ''
+    env(GIT_REVISION): ''
+    env(DISABLE_SSL): ''
+    env(VAPID_PUBLIC_KEY): ''
+    env(VAPID_PRIVATE_KEY): ''
+    env(CAMPFIRE_FROZEN_TIME): ''
+    env(CAMPFIRE_CABLE_SOCKET): '%kernel.project_dir%/var/run/cable.sock'
+
+    campfire.storage_path: '%env(CAMPFIRE_STORAGE_PATH)%'
+    campfire.files_path: '%env(CAMPFIRE_STORAGE_PATH)%/files'
+    campfire.database_path: '%env(CAMPFIRE_STORAGE_PATH)%/db/%env(CAMPFIRE_DATABASE_NAME)%.sqlite3'
+    campfire.jobs_database_path: '%env(CAMPFIRE_STORAGE_PATH)%/db/jobs.sqlite3'
+    campfire.secret_key_base: '%env(SECRET_KEY_BASE)%'
+    campfire.cable_socket: '%env(CAMPFIRE_CABLE_SOCKET)%'
+    campfire.vapid_public_key: '%env(VAPID_PUBLIC_KEY)%'
+    campfire.vapid_private_key: '%env(VAPID_PRIVATE_KEY)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            string $projectDir: '%kernel.project_dir%'
+            string $storagePath: '%campfire.storage_path%'
+            string $filesPath: '%campfire.files_path%'
+            string $secretKeyBase: '%campfire.secret_key_base%'
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Kernel.php'
+            - '../src/Entity/'
+
+    # The application clock: real UTC time, or a frozen instant for parity runs and tests
+    # (CAMPFIRE_FROZEN_TIME, as the Rust and Rails parity harnesses use).
+    Symfony\Component\Clock\ClockInterface:
+        factory: ['App\Support\ClockFactory', 'create']
+        arguments: ['%env(CAMPFIRE_FROZEN_TIME)%']

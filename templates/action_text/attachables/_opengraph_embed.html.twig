@@ -1,0 +1,25 @@
+{#- reference/app/views/action_text/attachables/_opengraph_embed.html.erb. Variables: opengraph_embed
+    (App\RichText\Attachables\OpengraphEmbed). Action Text attachments render through
+    App\RichText\Attachables\Attachments::renderOpengraphEmbed, which writes the same markup. -#}
+{% set filename = opengraph_embed.filename is null ? null : (opengraph_embed.filename|length > 280 ? opengraph_embed.filename|slice(0, 279) ~ '…' : opengraph_embed.filename) -%}
+{% set description = opengraph_embed.description ?? '' -%}
+{% set title %}{% if opengraph_embed.href is not null %}<a rel="noreferrer" target="_blank" href="{{ opengraph_embed.href }}">{{ filename ?? opengraph_embed.href }}</a>{% else %}{{ filename }}{% endif %}{% endset -%}
+<figure class="attachment attachment--content attachment--og">
+  <actiontext-opengraph-embed>
+    <div class="og-embed gap {{ opengraph_embed.isTwitterAvatar ? 'og-embed--twitter-avatar' : '' }}">
+      <div class="og-embed__content">
+        <div class="og-embed__title">
+          {{ title }}
+        </div>
+        <div class="og-embed__description">{{ description|length > 560 ? description|slice(0, 559) ~ '…' : description }}</div>
+      </div>
+      {%- if opengraph_embed.url is not null %}
+
+        <div class="og-embed__image">
+          <img src="{{ opengraph_embed.url }}" class="image center" alt="">
+        </div>
+      {%- endif %}
+
+    </div>
+  </actiontext-opengraph-embed>
+</figure>

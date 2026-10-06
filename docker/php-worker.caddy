@@ -1,0 +1,10 @@
+# FRANKENPHP_MODE=worker (the default): PHP_WORKERS threads each boot the Symfony kernel once and
+# serve requests from it; services implementing ResetInterface are reset between requests.
+php_server {
+	root /rails/public
+	file_server off
+	worker {
+		file /rails/public/index.php
+		num {$PHP_WORKERS:2}
+	}
+}
