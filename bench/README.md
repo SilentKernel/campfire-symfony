@@ -155,7 +155,7 @@ validation failure (`csrf_mode` in the rep JSON); every other app must render on
 | `once-campfire-go:bench` | basecamp/once-campfire-go `8d2f7f24f56dac87dba0211b68b14d9e21e4b516` (upstream HEAD 2026-10-06; Rust reference `64f8635`, recursive submodules) | `sha256:ca8d0af681ed…` | 2026-10-06 |
 | `once-campfire-rust:bench` | basecamp/once-campfire-rust `ccece30e8e160d8c3e05bf395ee55ee35962093b` (upstream HEAD 2026-10-06; Rails reference `90b3300`), in its own checkout `$BENCH_HOME/once-campfire-rust-app` | `sha256:ad5c4263480d…` | 2026-10-06 |
 | `once-campfire-laravel-frankenphp:bench` | local checkout `campfire-laravel-frankenphp` (work in progress, not committed; the image carries no revision label of its own) | changes as it is rebuilt: see `env.txt` | 2026-10-06 |
-| `campfire-symfony:app` | this repository (not committed yet; no revision label of its own) | changes as it is rebuilt: see `env.txt` | 2026-10-06 |
+| `campfire-symfony:app` | this repository (github.com/SilentKernel/campfire-symfony; the image has no revision label of its own, see `env.txt` image ids) | changes as it is rebuilt: see `env.txt` | 2026-10-06 |
 | harness, loadgen, seed | basecamp/once-campfire-rust `64f86353021145b63849fb1cd93adeb08f3b8dbb` (nothing under `bench/` or `parity/` changed up to `ccece30`) | — | 2026-10-05 |
 
 The base images are multi-arch indexes, so they resolve to arm64: `php:8.4-fpm-bookworm@sha256:43e1ac38…`,
@@ -247,9 +247,13 @@ see `bench/results/write-verification-2026-10-06.txt`.
   similar to Laravel (≈20 KB). This is visible in the "avg response bytes" rows.
 - **Express memory grows under load**: about 170 MB idle, about 1.1 GB peak after the HTTP suite (4
   Node processes), and it stays there. Recorded as measured.
-- **Laravel posting is slow**, in all three Laravel images (≈10–50 posts/s with high p99 latency,
-  against ≈250 for Rails and Symfony classic in the same smoke conditions), but every acknowledged
-  post is persisted and indexed.
+- **The published Laravel image posts slowly** (39 posts/s at 16 clients in the 2026-10-06 run,
+  p99 2.6 s): it opens SQLite with `synchronous=FULL`, so each commit waits for an fsync while
+  holding the write lock. The Laravel FrankenPHP image sets `synchronous=NORMAL`, as Rails does,
+  and posts 226 (classic) and 599 (Octane) per second. (The write verification above used an earlier
+  build of the Laravel FrankenPHP image, `094b88f…`, made before that fix; its 16.9 and 38.3
+  posts/s are not current.) Every
+  acknowledged post is persisted and indexed in all of them.
 - **Reference revisions differ between ports.** The benchmarked Rails is `254dd1d` (the Rust harness
   pin); Elixir and the current Rust app pin Rails `90b3300`; Express pins `659f957`; Go pins Rust
   `64f8635` (Rails `254dd1d`). Each port is measured as its authors pinned it.

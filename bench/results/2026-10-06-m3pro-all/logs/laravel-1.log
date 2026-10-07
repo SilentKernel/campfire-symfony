@@ -1,0 +1,9 @@
+Campfire schema ready
+
+   INFO  Configuration cached successfully.  
+
+
+
+   INFO  Blade templates cached successfully.  
+
+2026/10/06 23:15:47 [error] 27#27: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: , request: "GET /up HTTP/1.1", upstream: "fastcgi://127.0.0.1:4392", host: "127.0.0.1:4390"

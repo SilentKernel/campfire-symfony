@@ -56,6 +56,10 @@ docker run -d -p 8080:8080 \
   can write to the storage. It never chowns anything.
 - **Platforms:** the base images are multi-arch (`linux/amd64`, `linux/arm64`). The image has been
   built and verified on `linux/arm64`.
+- **SQLite:** the image builds SQLite 3.53.4 from the official amalgamation, with Debian's
+  compile options, and every process uses it. Debian's 3.46.1 has the WAL-reset bug, which
+  corrupted pages when worker threads committed and checkpointed at the same moment
+  ([details](docs/internal/sqlite-corruption.md)).
 - **ONCE:** the backup and restore hooks are in `/hooks`.
 
 ### Configuration
@@ -70,8 +74,9 @@ The Rails image's variables keep their meaning; the rest size this image's own p
 | `DISABLE_SSL` | empty | Set to serve plain HTTP: no HSTS, no `secure` cookie flag, and requests aren't treated as HTTPS. |
 | `HTTP_PORT`, `HTTPS_PORT` | `80`, `443` | Listening ports. |
 | `TARGET_PORT` | `HTTP_PORT + 1` | Loopback port of the Action Cable server, which Caddy proxies `/cable` to. |
-| `PHP_WORKERS` | 2 × CPUs | FrankenPHP worker threads. |
-| `PHP_THREADS` | `1` | Extra non-worker PHP threads. |
+| `FRANKENPHP_MODE` | `worker` | `worker` boots Symfony once per thread and keeps it between requests. `classic` turns the worker off: every request boots the framework, as under PHP-FPM. |
+| `PHP_WORKERS` | 2 × CPUs | FrankenPHP worker threads (worker mode). |
+| `PHP_THREADS` | `1` (worker), `PHP_WORKERS` (classic) | Extra non-worker PHP threads in worker mode. In classic mode, the number of PHP threads. |
 | `JOB_CONCURRENCY` | `1` | `messenger:consume` processes. |
 | `CADDY_LOG_LEVEL` | `WARN` | Caddy's log level. |
 | `APP_VERSION`, `GIT_REVISION` | empty | Sent as `X-Version` / `X-Rev`, as in Rails. |
@@ -86,7 +91,8 @@ The app logs JSON to stderr (`docker logs`).
 1. `bin/console campfire:install` does what `db:prepare` does. It creates `db/` and `files/` and
    loads the schema into an empty database. It refuses to start on a database that is missing a
    Rails migration: boot the Rails image once to migrate it.
-2. `frankenphp run`: Caddy plus the PHP worker threads. It does Thruster's job too: TLS, gzip, the
+2. `frankenphp run`: Caddy plus the PHP worker threads (with `FRANKENPHP_MODE=classic`, plain
+   PHP threads that boot Symfony on every request). It does Thruster's job too: TLS, gzip, the
    static files in `public/` and `/assets`, X-Accel-Redirect for blobs, and the `/cable` reverse
    proxy.
 3. `bin/console campfire:cable`: the Action Cable server, a Workerman event loop on
@@ -156,8 +162,9 @@ with the Rails image (2026-10-05):
   - Cable frames matched in 940 of 940 cells, and fragments in 16 of 16.
   - The DOM, accessibility tree and pixels matched everywhere except six findings: two template
     bugs, a missing frame layout and three header details.
-  - The six findings were fixed after the run. The report's tables describe the code before those
-    fixes.
+  - The six findings have been fixed, and the 120 affected cells re-run: server HTML, live DOM,
+    accessibility tree, screenshots and Cable frames now match Rails in all 120. The report's main
+    tables describe the code before those fixes; the rest of the inventory was not re-run.
   - The remaining network differences come from the front proxy (Thruster vs Caddy) and are
     listed below.
 - **[Cross-runtime](docs/internal/crossruntime-report.md):** Rails and Symfony ran on one shared
@@ -179,14 +186,90 @@ with the Rails image (2026-10-05):
 
 ## Benchmarks
 
-The benchmark compares Rails, Django, Laravel and Symfony on one machine (Apple M3 Pro, OrbStack).
-Each app gets the same 4 pinned vCPUs, the same seed and the same workloads. The harness and load
-generator are once-campfire-rust's, adapted to run four apps. Each app gets 5 repetitions in
-alternating order, and the tables give medians with [min–max] ranges. These numbers are not
-comparable with the AMD Ryzen numbers in the once-campfire README. Method, configuration and
-limitations: [docs/benchmarks.md](docs/benchmarks.md).
+Rails, every port listed in the once-campfire README, and Symfony, all measured on one machine: an
+Apple M3 Pro (6P+6E) under OrbStack, on AC power. Each app runs its production image on the same 4
+pinned vCPUs, with the same seed and workloads. The harness and load generator are the ones behind
+the once-campfire README numbers (once-campfire-rust's), adapted to run each image and to validate
+every response, write and cable delivery. Apps run one at a time, in an order that alternates
+between repetitions. The tables give medians. **These numbers are not comparable with the AMD Ryzen
+AI MAX+ 395 table in the once-campfire README**: the hardware is different, and macOS schedules
+the VM's vCPUs. Method, per-app configuration, latency, cable, upload and memory tables:
+[docs/benchmarks.md](docs/benchmarks.md).
 
-<!-- BENCHMARK RESULTS -->
+### All apps, 16 concurrent clients (requests/sec)
+
+3 repetitions, 2026-10-06 ([full report](bench/results/2026-10-06-m3pro-all/report.md)).
+
+| HTTP workload | Rails | Django | Laravel FrankenPHP classic | Laravel Octane | Express | Elixir | Go | Rust | Symfony classic | Symfony |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Room page | 254 | 249 | 120 | 179 | 615 | 460 | 4,169 | 22,541 | 174 | 713 |
+| Messages page | 439 | 289 | 137 | 221 | 797 | 716 | 5,236 | 23,907 | 350 | 1,620 |
+| Sidebar¹ | 589 | 1,020 | 319 | 1,813 | 5,802 | 947 | 12,489 | 22,302 | 217 | 2,701 |
+| Search | 456 | 462 | 211 | 526 | 1,530 | 778 | 6,836 | 23,561 | 300 | 1,495 |
+| Post a message | 274 | 228 | 226 | 599 | 1,682 | 533 | 4,545 | 6,703 | 262 | 1,652 |
+
+- **Symfony** is the image as shipped (FrankenPHP worker mode). **Symfony classic** is the same
+  image with `FRANKENPHP_MODE=classic`, which boots the framework on every request, as PHP-FPM does.
+- **Laravel FrankenPHP classic** and **Laravel Octane** are the same Laravel port on FrankenPHP,
+  from a pending pull request to once-campfire-laravel: Octane worker mode, a `FRANKENPHP_MODE`
+  switch, SQLite 3.53.4 and `synchronous=NORMAL` (what Rails sets). The published Laravel image
+  (nginx + PHP-FPM) is left out here; its numbers are in the full report.
+- ¹ The sidebar is not the same page everywhere: the Laravel port renders 22 elements (3 KB),
+  Django and Express 63, Go 84, against 248 (31 KB) for Rails and Symfony. Its numbers are not
+  like-for-like. The room, messages and search pages show the same messages in every app.
+
+### Laravel vs Symfony on the same runtime
+
+Both on FrankenPHP with PHP 8.4, the same thread counts (2 × CPUs) and the same SQLite, in classic
+mode (framework booted per request) and worker mode (booted once per thread: Laravel Octane, Symfony
+Runtime). 5 repetitions, 2026-10-06 ([full report](bench/results/2026-10-06-m3pro-grid/report.md)).
+HTTP at 16 clients. S/L above 1× means Symfony does better.
+
+| Metric | Laravel classic | Symfony classic | S/L | Laravel Octane | Symfony | S/L |
+|---|---:|---:|---:|---:|---:|---:|
+| Room page (req/s) | 120 | 174 | 1.45× | 178 | 711 | 4.01× |
+| Messages page (req/s) | 137 | 350 | 2.56× | 222 | 1,627 | 7.33× |
+| Search (req/s) | 211 | 301 | 1.43× | 528 | 1,499 | 2.84× |
+| Post a message (req/s) | 225 | 261 | 1.16× | 599 | 1,655 | 2.76× |
+| Sidebar¹ (req/s) | 318 | 217 | 0.68× | 1,698 | 2,674 | 1.57× |
+| `/up` (req/s) | 1,126 | 709 | 0.63× | 4,612 | 11,033 | 2.39× |
+| Cable, 1,000 clients: messages/s delivered to all² | 5.00 | 108 | 21.70× | 5.00 | 171 | 34.14× |
+| Cable, 1,000 clients: paced post → all clients, p50 (ms) | 321 | 62.1 | 5.17× | 318 | 41.5 | 7.68× |
+| Upload: POST → first `<img>` (ms) | 77.5 | 63.2 | 1.23× | 58.8 | 35.7 | 1.65× |
+| Idle memory (MB) | 168 | 192 | 0.88× | 256 | 230 | 1.11× |
+| Peak memory under load (MB) | 508 | 780 | 0.65× | 751 | 870 | 0.86× |
+
+- The room, messages and search pages are equivalent: the same messages in the same order, and
+  element counts within 6% (room 4,027 / 4,000, search 1,338 / 1,420). Laravel's pages are less
+  than half the size on the wire (room page 19.6 KB gzipped against 44.0 KB) because they repeat
+  one CSRF token, while Symfony, like Rails, masks it per form (323 distinct values), which gzip
+  cannot compress. The HTML itself is similar (390 against 452 KB decoded).
+- Laravel classic is faster on the sidebar, which renders 22 elements against Symfony's 248, and
+  on `/up`, which does little beyond booting the framework.
+- ² Laravel's cable server does not deliver every message to every client under the saturating
+  posters (see below), so its 5 messages/s are what reached everyone.
+- Laravel's peak memory is lower in both modes. Idle memory varies widely between repetitions
+  (Laravel Octane 196–267 MB), so its ratio means little.
+
+### Validation
+
+Every repetition is checked: sign-in, all responses 2xx/3xx with no transport errors, every
+acknowledged post persisted (message row, rich text body, FTS entry, `integrity_check` ok), every
+cable message delivered to every client, and the uploaded image's thumbnail served.
+
+- **Symfony and Symfony classic passed every check in every repetition** (8 each, across both runs).
+- Rails, Elixir, Go and Rust passed every repetition. Express failed 1 of 3: in rep 3, 6,437 of
+  20,723 messages reached all 100 clients under the saturating posters.
+- Django and the three Laravel variants failed the saturated cable fan-out in every repetition,
+  because of limitations in their ports: Django drops a socket when its 256-message queue fills;
+  Laravel's cable server learns about broadcasts by polling a file. Django fails at 100 and 1,000
+  clients, Laravel Octane too, the other two Laravel images at 1,000. Their HTTP, write and upload
+  checks passed, and so did their paced cable delivery (30 of 30 messages to every client).
+
+**Caveats.** The VM's vCPUs are not dedicated cores, so compare ratios between apps rather than
+absolute numbers. The benchmark's storage is on tmpfs, where `fsync` is nearly free, which flatters
+write-heavy routes for every app. The upload timing follows the response's first `<img>`, the
+author's avatar, not the thumbnail.
 
 ## Known differences
 
@@ -265,7 +348,8 @@ picker, a stale author name in cached messages, and `&amp;amp;` in the PWA manif
   schema formats, Active Storage, switching runtimes, golden vectors.
 - [Realtime](docs/realtime.md): the Action Cable server and broadcaster.
 - [Development](docs/development.md): setup, tests, seeds, parity tools, adding a feature.
-- [Benchmarks](docs/benchmarks.md): method and how to reproduce.
+- [Benchmarks](docs/benchmarks.md): method, per-app configuration, full results, limitations and
+  how to reproduce.
 
 ## Credits and licence
 

@@ -1,0 +1,739 @@
+date: 2026-10-06T20:49:03+00:00
+host: Apple M3 Pro (6P+6E cores), macOS 26.7.1; Docker VM: OrbStack, 12 vCPUs, 16819298304 B kernel 7.0.14-orbstack-00380-ga7e0a2dc9535
+host power: AC Power, lowpowermode 0
+server cpus: 0-3 (nproc 4); loadgen cpus: 4-7; harness cpus: 8-11; network: host; port: 4390
+workloads: suites [http cable upload]; http 8s at c=[1 16 64] (2s warm-up at c=4); cable clients [100 1000], 15s saturation with 4 posters; upload reps 5
+load wait: LOAD_MAX=1.5, LOAD_WAIT_SECS=900; write check settle: 10s; containers running before the run: 1
+user agent: (none)
+work dir: /opt/campfire-bench/work (overlay)
+harness: campfire-symfony bench/run @ 7dcc719 (1 changed files in bench/); once-campfire-rust @ 64f8635 (loadgen, seed)
+seed: 50a76ba5a2f63b93 production.sqlite3; loadgen: dbb998a3ba2cdf13
+laravel-frankenphp-classic image: once-campfire-laravel-frankenphp:bench linux/arm64 sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e revision none(label-inherited-from-FrankenPHP-233f793) source https://github.com/php/frankenphp created 2026-10-06T10:01:32.672343852+02:00 digests once-campfire-laravel-frankenphp@sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e
+laravel-frankenphp-classic process model: FrankenPHP classic mode (no worker), PHP_THREADS = 2×CPUs; bin/cable on 127.0.0.1:4391, queue:work; user 0:0
+laravel-frankenphp image: once-campfire-laravel-frankenphp:bench linux/arm64 sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e revision none(label-inherited-from-FrankenPHP-233f793) source https://github.com/php/frankenphp created 2026-10-06T10:01:32.672343852+02:00 digests once-campfire-laravel-frankenphp@sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e
+laravel-frankenphp process model: Octane + FrankenPHP worker mode, PHP_WORKERS = 2×CPUs; bin/cable on 127.0.0.1:4391, queue:work; user 0:0
+symfony-classic image: campfire-symfony:app linux/arm64 sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f revision none(label-inherited-from-FrankenPHP-233f793) source  created 2026-10-06T09:13:32.347124452+02:00 digests campfire-symfony@sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f
+symfony-classic process model: FrankenPHP classic mode (no worker), PHP_THREADS = 2×CPUs; campfire:cable on 127.0.0.1:4391, messenger:consume; user 0:0
+symfony image: campfire-symfony:app linux/arm64 sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f revision none(label-inherited-from-FrankenPHP-233f793) source  created 2026-10-06T09:13:32.347124452+02:00 digests campfire-symfony@sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f
+symfony process model: image defaults: FrankenPHP worker mode, campfire:cable on 127.0.0.1:4391, messenger:consume; user 0:0
+[20:49:04] load before run: 1.06 0.84 2.25 (waited 0s)
+[20:49:04] laravel-frankenphp-classic rep 1: starting once-campfire-laravel-frankenphp:bench (load: 1.06 0.84 2.25)
+[20:49:15] laravel-frankenphp-classic rep 1: cold start 910ms, idle 224MB (anon 83MB)
+[20:49:15] laravel-frankenphp-classic rep 1: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[20:49:15] laravel-frankenphp-classic rep 1: pages room_show 200 40 msgs 4027 elements 398945 B (20032 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13310 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8213 on the wire)
+[20:49:25] laravel-frankenphp-classic rep 1: room_show c=1 32.6 rps p50 30.495 p99 32.271 {'200': 262} err 0 avg 20032 B
+[20:49:33] laravel-frankenphp-classic rep 1: room_show c=16 118.9 rps p50 134.143 p99 196.479 {'200': 962} err 0 avg 20032 B
+[20:49:42] laravel-frankenphp-classic rep 1: room_show c=64 119.6 rps p50 532.991 p99 583.167 {'200': 1017} err 0 avg 20032 B
+[20:49:52] laravel-frankenphp-classic rep 1: messages_page c=1 36.4 rps p50 27.455 p99 28.895 {'200': 292} err 0 avg 13310 B
+[20:50:00] laravel-frankenphp-classic rep 1: messages_page c=16 136.5 rps p50 116.607 p99 158.079 {'200': 1105} err 0 avg 13310 B
+[20:50:09] laravel-frankenphp-classic rep 1: messages_page c=64 135.3 rps p50 469.759 p99 534.527 {'200': 1144} err 0 avg 13310 B
+[20:50:19] laravel-frankenphp-classic rep 1: sidebar c=1 85.1 rps p50 11.743 p99 12.255 {'200': 681} err 0 avg 817 B
+[20:50:27] laravel-frankenphp-classic rep 1: sidebar c=16 316.3 rps p50 50.239 p99 72.511 {'200': 2543} err 0 avg 817 B
+[20:50:35] laravel-frankenphp-classic rep 1: sidebar c=64 318.0 rps p50 200.831 p99 221.055 {'200': 2604} err 0 avg 817 B
+[20:50:45] laravel-frankenphp-classic rep 1: search c=1 55.9 rps p50 17.807 p99 19.951 {'200': 448} err 0 avg 8213 B
+[20:50:53] laravel-frankenphp-classic rep 1: search c=16 211.4 rps p50 75.583 p99 100.223 {'200': 1702} err 0 avg 8213 B
+[20:51:01] laravel-frankenphp-classic rep 1: search c=64 211.1 rps p50 302.335 p99 329.471 {'200': 1752} err 0 avg 8213 B
+[20:51:11] laravel-frankenphp-classic rep 1: avatar c=1 132.8 rps p50 7.487 p99 8.735 {'200': 1063} err 0 avg 2930 B
+[20:51:19] laravel-frankenphp-classic rep 1: avatar c=16 502.6 rps p50 31.727 p99 45.471 {'200': 4034} err 0 avg 2930 B
+[20:51:28] laravel-frankenphp-classic rep 1: avatar c=64 464.6 rps p50 127.231 p99 736.255 {'200': 3773} err 0 avg 2930 B
+[20:51:38] laravel-frankenphp-classic rep 1: static_css c=1 12421.7 rps p50 0.075 p99 0.106 {'200': 99375} err 0 avg 654 B
+[20:51:46] laravel-frankenphp-classic rep 1: static_css c=16 67860.5 rps p50 0.179 p99 1.335 {'200': 542924} err 0 avg 654 B
+[20:51:54] laravel-frankenphp-classic rep 1: static_css c=64 71796.0 rps p50 0.646 p99 4.443 {'200': 574473} err 0 avg 654 B
+[20:52:04] laravel-frankenphp-classic rep 1: up c=1 313.7 rps p50 3.129 p99 3.595 {'200': 2510} err 0 avg 73 B
+[20:52:12] laravel-frankenphp-classic rep 1: up c=16 1148.6 rps p50 13.751 p99 23.423 {'200': 9202} err 0 avg 73 B
+[20:52:20] laravel-frankenphp-classic rep 1: up c=64 1157.3 rps p50 54.751 p99 67.839 {'200': 9318} err 0 avg 73 B
+[20:52:30] laravel-frankenphp-classic rep 1: post_message c=1 62.8 rps p50 15.335 p99 29.183 {'200': 503} err 0 avg 1973 B
+[20:52:38] laravel-frankenphp-classic rep 1: post_message c=16 228.7 rps p50 66.751 p99 161.023 {'200': 1845} err 0 avg 1973 B
+[20:52:46] laravel-frankenphp-classic rep 1: post_message c=64 225.4 rps p50 280.575 p99 367.615 {'200': 1863} err 0 avg 1973 B
+[20:52:46] laravel-frankenphp-classic rep 1: writes ok {'acknowledged': 4510, 'new_messages': 4510, 'with_bench_rich_text': 4510, 'in_fts': 4510, 'fts_match': 4510, 'integrity': 'ok', 'settle_ms': 10} 
+[20:53:42] laravel-frankenphp-classic rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 37.567 p99 58.495 | tput 48.9 msg/s 2346 / 2346
+[20:55:24] laravel-frankenphp-classic rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 326.655 p99 436.479 | tput 4.9 msg/s 370 / 2346
+[20:55:27] laravel-frankenphp-classic rep 1: upload median 78.7ms
+[20:55:27] laravel-frankenphp-classic rep 1: upload thumbnail ok [200] jpeg 75289 bytes 
+[20:55:27] laravel-frankenphp-classic rep 1: INVALID: cable 1000 clients: saturated 370/2346 messages reached every client
+[20:55:28] laravel-frankenphp-classic rep 1: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-classic-1.json
+[20:56:08] load before run: 1.34 2.73 2.82 (waited 40s)
+[20:56:08] laravel-frankenphp rep 1: starting once-campfire-laravel-frankenphp:bench (load: 1.34 2.73 2.82)
+[20:56:19] laravel-frankenphp rep 1: cold start 902ms, idle 196MB (anon 118MB)
+[20:56:19] laravel-frankenphp rep 1: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[20:56:19] laravel-frankenphp rep 1: pages room_show 200 40 msgs 4027 elements 398945 B (20030 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13179 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8215 on the wire)
+[20:56:30] laravel-frankenphp rep 1: room_show c=1 46.9 rps p50 21.343 p99 22.191 {'200': 376} err 0 avg 20030 B
+[20:56:38] laravel-frankenphp rep 1: room_show c=16 179.2 rps p50 92.287 p99 126.783 {'200': 1443} err 0 avg 20030 B
+[20:56:46] laravel-frankenphp rep 1: room_show c=64 209.5 rps p50 304.383 p99 330.495 {'200': 1737} err 0 avg 20030 B
+[20:56:56] laravel-frankenphp rep 1: messages_page c=1 60.7 rps p50 16.431 p99 16.975 {'200': 486} err 0 avg 13179 B
+[20:57:04] laravel-frankenphp rep 1: messages_page c=16 221.3 rps p50 71.999 p99 98.943 {'200': 1781} err 0 avg 13179 B
+[20:57:12] laravel-frankenphp rep 1: messages_page c=64 221.4 rps p50 287.999 p99 317.951 {'200': 1833} err 0 avg 13179 B
+[20:57:22] laravel-frankenphp rep 1: sidebar c=1 526.0 rps p50 1.863 p99 2.131 {'200': 4208} err 0 avg 817 B
+[20:57:30] laravel-frankenphp rep 1: sidebar c=16 1611.8 rps p50 8.391 p99 18.431 {'200': 12907} err 0 avg 817 B
+[20:57:38] laravel-frankenphp rep 1: sidebar c=64 1825.7 rps p50 34.591 p99 47.231 {'200': 14675} err 0 avg 817 B
+[20:57:48] laravel-frankenphp rep 1: search c=1 145.5 rps p50 6.787 p99 8.115 {'200': 1164} err 0 avg 8215 B
+[20:57:57] laravel-frankenphp rep 1: search c=16 526.4 rps p50 30.207 p99 44.735 {'200': 4228} err 0 avg 8215 B
+[20:58:05] laravel-frankenphp rep 1: search c=64 536.4 rps p50 118.911 p99 132.863 {'200': 4350} err 0 avg 8215 B
+[20:58:15] laravel-frankenphp rep 1: avatar c=1 961.8 rps p50 0.996 p99 1.796 {'200': 7695} err 0 avg 2930 B
+[20:58:23] laravel-frankenphp rep 1: avatar c=16 3215.9 rps p50 4.551 p99 12.183 {'200': 25744} err 0 avg 2930 B
+[20:58:31] laravel-frankenphp rep 1: avatar c=64 2287.0 rps p50 19.071 p99 32.271 {'200': 18342} err 0 avg 2930 B
+[20:58:41] laravel-frankenphp rep 1: static_css c=1 12642.1 rps p50 0.072 p99 0.102 {'200': 101138} err 0 avg 654 B
+[20:58:49] laravel-frankenphp rep 1: static_css c=16 66978.1 rps p50 0.179 p99 1.428 {'200': 535851} err 0 avg 654 B
+[20:58:57] laravel-frankenphp rep 1: static_css c=64 72331.2 rps p50 0.643 p99 4.363 {'200': 578769} err 0 avg 654 B
+[20:59:07] laravel-frankenphp rep 1: up c=1 1446.2 rps p50 0.675 p99 0.9 {'200': 11570} err 0 avg 73 B
+[20:59:15] laravel-frankenphp rep 1: up c=16 4659.8 rps p50 3.075 p99 8.575 {'200': 37290} err 0 avg 73 B
+[20:59:23] laravel-frankenphp rep 1: up c=64 4840.5 rps p50 12.679 p99 23.999 {'200': 38787} err 0 avg 73 B
+[20:59:33] laravel-frankenphp rep 1: post_message c=1 242.0 rps p50 3.623 p99 16.735 {'200': 1936} err 0 avg 1972 B
+[20:59:41] laravel-frankenphp rep 1: post_message c=16 585.2 rps p50 21.135 p99 129.087 {'200': 4713} err 0 avg 1972 B
+[20:59:49] laravel-frankenphp rep 1: post_message c=64 593.9 rps p50 100.031 p99 229.503 {'200': 4820} err 0 avg 1972 B
+[20:59:49] laravel-frankenphp rep 1: writes ok {'acknowledged': 11473, 'new_messages': 11473, 'with_bench_rich_text': 11473, 'in_fts': 11473, 'fts_match': 11473, 'integrity': 'ok', 'settle_ms': 25} 
+[21:01:13] laravel-frankenphp rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 25.503 p99 43.263 | tput 51.5 msg/s 3860 / 7411
+[21:02:54] laravel-frankenphp rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 318.463 p99 414.719 | tput 5.0 msg/s 374 / 7203
+[21:02:57] laravel-frankenphp rep 1: upload median 59.4ms
+[21:02:57] laravel-frankenphp rep 1: upload thumbnail ok [200] jpeg 75289 bytes 
+[21:02:58] laravel-frankenphp rep 1: INVALID: cable 100 clients: saturated 3860/7411 messages reached every client; cable 1000 clients: saturated 374/7203 messages reached every client
+[21:02:58] laravel-frankenphp rep 1: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-1.json
+[21:03:38] load before run: 1.29 3.19 3.22 (waited 40s)
+[21:03:38] symfony-classic rep 1: starting campfire-symfony:app (load: 1.29 3.19 3.22)
+[21:03:49] symfony-classic rep 1: cold start 934ms, idle 191MB (anon 64MB)
+[21:03:50] symfony-classic rep 1: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[21:03:50] symfony-classic rep 1: pages room_show 200 40 msgs 4000 elements 463229 B (45032 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35935 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6395 on the wire); search 200 13 msgs 1420 elements 165221 B (17719 on the wire)
+[21:04:00] symfony-classic rep 1: room_show c=1 48.1 rps p50 20.463 p99 24.655 {'200': 386} err 0 avg 45024 B
+[21:04:08] symfony-classic rep 1: room_show c=16 164.0 rps p50 94.207 p99 223.103 {'200': 1325} err 0 avg 45024 B
+[21:04:16] symfony-classic rep 1: room_show c=64 168.4 rps p50 378.879 p99 414.719 {'200': 1409} err 0 avg 45023 B
+[21:04:26] symfony-classic rep 1: messages_page c=1 92.3 rps p50 10.583 p99 16.655 {'200': 739} err 0 avg 35935 B
+[21:04:34] symfony-classic rep 1: messages_page c=16 347.5 rps p50 45.983 p99 62.655 {'200': 2794} err 0 avg 35935 B
+[21:04:43] symfony-classic rep 1: messages_page c=64 349.2 rps p50 182.911 p99 199.935 {'200': 2855} err 0 avg 35935 B
+[21:04:53] symfony-classic rep 1: sidebar c=1 57.4 rps p50 17.439 p99 18.783 {'200': 460} err 0 avg 6395 B
+[21:05:01] symfony-classic rep 1: sidebar c=16 216.5 rps p50 73.727 p99 105.023 {'200': 1746} err 0 avg 6395 B
+[21:05:09] symfony-classic rep 1: sidebar c=64 217.2 rps p50 294.143 p99 319.999 {'200': 1797} err 0 avg 6395 B
+[21:05:19] symfony-classic rep 1: search c=1 80.8 rps p50 12.343 p99 13.055 {'200': 647} err 0 avg 17719 B
+[21:05:27] symfony-classic rep 1: search c=16 301.0 rps p50 53.055 p99 73.279 {'200': 2420} err 0 avg 17719 B
+[21:05:35] symfony-classic rep 1: search c=64 301.1 rps p50 211.839 p99 233.215 {'200': 2471} err 0 avg 17719 B
+[21:05:45] symfony-classic rep 1: avatar c=1 79.5 rps p50 12.551 p99 13.695 {'200': 637} err 0 avg 3364 B
+[21:05:53] symfony-classic rep 1: avatar c=16 303.2 rps p50 52.607 p99 72.191 {'200': 2437} err 0 avg 3364 B
+[21:06:02] symfony-classic rep 1: avatar c=64 303.4 rps p50 210.431 p99 229.631 {'200': 2488} err 0 avg 3364 B
+[21:06:12] symfony-classic rep 1: static_css c=1 12888.2 rps p50 0.071 p99 0.101 {'200': 103106} err 0 avg 654 B
+[21:06:20] symfony-classic rep 1: static_css c=16 69188.8 rps p50 0.176 p99 1.312 {'200': 553787} err 0 avg 654 B
+[21:06:28] symfony-classic rep 1: static_css c=64 73960.2 rps p50 0.635 p99 4.159 {'200': 591792} err 0 avg 654 B
+[21:06:38] symfony-classic rep 1: up c=1 185.3 rps p50 5.395 p99 5.655 {'200': 1483} err 0 avg 73 B
+[21:06:46] symfony-classic rep 1: up c=16 709.2 rps p50 22.511 p99 33.951 {'200': 5685} err 0 avg 73 B
+[21:06:54] symfony-classic rep 1: up c=64 710.8 rps p50 89.663 p99 100.799 {'200': 5748} err 0 avg 73 B
+[21:07:04] symfony-classic rep 1: post_message c=1 69.9 rps p50 14.223 p99 16.183 {'200': 560} err 0 avg 2031 B
+[21:07:12] symfony-classic rep 1: post_message c=16 261.1 rps p50 60.991 p99 81.919 {'200': 2101} err 0 avg 2030 B
+[21:07:20] symfony-classic rep 1: post_message c=64 261.1 rps p50 244.607 p99 265.471 {'200': 2150} err 0 avg 2030 B
+[21:07:20] symfony-classic rep 1: writes ok {'acknowledged': 5295, 'new_messages': 5295, 'with_bench_rich_text': 5295, 'in_fts': 5295, 'fts_match': 5295, 'integrity': 'ok', 'settle_ms': 12} 
+[21:07:43] symfony-classic rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.879 p99 50.559 | tput 225.3 msg/s 3382 / 3382
+[21:08:10] symfony-classic rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 62.367 p99 71.103 | tput 108.6 msg/s 1850 / 1850
+[21:08:13] symfony-classic rep 1: upload median 65.2ms
+[21:08:13] symfony-classic rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[21:08:14] symfony-classic rep 1: valid
+[21:08:14] symfony-classic rep 1: done -> bench/results/2026-10-06-m3pro-grid/symfony-classic-1.json
+[21:09:34] load before run: 1.48 3.57 3.52 (waited 80s)
+[21:09:34] symfony rep 1: starting campfire-symfony:app (load: 1.48 3.57 3.52)
+[21:09:45] symfony rep 1: cold start 854ms, idle 231MB (anon 67MB)
+[21:09:46] symfony rep 1: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[21:09:46] symfony rep 1: pages room_show 200 40 msgs 4000 elements 463229 B (45103 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35927 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6395 on the wire); search 200 13 msgs 1420 elements 165221 B (17699 on the wire)
+[21:09:56] symfony rep 1: room_show c=1 206.0 rps p50 4.783 p99 5.247 {'200': 1648} err 0 avg 45100 B
+[21:10:04] symfony rep 1: room_show c=16 710.4 rps p50 22.223 p99 36.575 {'200': 5694} err 0 avg 45100 B
+[21:10:12] symfony rep 1: room_show c=64 717.0 rps p50 88.831 p99 103.039 {'200': 5800} err 0 avg 45100 B
+[21:10:22] symfony rep 1: messages_page c=1 532.0 rps p50 1.856 p99 2.055 {'200': 4256} err 0 avg 35927 B
+[21:10:30] symfony rep 1: messages_page c=16 1654.9 rps p50 9.295 p99 20.879 {'200': 13252} err 0 avg 35927 B
+[21:10:38] symfony rep 1: messages_page c=64 1739.0 rps p50 36.319 p99 58.911 {'200': 13968} err 0 avg 35927 B
+[21:10:48] symfony rep 1: sidebar c=1 790.4 rps p50 1.22 p99 1.405 {'200': 6324} err 0 avg 6395 B
+[21:10:56] symfony rep 1: sidebar c=16 2674.0 rps p50 5.443 p99 14.615 {'200': 21409} err 0 avg 6395 B
+[21:11:04] symfony rep 1: sidebar c=64 2890.3 rps p50 21.695 p99 37.151 {'200': 23180} err 0 avg 6395 B
+[21:11:14] symfony rep 1: search c=1 422.8 rps p50 2.313 p99 2.719 {'200': 3383} err 0 avg 17703 B
+[21:11:22] symfony rep 1: search c=16 1510.1 rps p50 10.359 p99 20.159 {'200': 12093} err 0 avg 17703 B
+[21:11:30] symfony rep 1: search c=64 1528.1 rps p50 41.407 p99 55.007 {'200': 12285} err 0 avg 17703 B
+[21:11:40] symfony rep 1: avatar c=1 1462.0 rps p50 0.643 p99 0.804 {'200': 11697} err 0 avg 3364 B
+[21:11:48] symfony rep 1: avatar c=16 4766.0 rps p50 2.875 p99 9.311 {'200': 38141} err 0 avg 3364 B
+[21:11:56] symfony rep 1: avatar c=64 5294.9 rps p50 11.335 p99 24.767 {'200': 42411} err 0 avg 3364 B
+[21:12:06] symfony rep 1: static_css c=1 11963.2 rps p50 0.078 p99 0.104 {'200': 95706} err 0 avg 654 B
+[21:12:14] symfony rep 1: static_css c=16 70212.7 rps p50 0.176 p99 1.242 {'200': 561733} err 0 avg 654 B
+[21:12:22] symfony rep 1: static_css c=64 72811.1 rps p50 0.633 p99 4.527 {'200': 582558} err 0 avg 654 B
+[21:12:32] symfony rep 1: up c=1 3240.7 rps p50 0.29 p99 0.389 {'200': 25927} err 0 avg 73 B
+[21:12:40] symfony rep 1: up c=16 11032.9 rps p50 1.329 p99 4.219 {'200': 88275} err 0 avg 73 B
+[21:12:48] symfony rep 1: up c=64 11462.5 rps p50 5.331 p99 13.999 {'200': 91762} err 0 avg 73 B
+[21:12:59] symfony rep 1: post_message c=1 667.8 rps p50 1.369 p99 6.123 {'200': 5346} err 0 avg 2033 B
+[21:13:07] symfony rep 1: post_message c=16 1653.4 rps p50 7.975 p99 39.903 {'200': 13257} err 0 avg 2033 B
+[21:13:15] symfony rep 1: post_message c=64 1661.9 rps p50 37.023 p99 69.951 {'200': 13360} err 0 avg 2032 B
+[21:13:15] symfony rep 1: writes ok {'acknowledged': 34724, 'new_messages': 34724, 'with_bench_rich_text': 34724, 'in_fts': 34724, 'fts_match': 34724, 'integrity': 'ok', 'settle_ms': 73} 
+[21:13:38] symfony rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 18.351 p99 20.895 | tput 984.1 msg/s 14766 / 14766
+[21:14:12] symfony rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 42.559 p99 49.599 | tput 169.4 msg/s 4104 / 4104
+[21:14:14] symfony rep 1: upload median 35.3ms
+[21:14:14] symfony rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[21:14:15] symfony rep 1: valid
+[21:14:15] symfony rep 1: done -> bench/results/2026-10-06-m3pro-grid/symfony-1.json
+[21:15:46] load before run: 1.32 3.66 3.76 (waited 90s)
+[21:15:46] symfony rep 2: starting campfire-symfony:app (load: 1.32 3.66 3.76)
+[21:15:56] symfony rep 2: cold start 752ms, idle 228MB (anon 67MB)
+[21:15:57] symfony rep 2: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[21:15:57] symfony rep 2: pages room_show 200 40 msgs 4000 elements 463229 B (45030 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35921 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6398 on the wire); search 200 13 msgs 1420 elements 165221 B (17703 on the wire)
+[21:16:07] symfony rep 2: room_show c=1 209.1 rps p50 4.695 p99 5.327 {'200': 1673} err 0 avg 45026 B
+[21:16:15] symfony rep 2: room_show c=16 711.4 rps p50 22.223 p99 35.295 {'200': 5701} err 0 avg 45026 B
+[21:16:23] symfony rep 2: room_show c=64 717.7 rps p50 88.639 p99 103.871 {'200': 5800} err 0 avg 45026 B
+[21:16:33] symfony rep 2: messages_page c=1 536.6 rps p50 1.845 p99 2.061 {'200': 4293} err 0 avg 35921 B
+[21:16:41] symfony rep 2: messages_page c=16 1606.1 rps p50 9.503 p99 21.583 {'200': 12859} err 0 avg 35921 B
+[21:16:49] symfony rep 2: messages_page c=64 1729.3 rps p50 36.415 p99 59.199 {'200': 13889} err 0 avg 35921 B
+[21:16:59] symfony rep 2: sidebar c=1 811.1 rps p50 1.182 p99 1.411 {'200': 6490} err 0 avg 6395 B
+[21:17:07] symfony rep 2: sidebar c=16 2662.4 rps p50 5.455 p99 14.455 {'200': 21307} err 0 avg 6395 B
+[21:17:15] symfony rep 2: sidebar c=64 2868.8 rps p50 21.791 p99 37.503 {'200': 23015} err 0 avg 6395 B
+[21:17:25] symfony rep 2: search c=1 435.8 rps p50 2.269 p99 2.503 {'200': 3487} err 0 avg 17706 B
+[21:17:33] symfony rep 2: search c=16 1499.1 rps p50 10.463 p99 20.591 {'200': 12005} err 0 avg 17706 B
+[21:17:41] symfony rep 2: search c=64 1516.9 rps p50 41.695 p99 56.671 {'200': 12196} err 0 avg 17706 B
+[21:17:51] symfony rep 2: avatar c=1 1496.9 rps p50 0.632 p99 0.78 {'200': 11976} err 0 avg 3364 B
+[21:17:59] symfony rep 2: avatar c=16 4760.9 rps p50 2.841 p99 9.711 {'200': 38099} err 0 avg 3364 B
+[21:18:07] symfony rep 2: avatar c=64 5195.1 rps p50 11.511 p99 26.127 {'200': 41615} err 0 avg 3364 B
+[21:18:17] symfony rep 2: static_css c=1 12867.8 rps p50 0.072 p99 0.1 {'200': 102943} err 0 avg 654 B
+[21:18:25] symfony rep 2: static_css c=16 70161.3 rps p50 0.176 p99 1.193 {'200': 561320} err 0 avg 654 B
+[21:18:33] symfony rep 2: static_css c=64 73524.4 rps p50 0.633 p99 4.283 {'200': 588311} err 0 avg 654 B
+[21:18:44] symfony rep 2: up c=1 3390.9 rps p50 0.273 p99 0.387 {'200': 27128} err 0 avg 73 B
+[21:18:52] symfony rep 2: up c=16 11043.4 rps p50 1.337 p99 4.139 {'200': 88361} err 0 avg 73 B
+[21:19:00] symfony rep 2: up c=64 11368.6 rps p50 5.359 p99 13.823 {'200': 90998} err 0 avg 73 B
+[21:19:10] symfony rep 2: post_message c=1 674.2 rps p50 1.356 p99 5.787 {'200': 5394} err 0 avg 2033 B
+[21:19:18] symfony rep 2: post_message c=16 1654.7 rps p50 7.899 p99 43.999 {'200': 13270} err 0 avg 2034 B
+[21:19:26] symfony rep 2: post_message c=64 1663.7 rps p50 36.991 p99 71.423 {'200': 13380} err 0 avg 2033 B
+[21:19:26] symfony rep 2: writes ok {'acknowledged': 34881, 'new_messages': 34881, 'with_bench_rich_text': 34881, 'in_fts': 34881, 'fts_match': 34881, 'integrity': 'ok', 'settle_ms': 73} 
+[21:19:49] symfony rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 17.599 p99 25.967 | tput 975.5 msg/s 14634 / 14634
+[21:20:21] symfony rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 40.095 p99 58.271 | tput 171.0 msg/s 3783 / 3783
+[21:20:23] symfony rep 2: upload median 35.7ms
+[21:20:23] symfony rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[21:20:24] symfony rep 2: valid
+[21:20:24] symfony rep 2: done -> bench/results/2026-10-06-m3pro-grid/symfony-2.json
+[21:21:35] load before run: 1.41 3.69 3.88 (waited 70s)
+[21:21:35] symfony-classic rep 2: starting campfire-symfony:app (load: 1.41 3.69 3.88)
+[21:21:46] symfony-classic rep 2: cold start 751ms, idle 227MB (anon 64MB)
+[21:21:46] symfony-classic rep 2: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[21:21:46] symfony-classic rep 2: pages room_show 200 40 msgs 4000 elements 463229 B (45026 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35929 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6397 on the wire); search 200 13 msgs 1420 elements 165221 B (17705 on the wire)
+[21:21:56] symfony-classic rep 2: room_show c=1 48.9 rps p50 20.431 p99 21.151 {'200': 392} err 0 avg 45018 B
+[21:22:04] symfony-classic rep 2: room_show c=16 174.0 rps p50 91.647 p99 123.007 {'200': 1407} err 0 avg 45018 B
+[21:22:13] symfony-classic rep 2: room_show c=64 174.2 rps p50 366.335 p99 403.967 {'200': 1454} err 0 avg 45018 B
+[21:22:23] symfony-classic rep 2: messages_page c=1 97.9 rps p50 10.143 p99 10.935 {'200': 783} err 0 avg 35929 B
+[21:22:31] symfony-classic rep 2: messages_page c=16 350.3 rps p50 45.631 p99 60.191 {'200': 2815} err 0 avg 35929 B
+[21:22:39] symfony-classic rep 2: messages_page c=64 349.9 rps p50 182.527 p99 198.015 {'200': 2860} err 0 avg 35929 B
+[21:22:49] symfony-classic rep 2: sidebar c=1 58.7 rps p50 16.895 p99 17.919 {'200': 470} err 0 avg 6395 B
+[21:22:57] symfony-classic rep 2: sidebar c=16 216.9 rps p50 73.471 p99 103.167 {'200': 1748} err 0 avg 6395 B
+[21:23:05] symfony-classic rep 2: sidebar c=64 217.2 rps p50 294.399 p99 319.487 {'200': 1799} err 0 avg 6395 B
+[21:23:15] symfony-classic rep 2: search c=1 81.7 rps p50 12.127 p99 13.623 {'200': 654} err 0 avg 17704 B
+[21:23:23] symfony-classic rep 2: search c=16 301.6 rps p50 52.959 p99 74.559 {'200': 2426} err 0 avg 17704 B
+[21:23:32] symfony-classic rep 2: search c=64 300.6 rps p50 212.351 p99 232.959 {'200': 2465} err 0 avg 17704 B
+[21:23:42] symfony-classic rep 2: avatar c=1 80.3 rps p50 12.455 p99 13.423 {'200': 643} err 0 avg 3364 B
+[21:23:50] symfony-classic rep 2: avatar c=16 303.4 rps p50 52.671 p99 73.919 {'200': 2439} err 0 avg 3364 B
+[21:23:58] symfony-classic rep 2: avatar c=64 304.0 rps p50 210.047 p99 232.447 {'200': 2493} err 0 avg 3364 B
+[21:24:08] symfony-classic rep 2: static_css c=1 13043.4 rps p50 0.07 p99 0.099 {'200': 104348} err 0 avg 654 B
+[21:24:16] symfony-classic rep 2: static_css c=16 73426.4 rps p50 0.174 p99 1.055 {'200': 587440} err 0 avg 654 B
+[21:24:24] symfony-classic rep 2: static_css c=64 75580.0 rps p50 0.623 p99 4.075 {'200': 604747} err 0 avg 654 B
+[21:24:34] symfony-classic rep 2: up c=1 185.8 rps p50 5.379 p99 5.851 {'200': 1487} err 0 avg 73 B
+[21:24:42] symfony-classic rep 2: up c=16 711.8 rps p50 22.463 p99 32.447 {'200': 5708} err 0 avg 73 B
+[21:24:50] symfony-classic rep 2: up c=64 711.9 rps p50 89.535 p99 100.543 {'200': 5757} err 0 avg 73 B
+[21:25:00] symfony-classic rep 2: post_message c=1 70.3 rps p50 14.191 p99 14.903 {'200': 563} err 0 avg 2032 B
+[21:25:08] symfony-classic rep 2: post_message c=16 261.4 rps p50 60.895 p99 79.167 {'200': 2104} err 0 avg 2031 B
+[21:25:17] symfony-classic rep 2: post_message c=64 261.1 rps p50 244.479 p99 264.191 {'200': 2149} err 0 avg 2030 B
+[21:25:17] symfony-classic rep 2: writes ok {'acknowledged': 5308, 'new_messages': 5308, 'with_bench_rich_text': 5308, 'in_fts': 5308, 'fts_match': 5308, 'integrity': 'ok', 'settle_ms': 12} 
+[21:25:40] symfony-classic rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.719 p99 50.207 | tput 222.9 msg/s 3347 / 3347
+[21:26:06] symfony-classic rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 62.079 p99 67.199 | tput 109.0 msg/s 1810 / 1810
+[21:26:09] symfony-classic rep 2: upload median 61.9ms
+[21:26:09] symfony-classic rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[21:26:09] symfony-classic rep 2: valid
+[21:26:10] symfony-classic rep 2: done -> bench/results/2026-10-06-m3pro-grid/symfony-classic-2.json
+[21:27:40] load before run: 1.29 3.67 3.96 (waited 90s)
+[21:27:40] laravel-frankenphp rep 2: starting once-campfire-laravel-frankenphp:bench (load: 1.29 3.67 3.96)
+[21:27:51] laravel-frankenphp rep 2: cold start 954ms, idle 267MB (anon 119MB)
+[21:27:52] laravel-frankenphp rep 2: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[21:27:52] laravel-frankenphp rep 2: pages room_show 200 40 msgs 4027 elements 398945 B (20031 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13313 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8212 on the wire)
+[21:28:02] laravel-frankenphp rep 2: room_show c=1 46.4 rps p50 21.599 p99 22.383 {'200': 372} err 0 avg 20031 B
+[21:28:10] laravel-frankenphp rep 2: room_show c=16 171.6 rps p50 94.527 p99 126.975 {'200': 1384} err 0 avg 20031 B
+[21:28:18] laravel-frankenphp rep 2: room_show c=64 210.2 rps p50 303.871 p99 332.543 {'200': 1743} err 0 avg 20031 B
+[21:28:28] laravel-frankenphp rep 2: messages_page c=1 60.0 rps p50 16.495 p99 21.695 {'200': 481} err 0 avg 13313 B
+[21:28:36] laravel-frankenphp rep 2: messages_page c=16 222.3 rps p50 71.679 p99 103.423 {'200': 1791} err 0 avg 13313 B
+[21:28:45] laravel-frankenphp rep 2: messages_page c=64 220.7 rps p50 288.511 p99 317.183 {'200': 1827} err 0 avg 13313 B
+[21:28:55] laravel-frankenphp rep 2: sidebar c=1 517.7 rps p50 1.903 p99 2.141 {'200': 4142} err 0 avg 817 B
+[21:29:03] laravel-frankenphp rep 2: sidebar c=16 1697.9 rps p50 8.367 p99 18.719 {'200': 13594} err 0 avg 817 B
+[21:29:11] laravel-frankenphp rep 2: sidebar c=64 1833.7 rps p50 34.527 p99 45.023 {'200': 14721} err 0 avg 817 B
+[21:29:21] laravel-frankenphp rep 2: search c=1 144.8 rps p50 6.863 p99 7.647 {'200': 1159} err 0 avg 8212 B
+[21:29:29] laravel-frankenphp rep 2: search c=16 527.8 rps p50 30.095 p99 44.479 {'200': 4236} err 0 avg 8212 B
+[21:29:37] laravel-frankenphp rep 2: search c=64 531.1 rps p50 120.255 p99 134.143 {'200': 4309} err 0 avg 8212 B
+[21:29:47] laravel-frankenphp rep 2: avatar c=1 968.3 rps p50 0.995 p99 1.655 {'200': 7749} err 0 avg 2930 B
+[21:29:55] laravel-frankenphp rep 2: avatar c=16 3145.1 rps p50 4.623 p99 12.631 {'200': 25172} err 0 avg 2930 B
+[21:30:03] laravel-frankenphp rep 2: avatar c=64 2579.6 rps p50 19.023 p99 32.335 {'200': 20680} err 0 avg 2930 B
+[21:30:13] laravel-frankenphp rep 2: static_css c=1 12293.1 rps p50 0.077 p99 0.103 {'200': 98346} err 0 avg 654 B
+[21:30:21] laravel-frankenphp rep 2: static_css c=16 69958.8 rps p50 0.177 p99 1.219 {'200': 559700} err 0 avg 654 B
+[21:30:29] laravel-frankenphp rep 2: static_css c=64 75016.1 rps p50 0.631 p99 4.047 {'200': 600251} err 0 avg 654 B
+[21:30:39] laravel-frankenphp rep 2: up c=1 1428.5 rps p50 0.688 p99 0.89 {'200': 11429} err 0 avg 73 B
+[21:30:47] laravel-frankenphp rep 2: up c=16 4590.0 rps p50 3.143 p99 8.591 {'200': 36733} err 0 avg 73 B
+[21:30:55] laravel-frankenphp rep 2: up c=64 4738.2 rps p50 13.039 p99 23.743 {'200': 37985} err 0 avg 73 B
+[21:31:05] laravel-frankenphp rep 2: post_message c=1 237.4 rps p50 3.667 p99 17.103 {'200': 1900} err 0 avg 1971 B
+[21:31:14] laravel-frankenphp rep 2: post_message c=16 587.6 rps p50 21.199 p99 118.463 {'200': 4760} err 0 avg 1971 B
+[21:31:22] laravel-frankenphp rep 2: post_message c=64 623.7 rps p50 97.087 p99 206.207 {'200': 5063} err 0 avg 1971 B
+[21:31:22] laravel-frankenphp rep 2: writes ok {'acknowledged': 11757, 'new_messages': 11757, 'with_bench_rich_text': 11757, 'in_fts': 11757, 'fts_match': 11757, 'integrity': 'ok', 'settle_ms': 25} 
+[21:32:45] laravel-frankenphp rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 23.535 p99 39.167 | tput 51.2 msg/s 3838 / 7347
+[21:34:27] laravel-frankenphp rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 330.239 p99 491.519 | tput 5.0 msg/s 373 / 7195
+[21:34:29] laravel-frankenphp rep 2: upload median 58.8ms
+[21:34:29] laravel-frankenphp rep 2: upload thumbnail ok [200] jpeg 75289 bytes 
+[21:34:30] laravel-frankenphp rep 2: INVALID: cable 100 clients: saturated 3838/7347 messages reached every client; cable 1000 clients: saturated 373/7195 messages reached every client
+[21:34:30] laravel-frankenphp rep 2: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-2.json
+[21:35:20] load before run: 1.32 3.52 3.98 (waited 50s)
+[21:35:20] laravel-frankenphp-classic rep 2: starting once-campfire-laravel-frankenphp:bench (load: 1.32 3.52 3.98)
+[21:35:32] laravel-frankenphp-classic rep 2: cold start 991ms, idle 161MB (anon 83MB)
+[21:35:32] laravel-frankenphp-classic rep 2: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[21:35:32] laravel-frankenphp-classic rep 2: pages room_show 200 40 msgs 4027 elements 398945 B (20032 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13333 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8214 on the wire)
+[21:35:42] laravel-frankenphp-classic rep 2: room_show c=1 32.8 rps p50 30.207 p99 32.927 {'200': 263} err 0 avg 20032 B
+[21:35:50] laravel-frankenphp-classic rep 2: room_show c=16 120.0 rps p50 133.119 p99 171.135 {'200': 974} err 0 avg 20032 B
+[21:35:59] laravel-frankenphp-classic rep 2: room_show c=64 119.0 rps p50 534.527 p99 588.799 {'200': 1012} err 0 avg 20032 B
+[21:36:09] laravel-frankenphp-classic rep 2: messages_page c=1 36.7 rps p50 27.167 p99 29.871 {'200': 294} err 0 avg 13333 B
+[21:36:17] laravel-frankenphp-classic rep 2: messages_page c=16 137.1 rps p50 116.351 p99 168.703 {'200': 1110} err 0 avg 13333 B
+[21:36:25] laravel-frankenphp-classic rep 2: messages_page c=64 136.4 rps p50 467.967 p99 502.271 {'200': 1150} err 0 avg 13333 B
+[21:36:35] laravel-frankenphp-classic rep 2: sidebar c=1 86.1 rps p50 11.671 p99 12.247 {'200': 690} err 0 avg 817 B
+[21:36:44] laravel-frankenphp-classic rep 2: sidebar c=16 318.2 rps p50 50.079 p99 69.311 {'200': 2559} err 0 avg 817 B
+[21:36:52] laravel-frankenphp-classic rep 2: sidebar c=64 317.0 rps p50 201.343 p99 218.879 {'200': 2599} err 0 avg 817 B
+[21:37:02] laravel-frankenphp-classic rep 2: search c=1 56.7 rps p50 17.567 p99 20.303 {'200': 454} err 0 avg 8214 B
+[21:37:10] laravel-frankenphp-classic rep 2: search c=16 210.3 rps p50 75.903 p99 106.495 {'200': 1696} err 0 avg 8214 B
+[21:37:18] laravel-frankenphp-classic rep 2: search c=64 211.1 rps p50 301.823 p99 333.055 {'200': 1750} err 0 avg 8214 B
+[21:37:28] laravel-frankenphp-classic rep 2: avatar c=1 135.8 rps p50 7.311 p99 9.471 {'200': 1087} err 0 avg 2930 B
+[21:37:36] laravel-frankenphp-classic rep 2: avatar c=16 502.7 rps p50 31.679 p99 44.639 {'200': 4039} err 0 avg 2930 B
+[21:37:44] laravel-frankenphp-classic rep 2: avatar c=64 502.5 rps p50 126.975 p99 140.927 {'200': 4080} err 0 avg 2930 B
+[21:37:54] laravel-frankenphp-classic rep 2: static_css c=1 12738.9 rps p50 0.072 p99 0.102 {'200': 101920} err 0 avg 654 B
+[21:38:02] laravel-frankenphp-classic rep 2: static_css c=16 69215.2 rps p50 0.177 p99 1.3 {'200': 553751} err 0 avg 654 B
+[21:38:10] laravel-frankenphp-classic rep 2: static_css c=64 74827.7 rps p50 0.63 p99 4.195 {'200': 598722} err 0 avg 654 B
+[21:38:20] laravel-frankenphp-classic rep 2: up c=1 323.0 rps p50 3.079 p99 3.427 {'200': 2585} err 0 avg 73 B
+[21:38:29] laravel-frankenphp-classic rep 2: up c=16 1058.4 rps p50 13.687 p99 24.351 {'200': 8479} err 0 avg 73 B
+[21:38:37] laravel-frankenphp-classic rep 2: up c=64 1174.2 rps p50 54.207 p99 64.127 {'200': 9453} err 0 avg 73 B
+[21:38:47] laravel-frankenphp-classic rep 2: post_message c=1 63.3 rps p50 15.199 p99 28.911 {'200': 507} err 0 avg 1973 B
+[21:38:55] laravel-frankenphp-classic rep 2: post_message c=16 224.8 rps p50 68.287 p99 131.967 {'200': 1812} err 0 avg 1973 B
+[21:39:03] laravel-frankenphp-classic rep 2: post_message c=64 228.6 rps p50 275.967 p99 359.167 {'200': 1892} err 0 avg 1973 B
+[21:39:03] laravel-frankenphp-classic rep 2: writes ok {'acknowledged': 4587, 'new_messages': 4587, 'with_bench_rich_text': 4587, 'in_fts': 4587, 'fts_match': 4587, 'integrity': 'ok', 'settle_ms': 11} 
+[21:40:00] laravel-frankenphp-classic rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 36.927 p99 47.295 | tput 48.8 msg/s 2366 / 2366
+[21:41:41] laravel-frankenphp-classic rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 321.023 p99 387.839 | tput 4.9 msg/s 371 / 2394
+[21:41:44] laravel-frankenphp-classic rep 2: upload median 77.1ms
+[21:41:44] laravel-frankenphp-classic rep 2: upload thumbnail ok [200] jpeg 75289 bytes 
+[21:41:45] laravel-frankenphp-classic rep 2: INVALID: cable 1000 clients: saturated 371/2394 messages reached every client
+[21:41:45] laravel-frankenphp-classic rep 2: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-classic-2.json
+[21:42:35] load before run: 1.32 3.47 3.96 (waited 50s)
+[21:42:35] laravel-frankenphp-classic rep 3: starting once-campfire-laravel-frankenphp:bench (load: 1.32 3.47 3.96)
+[21:42:46] laravel-frankenphp-classic rep 3: cold start 951ms, idle 158MB (anon 83MB)
+[21:42:47] laravel-frankenphp-classic rep 3: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[21:42:47] laravel-frankenphp-classic rep 3: pages room_show 200 40 msgs 4027 elements 398945 B (20033 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13342 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8216 on the wire)
+[21:42:57] laravel-frankenphp-classic rep 3: room_show c=1 33.2 rps p50 30.079 p99 31.391 {'200': 266} err 0 avg 20033 B
+[21:43:05] laravel-frankenphp-classic rep 3: room_show c=16 119.8 rps p50 133.247 p99 180.095 {'200': 971} err 0 avg 20033 B
+[21:43:14] laravel-frankenphp-classic rep 3: room_show c=64 119.3 rps p50 534.015 p99 590.847 {'200': 1015} err 0 avg 20033 B
+[21:43:24] laravel-frankenphp-classic rep 3: messages_page c=1 36.9 rps p50 26.975 p99 30.207 {'200': 295} err 0 avg 13342 B
+[21:43:32] laravel-frankenphp-classic rep 3: messages_page c=16 136.9 rps p50 116.671 p99 159.359 {'200': 1107} err 0 avg 13342 B
+[21:43:40] laravel-frankenphp-classic rep 3: messages_page c=64 136.7 rps p50 466.431 p99 517.375 {'200': 1155} err 0 avg 13342 B
+[21:43:50] laravel-frankenphp-classic rep 3: sidebar c=1 88.0 rps p50 11.343 p99 11.895 {'200': 704} err 0 avg 817 B
+[21:43:58] laravel-frankenphp-classic rep 3: sidebar c=16 316.7 rps p50 50.239 p99 72.383 {'200': 2549} err 0 avg 817 B
+[21:44:07] laravel-frankenphp-classic rep 3: sidebar c=64 317.7 rps p50 200.959 p99 217.983 {'200': 2602} err 0 avg 817 B
+[21:44:17] laravel-frankenphp-classic rep 3: search c=1 56.7 rps p50 17.487 p99 20.943 {'200': 454} err 0 avg 8216 B
+[21:44:25] laravel-frankenphp-classic rep 3: search c=16 211.4 rps p50 75.519 p99 102.975 {'200': 1704} err 0 avg 8216 B
+[21:44:33] laravel-frankenphp-classic rep 3: search c=64 211.7 rps p50 301.567 p99 329.727 {'200': 1756} err 0 avg 8216 B
+[21:44:43] laravel-frankenphp-classic rep 3: avatar c=1 135.5 rps p50 7.367 p99 8.375 {'200': 1085} err 0 avg 2930 B
+[21:44:51] laravel-frankenphp-classic rep 3: avatar c=16 503.2 rps p50 31.615 p99 44.799 {'200': 4039} err 0 avg 2930 B
+[21:44:59] laravel-frankenphp-classic rep 3: avatar c=64 504.5 rps p50 126.591 p99 140.031 {'200': 4095} err 0 avg 2930 B
+[21:45:09] laravel-frankenphp-classic rep 3: static_css c=1 12736.6 rps p50 0.072 p99 0.1 {'200': 101894} err 0 avg 654 B
+[21:45:17] laravel-frankenphp-classic rep 3: static_css c=16 67762.5 rps p50 0.179 p99 1.376 {'200': 542124} err 0 avg 654 B
+[21:45:25] laravel-frankenphp-classic rep 3: static_css c=64 71578.7 rps p50 0.642 p99 4.619 {'200': 572719} err 0 avg 654 B
+[21:45:35] laravel-frankenphp-classic rep 3: up c=1 328.8 rps p50 3.029 p99 3.349 {'200': 2631} err 0 avg 73 B
+[21:45:43] laravel-frankenphp-classic rep 3: up c=16 1155.0 rps p50 13.671 p99 23.471 {'200': 9255} err 0 avg 73 B
+[21:45:51] laravel-frankenphp-classic rep 3: up c=64 1165.1 rps p50 54.719 p99 64.415 {'200': 9384} err 0 avg 73 B
+[21:46:01] laravel-frankenphp-classic rep 3: post_message c=1 63.0 rps p50 15.399 p99 26.639 {'200': 505} err 0 avg 1975 B
+[21:46:10] laravel-frankenphp-classic rep 3: post_message c=16 221.1 rps p50 68.863 p99 164.991 {'200': 1785} err 0 avg 1976 B
+[21:46:18] laravel-frankenphp-classic rep 3: post_message c=64 222.7 rps p50 281.855 p99 359.935 {'200': 1847} err 0 avg 1976 B
+[21:46:18] laravel-frankenphp-classic rep 3: writes ok {'acknowledged': 4448, 'new_messages': 4448, 'with_bench_rich_text': 4448, 'in_fts': 4448, 'fts_match': 4448, 'integrity': 'ok', 'settle_ms': 10} 
+[21:47:15] laravel-frankenphp-classic rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 39.999 p99 55.199 | tput 48.9 msg/s 2396 / 2396
+[21:48:57] laravel-frankenphp-classic rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 300.799 p99 329.983 | tput 5.0 msg/s 372 / 2365
+[21:48:59] laravel-frankenphp-classic rep 3: upload median 77.5ms
+[21:48:59] laravel-frankenphp-classic rep 3: upload thumbnail ok [200] jpeg 75289 bytes 
+[21:49:00] laravel-frankenphp-classic rep 3: INVALID: cable 1000 clients: saturated 372/2365 messages reached every client
+[21:49:00] laravel-frankenphp-classic rep 3: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-classic-3.json
+[21:49:41] load before run: 1.49 3.43 3.91 (waited 40s)
+[21:49:41] laravel-frankenphp rep 3: starting once-campfire-laravel-frankenphp:bench (load: 1.49 3.43 3.91)
+[21:49:52] laravel-frankenphp rep 3: cold start 879ms, idle 202MB (anon 120MB)
+[21:49:52] laravel-frankenphp rep 3: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[21:49:52] laravel-frankenphp rep 3: pages room_show 200 40 msgs 4027 elements 398945 B (20030 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13315 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8217 on the wire)
+[21:50:02] laravel-frankenphp rep 3: room_show c=1 47.1 rps p50 21.071 p99 25.583 {'200': 378} err 0 avg 20030 B
+[21:50:10] laravel-frankenphp rep 3: room_show c=16 177.6 rps p50 92.415 p99 129.471 {'200': 1432} err 0 avg 20030 B
+[21:50:19] laravel-frankenphp rep 3: room_show c=64 209.7 rps p50 303.871 p99 339.199 {'200': 1739} err 0 avg 20030 B
+[21:50:29] laravel-frankenphp rep 3: messages_page c=1 60.4 rps p50 16.415 p99 18.975 {'200': 484} err 0 avg 13315 B
+[21:50:37] laravel-frankenphp rep 3: messages_page c=16 221.6 rps p50 71.871 p99 101.695 {'200': 1785} err 0 avg 13315 B
+[21:50:45] laravel-frankenphp rep 3: messages_page c=64 221.5 rps p50 287.743 p99 317.439 {'200': 1833} err 0 avg 13315 B
+[21:50:55] laravel-frankenphp rep 3: sidebar c=1 523.1 rps p50 1.871 p99 2.149 {'200': 4185} err 0 avg 817 B
+[21:51:03] laravel-frankenphp rep 3: sidebar c=16 1686.7 rps p50 8.255 p99 18.191 {'200': 13506} err 0 avg 817 B
+[21:51:11] laravel-frankenphp rep 3: sidebar c=64 1838.1 rps p50 34.367 p99 45.855 {'200': 14765} err 0 avg 817 B
+[21:51:21] laravel-frankenphp rep 3: search c=1 144.5 rps p50 6.827 p99 8.263 {'200': 1156} err 0 avg 8217 B
+[21:51:29] laravel-frankenphp rep 3: search c=16 510.5 rps p50 30.079 p99 48.927 {'200': 4095} err 0 avg 8217 B
+[21:51:37] laravel-frankenphp rep 3: search c=64 532.9 rps p50 119.807 p99 134.015 {'200': 4322} err 0 avg 8217 B
+[21:51:47] laravel-frankenphp rep 3: avatar c=1 969.1 rps p50 0.992 p99 1.738 {'200': 7753} err 0 avg 2930 B
+[21:51:55] laravel-frankenphp rep 3: avatar c=16 3132.3 rps p50 4.643 p99 12.695 {'200': 25074} err 0 avg 2930 B
+[21:52:03] laravel-frankenphp rep 3: avatar c=64 2516.3 rps p50 19.135 p99 34.527 {'200': 20178} err 0 avg 2930 B
+[21:52:13] laravel-frankenphp rep 3: static_css c=1 12611.3 rps p50 0.073 p99 0.104 {'200': 100928} err 0 avg 654 B
+[21:52:21] laravel-frankenphp rep 3: static_css c=16 67436.3 rps p50 0.179 p99 1.376 {'200': 539518} err 0 avg 654 B
+[21:52:29] laravel-frankenphp rep 3: static_css c=64 72313.8 rps p50 0.648 p99 4.307 {'200': 578627} err 0 avg 654 B
+[21:52:39] laravel-frankenphp rep 3: up c=1 1438.6 rps p50 0.677 p99 0.894 {'200': 11510} err 0 avg 73 B
+[21:52:47] laravel-frankenphp rep 3: up c=16 4622.6 rps p50 3.129 p99 8.495 {'200': 37001} err 0 avg 73 B
+[21:52:55] laravel-frankenphp rep 3: up c=64 4784.8 rps p50 12.879 p99 24.031 {'200': 38324} err 0 avg 73 B
+[21:53:06] laravel-frankenphp rep 3: post_message c=1 235.5 rps p50 3.653 p99 17.551 {'200': 1885} err 0 avg 1977 B
+[21:53:14] laravel-frankenphp rep 3: post_message c=16 598.9 rps p50 20.623 p99 125.119 {'200': 4816} err 0 avg 1976 B
+[21:53:22] laravel-frankenphp rep 3: post_message c=64 618.1 rps p50 97.535 p99 210.559 {'200': 5036} err 0 avg 1976 B
+[21:53:22] laravel-frankenphp rep 3: writes ok {'acknowledged': 11782, 'new_messages': 11782, 'with_bench_rich_text': 11782, 'in_fts': 11782, 'fts_match': 11782, 'integrity': 'ok', 'settle_ms': 26} 
+[21:54:45] laravel-frankenphp rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 28.095 p99 40.063 | tput 52.2 msg/s 3912 / 7343
+[21:56:27] laravel-frankenphp rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 319.743 p99 417.791 | tput 5.0 msg/s 376 / 7283
+[21:56:29] laravel-frankenphp rep 3: upload median 57.6ms
+[21:56:29] laravel-frankenphp rep 3: upload thumbnail ok [200] jpeg 75289 bytes 
+[21:56:30] laravel-frankenphp rep 3: INVALID: cable 100 clients: saturated 3912/7343 messages reached every client; cable 1000 clients: saturated 376/7283 messages reached every client
+[21:56:31] laravel-frankenphp rep 3: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-3.json
+[21:57:11] load before run: 1.44 3.33 3.84 (waited 40s)
+[21:57:11] symfony-classic rep 3: starting campfire-symfony:app (load: 1.44 3.33 3.84)
+[21:57:22] symfony-classic rep 3: cold start 931ms, idle 189MB (anon 64MB)
+[21:57:22] symfony-classic rep 3: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[21:57:22] symfony-classic rep 3: pages room_show 200 40 msgs 4000 elements 463229 B (45077 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35918 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6400 on the wire); search 200 13 msgs 1420 elements 165221 B (17722 on the wire)
+[21:57:32] symfony-classic rep 3: room_show c=1 48.8 rps p50 20.431 p99 21.631 {'200': 391} err 0 avg 45074 B
+[21:57:41] symfony-classic rep 3: room_show c=16 173.8 rps p50 91.583 p99 125.375 {'200': 1404} err 0 avg 45074 B
+[21:57:49] symfony-classic rep 3: room_show c=64 174.2 rps p50 366.591 p99 389.119 {'200': 1454} err 0 avg 45074 B
+[21:57:59] symfony-classic rep 3: messages_page c=1 99.2 rps p50 10.031 p99 10.639 {'200': 794} err 0 avg 35918 B
+[21:58:07] symfony-classic rep 3: messages_page c=16 350.7 rps p50 45.471 p99 64.063 {'200': 2818} err 0 avg 35918 B
+[21:58:15] symfony-classic rep 3: messages_page c=64 350.0 rps p50 182.271 p99 198.527 {'200': 2860} err 0 avg 35918 B
+[21:58:25] symfony-classic rep 3: sidebar c=1 59.1 rps p50 16.719 p99 17.855 {'200': 473} err 0 avg 6394 B
+[21:58:33] symfony-classic rep 3: sidebar c=16 217.3 rps p50 73.599 p99 97.983 {'200': 1750} err 0 avg 6395 B
+[21:58:42] symfony-classic rep 3: sidebar c=64 217.2 rps p50 294.143 p99 318.719 {'200': 1799} err 0 avg 6395 B
+[21:58:52] symfony-classic rep 3: search c=1 84.2 rps p50 11.831 p99 12.431 {'200': 674} err 0 avg 17719 B
+[21:59:00] symfony-classic rep 3: search c=16 300.6 rps p50 53.023 p99 76.799 {'200': 2417} err 0 avg 17719 B
+[21:59:08] symfony-classic rep 3: search c=64 300.6 rps p50 212.351 p99 233.087 {'200': 2464} err 0 avg 17719 B
+[21:59:18] symfony-classic rep 3: avatar c=1 81.7 rps p50 12.343 p99 12.807 {'200': 654} err 0 avg 3364 B
+[21:59:26] symfony-classic rep 3: avatar c=16 303.7 rps p50 52.607 p99 72.767 {'200': 2444} err 0 avg 3364 B
+[21:59:34] symfony-classic rep 3: avatar c=64 303.9 rps p50 210.175 p99 226.559 {'200': 2492} err 0 avg 3364 B
+[21:59:44] symfony-classic rep 3: static_css c=1 12970.9 rps p50 0.071 p99 0.101 {'200': 103768} err 0 avg 654 B
+[21:59:52] symfony-classic rep 3: static_css c=16 70238.7 rps p50 0.175 p99 1.266 {'200': 561930} err 0 avg 654 B
+[22:00:00] symfony-classic rep 3: static_css c=64 74259.3 rps p50 0.628 p99 4.295 {'200': 594153} err 0 avg 654 B
+[22:00:10] symfony-classic rep 3: up c=1 191.2 rps p50 5.227 p99 5.599 {'200': 1530} err 0 avg 73 B
+[22:00:18] symfony-classic rep 3: up c=16 708.1 rps p50 22.479 p99 36.159 {'200': 5678} err 0 avg 73 B
+[22:00:26] symfony-classic rep 3: up c=64 712.7 rps p50 89.407 p99 99.903 {'200': 5762} err 0 avg 73 B
+[22:00:37] symfony-classic rep 3: post_message c=1 71.5 rps p50 14.087 p99 15.343 {'200': 573} err 0 avg 2031 B
+[22:00:45] symfony-classic rep 3: post_message c=16 261.5 rps p50 60.959 p99 81.215 {'200': 2104} err 0 avg 2031 B
+[22:00:53] symfony-classic rep 3: post_message c=64 261.9 rps p50 243.711 p99 264.703 {'200': 2157} err 0 avg 2031 B
+[22:00:53] symfony-classic rep 3: writes ok {'acknowledged': 5325, 'new_messages': 5325, 'with_bench_rich_text': 5325, 'in_fts': 5325, 'fts_match': 5325, 'integrity': 'ok', 'settle_ms': 12} 
+[22:01:16] symfony-classic rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.239 p99 50.687 | tput 223.7 msg/s 3359 / 3359
+[22:01:44] symfony-classic rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 60.863 p99 69.183 | tput 107.3 msg/s 1890 / 1890
+[22:01:46] symfony-classic rep 3: upload median 60.8ms
+[22:01:46] symfony-classic rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[22:01:47] symfony-classic rep 3: valid
+[22:01:47] symfony-classic rep 3: done -> bench/results/2026-10-06-m3pro-grid/symfony-classic-3.json
+[22:03:17] load before run: 1.43 3.57 3.92 (waited 90s)
+[22:03:17] symfony rep 3: starting campfire-symfony:app (load: 1.43 3.57 3.92)
+[22:03:28] symfony rep 3: cold start 775ms, idle 222MB (anon 68MB)
+[22:03:29] symfony rep 3: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[22:03:29] symfony rep 3: pages room_show 200 40 msgs 4000 elements 463229 B (45045 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35951 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6394 on the wire); search 200 13 msgs 1420 elements 165221 B (17717 on the wire)
+[22:03:39] symfony rep 3: room_show c=1 209.3 rps p50 4.691 p99 5.203 {'200': 1675} err 0 avg 45044 B
+[22:03:47] symfony rep 3: room_show c=16 713.5 rps p50 22.239 p99 34.079 {'200': 5720} err 0 avg 45044 B
+[22:03:55] symfony rep 3: room_show c=64 717.4 rps p50 88.639 p99 103.359 {'200': 5794} err 0 avg 45044 B
+[22:04:05] symfony rep 3: messages_page c=1 532.2 rps p50 1.854 p99 2.075 {'200': 4258} err 0 avg 35951 B
+[22:04:13] symfony rep 3: messages_page c=16 1626.9 rps p50 9.423 p99 21.231 {'200': 13032} err 0 avg 35951 B
+[22:04:21] symfony rep 3: messages_page c=64 1730.6 rps p50 36.223 p99 59.391 {'200': 13896} err 0 avg 35951 B
+[22:04:31] symfony rep 3: sidebar c=1 824.2 rps p50 1.165 p99 1.355 {'200': 6594} err 0 avg 6395 B
+[22:04:39] symfony rep 3: sidebar c=16 2673.4 rps p50 5.479 p99 13.799 {'200': 21399} err 0 avg 6395 B
+[22:04:47] symfony rep 3: sidebar c=64 2864.1 rps p50 21.903 p99 37.983 {'200': 22970} err 0 avg 6395 B
+[22:04:57] symfony rep 3: search c=1 423.8 rps p50 2.321 p99 2.587 {'200': 3391} err 0 avg 17723 B
+[22:05:05] symfony rep 3: search c=16 1494.2 rps p50 10.423 p99 21.055 {'200': 11968} err 0 avg 17723 B
+[22:05:13] symfony rep 3: search c=64 1522.9 rps p50 41.567 p99 57.343 {'200': 12239} err 0 avg 17723 B
+[22:05:23] symfony rep 3: avatar c=1 1478.7 rps p50 0.642 p99 0.788 {'200': 11830} err 0 avg 3364 B
+[22:05:31] symfony rep 3: avatar c=16 4741.8 rps p50 2.861 p99 9.439 {'200': 37946} err 0 avg 3364 B
+[22:05:39] symfony rep 3: avatar c=64 5264.1 rps p50 11.407 p99 25.135 {'200': 42201} err 0 avg 3364 B
+[22:05:49] symfony rep 3: static_css c=1 12287.1 rps p50 0.076 p99 0.102 {'200': 98298} err 0 avg 654 B
+[22:05:57] symfony rep 3: static_css c=16 72236.1 rps p50 0.173 p99 1.159 {'200': 577923} err 0 avg 654 B
+[22:06:05] symfony rep 3: static_css c=64 75961.0 rps p50 0.62 p99 4.081 {'200': 607780} err 0 avg 654 B
+[22:06:15] symfony rep 3: up c=1 3225.7 rps p50 0.293 p99 0.398 {'200': 25806} err 0 avg 73 B
+[22:06:23] symfony rep 3: up c=16 11140.2 rps p50 1.323 p99 4.037 {'200': 89135} err 0 avg 73 B
+[22:06:31] symfony rep 3: up c=64 11444.0 rps p50 5.347 p99 13.831 {'200': 91617} err 0 avg 73 B
+[22:06:42] symfony rep 3: post_message c=1 668.0 rps p50 1.374 p99 5.591 {'200': 5345} err 0 avg 2033 B
+[22:06:50] symfony rep 3: post_message c=16 1672.6 rps p50 7.923 p99 40.287 {'200': 13400} err 0 avg 2033 B
+[22:06:58] symfony rep 3: post_message c=64 1659.5 rps p50 37.087 p99 71.999 {'200': 13337} err 0 avg 2033 B
+[22:06:58] symfony rep 3: writes ok {'acknowledged': 34895, 'new_messages': 34895, 'with_bench_rich_text': 34895, 'in_fts': 34895, 'fts_match': 34895, 'integrity': 'ok', 'settle_ms': 73} 
+[22:07:21] symfony rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 18.031 p99 23.231 | tput 970.7 msg/s 14572 / 14572
+[22:07:54] symfony rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 41.087 p99 48.127 | tput 170.7 msg/s 4042 / 4042
+[22:07:57] symfony rep 3: upload median 36.2ms
+[22:07:57] symfony rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[22:07:57] symfony rep 3: valid
+[22:07:58] symfony rep 3: done -> bench/results/2026-10-06-m3pro-grid/symfony-3.json
+[22:09:08] load before run: 1.34 3.65 3.99 (waited 70s)
+[22:09:08] symfony rep 4: starting campfire-symfony:app (load: 1.34 3.65 3.99)
+[22:09:19] symfony rep 4: cold start 707ms, idle 230MB (anon 67MB)
+[22:09:19] symfony rep 4: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[22:09:19] symfony rep 4: pages room_show 200 40 msgs 4000 elements 463229 B (45037 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35909 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6393 on the wire); search 200 13 msgs 1420 elements 165221 B (17716 on the wire)
+[22:09:29] symfony rep 4: room_show c=1 209.2 rps p50 4.703 p99 5.119 {'200': 1674} err 0 avg 45033 B
+[22:09:37] symfony rep 4: room_show c=16 711.8 rps p50 22.159 p99 36.991 {'200': 5708} err 0 avg 45033 B
+[22:09:45] symfony rep 4: room_show c=64 716.8 rps p50 88.959 p99 102.207 {'200': 5795} err 0 avg 45033 B
+[22:09:55] symfony rep 4: messages_page c=1 537.7 rps p50 1.824 p99 2.045 {'200': 4302} err 0 avg 35909 B
+[22:10:03] symfony rep 4: messages_page c=16 1607.3 rps p50 9.495 p99 21.167 {'200': 12868} err 0 avg 35909 B
+[22:10:11] symfony rep 4: messages_page c=64 1720.9 rps p50 36.543 p99 59.455 {'200': 13827} err 0 avg 35909 B
+[22:10:21] symfony rep 4: sidebar c=1 815.0 rps p50 1.181 p99 1.386 {'200': 6520} err 0 avg 6395 B
+[22:10:30] symfony rep 4: sidebar c=16 2675.6 rps p50 5.439 p99 14.455 {'200': 21418} err 0 avg 6395 B
+[22:10:38] symfony rep 4: sidebar c=64 2890.2 rps p50 21.583 p99 37.535 {'200': 23170} err 0 avg 6395 B
+[22:10:48] symfony rep 4: search c=1 428.8 rps p50 2.299 p99 2.549 {'200': 3431} err 0 avg 17716 B
+[22:10:56] symfony rep 4: search c=16 1493.5 rps p50 10.407 p99 20.751 {'200': 11962} err 0 avg 17716 B
+[22:11:04] symfony rep 4: search c=64 1517.3 rps p50 41.791 p99 54.719 {'200': 12205} err 0 avg 17716 B
+[22:11:14] symfony rep 4: avatar c=1 1505.1 rps p50 0.619 p99 0.834 {'200': 12041} err 0 avg 3364 B
+[22:11:22] symfony rep 4: avatar c=16 4761.0 rps p50 2.829 p99 9.599 {'200': 38102} err 0 avg 3364 B
+[22:11:30] symfony rep 4: avatar c=64 5240.2 rps p50 11.447 p99 25.007 {'200': 42029} err 0 avg 3364 B
+[22:11:40] symfony rep 4: static_css c=1 12860.7 rps p50 0.072 p99 0.1 {'200': 102890} err 0 avg 654 B
+[22:11:48] symfony rep 4: static_css c=16 71595.5 rps p50 0.176 p99 1.06 {'200': 572792} err 0 avg 654 B
+[22:11:56] symfony rep 4: static_css c=64 73989.6 rps p50 0.633 p99 4.163 {'200': 592030} err 0 avg 654 B
+[22:12:06] symfony rep 4: up c=1 3378.5 rps p50 0.275 p99 0.377 {'200': 27029} err 0 avg 73 B
+[22:12:14] symfony rep 4: up c=16 10991.2 rps p50 1.343 p99 4.049 {'200': 87934} err 0 avg 73 B
+[22:12:22] symfony rep 4: up c=64 11555.4 rps p50 5.279 p99 13.799 {'200': 92486} err 0 avg 73 B
+[22:12:32] symfony rep 4: post_message c=1 678.1 rps p50 1.348 p99 6.067 {'200': 5426} err 0 avg 2033 B
+[22:12:40] symfony rep 4: post_message c=16 1652.2 rps p50 8.059 p99 41.503 {'200': 13239} err 0 avg 2033 B
+[22:12:48] symfony rep 4: post_message c=64 1672.1 rps p50 36.799 p99 71.423 {'200': 13464} err 0 avg 2033 B
+[22:12:48] symfony rep 4: writes ok {'acknowledged': 34953, 'new_messages': 34953, 'with_bench_rich_text': 34953, 'in_fts': 34953, 'fts_match': 34953, 'integrity': 'ok', 'settle_ms': 73} 
+[22:13:11] symfony rep 4: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 17.711 p99 21.087 | tput 968.7 msg/s 14536 / 14536
+[22:13:43] symfony rep 4: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 42.399 p99 54.911 | tput 171.0 msg/s 3763 / 3763
+[22:13:46] symfony rep 4: upload median 34.8ms
+[22:13:46] symfony rep 4: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[22:13:46] symfony rep 4: valid
+[22:13:47] symfony rep 4: done -> bench/results/2026-10-06-m3pro-grid/symfony-4.json
+[22:15:07] load before run: 1.43 3.69 4.04 (waited 80s)
+[22:15:07] symfony-classic rep 4: starting campfire-symfony:app (load: 1.43 3.69 4.04)
+[22:15:18] symfony-classic rep 4: cold start 925ms, idle 226MB (anon 64MB)
+[22:15:18] symfony-classic rep 4: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[22:15:19] symfony-classic rep 4: pages room_show 200 40 msgs 4000 elements 463229 B (45083 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35947 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6395 on the wire); search 200 13 msgs 1420 elements 165221 B (17712 on the wire)
+[22:15:29] symfony-classic rep 4: room_show c=1 48.9 rps p50 20.431 p99 21.215 {'200': 391} err 0 avg 45100 B
+[22:15:37] symfony-classic rep 4: room_show c=16 174.4 rps p50 91.519 p99 126.911 {'200': 1408} err 0 avg 45100 B
+[22:15:45] symfony-classic rep 4: room_show c=64 173.9 rps p50 367.615 p99 402.943 {'200': 1451} err 0 avg 45099 B
+[22:15:55] symfony-classic rep 4: messages_page c=1 97.9 rps p50 10.143 p99 10.879 {'200': 784} err 0 avg 35947 B
+[22:16:03] symfony-classic rep 4: messages_page c=16 350.4 rps p50 45.567 p99 61.151 {'200': 2815} err 0 avg 35947 B
+[22:16:11] symfony-classic rep 4: messages_page c=64 349.4 rps p50 182.655 p99 196.991 {'200': 2857} err 0 avg 35947 B
+[22:16:21] symfony-classic rep 4: sidebar c=1 58.5 rps p50 16.943 p99 17.983 {'200': 469} err 0 avg 6395 B
+[22:16:29] symfony-classic rep 4: sidebar c=16 216.6 rps p50 73.599 p99 98.943 {'200': 1747} err 0 avg 6395 B
+[22:16:38] symfony-classic rep 4: sidebar c=64 217.4 rps p50 293.887 p99 315.903 {'200': 1801} err 0 avg 6395 B
+[22:16:48] symfony-classic rep 4: search c=1 82.2 rps p50 12.095 p99 12.887 {'200': 658} err 0 avg 17716 B
+[22:16:56] symfony-classic rep 4: search c=16 301.3 rps p50 52.991 p99 72.255 {'200': 2424} err 0 avg 17716 B
+[22:17:04] symfony-classic rep 4: search c=64 299.7 rps p50 212.863 p99 235.519 {'200': 2458} err 0 avg 17716 B
+[22:17:14] symfony-classic rep 4: avatar c=1 80.3 rps p50 12.471 p99 13.327 {'200': 643} err 0 avg 3364 B
+[22:17:22] symfony-classic rep 4: avatar c=16 303.8 rps p50 52.575 p99 74.815 {'200': 2443} err 0 avg 3364 B
+[22:17:30] symfony-classic rep 4: avatar c=64 303.9 rps p50 210.175 p99 228.991 {'200': 2491} err 0 avg 3364 B
+[22:17:40] symfony-classic rep 4: static_css c=1 12827.5 rps p50 0.072 p99 0.101 {'200': 102622} err 0 avg 654 B
+[22:17:48] symfony-classic rep 4: static_css c=16 69880.6 rps p50 0.176 p99 1.27 {'200': 559066} err 0 avg 654 B
+[22:17:57] symfony-classic rep 4: static_css c=64 74160.2 rps p50 0.63 p99 4.223 {'200': 593379} err 0 avg 654 B
+[22:18:07] symfony-classic rep 4: up c=1 186.5 rps p50 5.375 p99 5.547 {'200': 1493} err 0 avg 73 B
+[22:18:15] symfony-classic rep 4: up c=16 710.2 rps p50 22.543 p99 32.495 {'200': 5694} err 0 avg 73 B
+[22:18:23] symfony-classic rep 4: up c=64 711.7 rps p50 89.855 p99 98.943 {'200': 5755} err 0 avg 73 B
+[22:18:33] symfony-classic rep 4: post_message c=1 70.1 rps p50 14.207 p99 15.743 {'200': 561} err 0 avg 2031 B
+[22:18:41] symfony-classic rep 4: post_message c=16 260.8 rps p50 60.991 p99 79.871 {'200': 2098} err 0 avg 2031 B
+[22:18:49] symfony-classic rep 4: post_message c=64 260.5 rps p50 245.247 p99 265.983 {'200': 2144} err 0 avg 2031 B
+[22:18:49] symfony-classic rep 4: writes ok {'acknowledged': 5279, 'new_messages': 5279, 'with_bench_rich_text': 5279, 'in_fts': 5279, 'fts_match': 5279, 'integrity': 'ok', 'settle_ms': 12} 
+[22:19:12] symfony-classic rep 4: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 47.231 p99 51.775 | tput 222.8 msg/s 3345 / 3345
+[22:19:39] symfony-classic rep 4: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 62.719 p99 71.231 | tput 108.4 msg/s 1867 / 1867
+[22:19:42] symfony-classic rep 4: upload median 63.2ms
+[22:19:42] symfony-classic rep 4: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[22:19:43] symfony-classic rep 4: valid
+[22:19:43] symfony-classic rep 4: done -> bench/results/2026-10-06-m3pro-grid/symfony-classic-4.json
+[22:21:13] load before run: 1.31 3.65 4.05 (waited 90s)
+[22:21:13] laravel-frankenphp rep 4: starting once-campfire-laravel-frankenphp:bench (load: 1.31 3.65 4.05)
+[22:21:24] laravel-frankenphp rep 4: cold start 882ms, idle 266MB (anon 118MB)
+[22:21:25] laravel-frankenphp rep 4: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[22:21:25] laravel-frankenphp rep 4: pages room_show 200 40 msgs 4027 elements 398945 B (20033 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13338 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8216 on the wire)
+[22:21:35] laravel-frankenphp rep 4: room_show c=1 46.3 rps p50 21.599 p99 22.575 {'200': 371} err 0 avg 20033 B
+[22:21:43] laravel-frankenphp rep 4: room_show c=16 175.1 rps p50 93.567 p99 126.719 {'200': 1411} err 0 avg 20033 B
+[22:21:51] laravel-frankenphp rep 4: room_show c=64 210.3 rps p50 303.103 p99 333.055 {'200': 1742} err 0 avg 20033 B
+[22:22:01] laravel-frankenphp rep 4: messages_page c=1 60.2 rps p50 16.495 p99 18.991 {'200': 482} err 0 avg 13338 B
+[22:22:09] laravel-frankenphp rep 4: messages_page c=16 222.1 rps p50 71.615 p99 101.375 {'200': 1788} err 0 avg 13338 B
+[22:22:18] laravel-frankenphp rep 4: messages_page c=64 220.8 rps p50 288.511 p99 320.767 {'200': 1826} err 0 avg 13338 B
+[22:22:28] laravel-frankenphp rep 4: sidebar c=1 514.4 rps p50 1.905 p99 2.201 {'200': 4116} err 0 avg 817 B
+[22:22:36] laravel-frankenphp rep 4: sidebar c=16 1870.7 rps p50 8.287 p99 16.703 {'200': 14980} err 0 avg 817 B
+[22:22:44] laravel-frankenphp rep 4: sidebar c=64 1831.7 rps p50 34.559 p99 44.959 {'200': 14719} err 0 avg 817 B
+[22:22:54] laravel-frankenphp rep 4: search c=1 134.7 rps p50 6.855 p99 8.351 {'200': 1078} err 0 avg 8216 B
+[22:23:02] laravel-frankenphp rep 4: search c=16 527.5 rps p50 30.111 p99 44.223 {'200': 4234} err 0 avg 8216 B
+[22:23:10] laravel-frankenphp rep 4: search c=64 530.3 rps p50 120.319 p99 134.143 {'200': 4303} err 0 avg 8216 B
+[22:23:20] laravel-frankenphp rep 4: avatar c=1 916.7 rps p50 1.001 p99 1.562 {'200': 7334} err 0 avg 2930 B
+[22:23:28] laravel-frankenphp rep 4: avatar c=16 2655.5 rps p50 4.567 p99 12.927 {'200': 21267} err 0 avg 2930 B
+[22:23:36] laravel-frankenphp rep 4: avatar c=64 3307.6 rps p50 18.879 p99 30.495 {'200': 26514} err 0 avg 2930 B
+[22:23:46] laravel-frankenphp rep 4: static_css c=1 12264.2 rps p50 0.076 p99 0.103 {'200': 98115} err 0 avg 654 B
+[22:23:54] laravel-frankenphp rep 4: static_css c=16 68963.4 rps p50 0.178 p99 1.227 {'200': 551741} err 0 avg 654 B
+[22:24:02] laravel-frankenphp rep 4: static_css c=64 72747.8 rps p50 0.636 p99 4.335 {'200': 582097} err 0 avg 654 B
+[22:24:12] laravel-frankenphp rep 4: up c=1 1442.1 rps p50 0.686 p99 0.864 {'200': 11538} err 0 avg 73 B
+[22:24:20] laravel-frankenphp rep 4: up c=16 4582.3 rps p50 3.127 p99 8.759 {'200': 36674} err 0 avg 73 B
+[22:24:31] laravel-frankenphp rep 4: up c=64 2833.7 rps p50 12.839 p99 23.647 {'200': 30774} err 0 avg 73 B
+[22:24:41] laravel-frankenphp rep 4: post_message c=1 233.3 rps p50 3.689 p99 18.191 {'200': 1867} err 0 avg 1975 B
+[22:24:49] laravel-frankenphp rep 4: post_message c=16 605.9 rps p50 20.351 p99 127.615 {'200': 4896} err 0 avg 1975 B
+[22:24:57] laravel-frankenphp rep 4: post_message c=64 613.8 rps p50 98.623 p99 207.231 {'200': 4984} err 0 avg 1974 B
+[22:24:57] laravel-frankenphp rep 4: writes ok {'acknowledged': 12715, 'new_messages': 12715, 'with_bench_rich_text': 12715, 'in_fts': 12715, 'fts_match': 12715, 'integrity': 'ok', 'settle_ms': 27} 
+[22:26:20] laravel-frankenphp rep 4: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 25.855 p99 46.047 | tput 52.2 msg/s 3918 / 7466
+[22:28:02] laravel-frankenphp rep 4: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 297.471 p99 354.815 | tput 5.0 msg/s 378 / 7199
+[22:28:04] laravel-frankenphp rep 4: upload median 58.0ms
+[22:28:05] laravel-frankenphp rep 4: upload thumbnail ok [200] jpeg 75289 bytes 
+[22:28:05] laravel-frankenphp rep 4: INVALID: cable 100 clients: saturated 3918/7466 messages reached every client; cable 1000 clients: saturated 378/7199 messages reached every client
+[22:28:06] laravel-frankenphp rep 4: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-4.json
+[22:28:56] load before run: 1.46 3.47 3.99 (waited 50s)
+[22:28:56] laravel-frankenphp-classic rep 4: starting once-campfire-laravel-frankenphp:bench (load: 1.46 3.47 3.99)
+[22:29:07] laravel-frankenphp-classic rep 4: cold start 958ms, idle 176MB (anon 83MB)
+[22:29:07] laravel-frankenphp-classic rep 4: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[22:29:07] laravel-frankenphp-classic rep 4: pages room_show 200 40 msgs 4027 elements 398945 B (20034 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13222 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8217 on the wire)
+[22:29:18] laravel-frankenphp-classic rep 4: room_show c=1 33.0 rps p50 30.031 p99 32.207 {'200': 265} err 0 avg 20034 B
+[22:29:26] laravel-frankenphp-classic rep 4: room_show c=16 119.7 rps p50 133.247 p99 189.823 {'200': 968} err 0 avg 20034 B
+[22:29:34] laravel-frankenphp-classic rep 4: room_show c=64 119.4 rps p50 533.503 p99 584.703 {'200': 1015} err 0 avg 20034 B
+[22:29:44] laravel-frankenphp-classic rep 4: messages_page c=1 36.8 rps p50 27.087 p99 28.863 {'200': 295} err 0 avg 13222 B
+[22:29:52] laravel-frankenphp-classic rep 4: messages_page c=16 136.7 rps p50 116.671 p99 164.863 {'200': 1103} err 0 avg 13222 B
+[22:30:01] laravel-frankenphp-classic rep 4: messages_page c=64 136.0 rps p50 469.247 p99 508.671 {'200': 1151} err 0 avg 13222 B
+[22:30:11] laravel-frankenphp-classic rep 4: sidebar c=1 86.7 rps p50 11.447 p99 12.727 {'200': 694} err 0 avg 817 B
+[22:30:19] laravel-frankenphp-classic rep 4: sidebar c=16 318.0 rps p50 50.175 p99 71.807 {'200': 2557} err 0 avg 817 B
+[22:30:27] laravel-frankenphp-classic rep 4: sidebar c=64 316.0 rps p50 202.111 p99 222.079 {'200': 2588} err 0 avg 817 B
+[22:30:37] laravel-frankenphp-classic rep 4: search c=1 57.0 rps p50 17.503 p99 18.319 {'200': 457} err 0 avg 8217 B
+[22:30:45] laravel-frankenphp-classic rep 4: search c=16 210.8 rps p50 75.647 p99 103.039 {'200': 1700} err 0 avg 8217 B
+[22:30:54] laravel-frankenphp-classic rep 4: search c=64 210.9 rps p50 302.847 p99 327.167 {'200': 1748} err 0 avg 8217 B
+[22:31:04] laravel-frankenphp-classic rep 4: avatar c=1 134.5 rps p50 7.371 p99 9.047 {'200': 1077} err 0 avg 2930 B
+[22:31:12] laravel-frankenphp-classic rep 4: avatar c=16 501.5 rps p50 31.855 p99 43.999 {'200': 4026} err 0 avg 2930 B
+[22:31:20] laravel-frankenphp-classic rep 4: avatar c=64 503.8 rps p50 126.719 p99 140.031 {'200': 4090} err 0 avg 2930 B
+[22:31:30] laravel-frankenphp-classic rep 4: static_css c=1 12826.5 rps p50 0.071 p99 0.104 {'200': 102613} err 0 avg 654 B
+[22:31:38] laravel-frankenphp-classic rep 4: static_css c=16 68268.5 rps p50 0.179 p99 1.294 {'200': 546178} err 0 avg 654 B
+[22:31:46] laravel-frankenphp-classic rep 4: static_css c=64 71592.7 rps p50 0.643 p99 4.539 {'200': 572857} err 0 avg 654 B
+[22:31:56] laravel-frankenphp-classic rep 4: up c=1 323.9 rps p50 3.077 p99 3.363 {'200': 2592} err 0 avg 73 B
+[22:32:04] laravel-frankenphp-classic rep 4: up c=16 1083.9 rps p50 13.703 p99 26.991 {'200': 8685} err 0 avg 73 B
+[22:32:12] laravel-frankenphp-classic rep 4: up c=64 1165.1 rps p50 54.655 p99 66.367 {'200': 9384} err 0 avg 73 B
+[22:32:22] laravel-frankenphp-classic rep 4: post_message c=1 63.4 rps p50 15.287 p99 28.239 {'200': 508} err 0 avg 1975 B
+[22:32:30] laravel-frankenphp-classic rep 4: post_message c=16 224.1 rps p50 68.607 p99 153.087 {'200': 1807} err 0 avg 1975 B
+[22:32:39] laravel-frankenphp-classic rep 4: post_message c=64 224.2 rps p50 280.831 p99 365.311 {'200': 1856} err 0 avg 1974 B
+[22:32:39] laravel-frankenphp-classic rep 4: writes ok {'acknowledged': 4523, 'new_messages': 4523, 'with_bench_rich_text': 4523, 'in_fts': 4523, 'fts_match': 4523, 'integrity': 'ok', 'settle_ms': 10} 
+[22:33:35] laravel-frankenphp-classic rep 4: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 35.839 p99 60.319 | tput 49.0 msg/s 2377 / 2377
+[22:35:17] laravel-frankenphp-classic rep 4: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 272.895 p99 324.863 | tput 5.0 msg/s 374 / 2320
+[22:35:19] laravel-frankenphp-classic rep 4: upload median 77.3ms
+[22:35:19] laravel-frankenphp-classic rep 4: upload thumbnail ok [200] jpeg 75289 bytes 
+[22:35:20] laravel-frankenphp-classic rep 4: INVALID: cable 1000 clients: saturated 374/2320 messages reached every client
+[22:35:20] laravel-frankenphp-classic rep 4: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-classic-4.json
+[22:36:01] load before run: 1.41 3.35 3.89 (waited 40s)
+[22:36:01] laravel-frankenphp-classic rep 5: starting once-campfire-laravel-frankenphp:bench (load: 1.41 3.35 3.89)
+[22:36:12] laravel-frankenphp-classic rep 5: cold start 822ms, idle 168MB (anon 83MB)
+[22:36:12] laravel-frankenphp-classic rep 5: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[22:36:12] laravel-frankenphp-classic rep 5: pages room_show 200 40 msgs 4027 elements 398945 B (20030 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13335 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8215 on the wire)
+[22:36:22] laravel-frankenphp-classic rep 5: room_show c=1 32.8 rps p50 30.271 p99 32.895 {'200': 263} err 0 avg 20030 B
+[22:36:30] laravel-frankenphp-classic rep 5: room_show c=16 119.1 rps p50 133.759 p99 189.823 {'200': 968} err 0 avg 20030 B
+[22:36:39] laravel-frankenphp-classic rep 5: room_show c=64 119.1 rps p50 534.015 p99 589.823 {'200': 1013} err 0 avg 20030 B
+[22:36:49] laravel-frankenphp-classic rep 5: messages_page c=1 36.9 rps p50 26.991 p99 28.079 {'200': 296} err 0 avg 13335 B
+[22:36:57] laravel-frankenphp-classic rep 5: messages_page c=16 135.9 rps p50 117.567 p99 161.407 {'200': 1102} err 0 avg 13335 B
+[22:37:05] laravel-frankenphp-classic rep 5: messages_page c=64 136.2 rps p50 468.479 p99 518.911 {'200': 1150} err 0 avg 13335 B
+[22:37:15] laravel-frankenphp-classic rep 5: sidebar c=1 85.9 rps p50 11.519 p99 13.071 {'200': 688} err 0 avg 817 B
+[22:37:24] laravel-frankenphp-classic rep 5: sidebar c=16 317.5 rps p50 50.175 p99 69.503 {'200': 2552} err 0 avg 817 B
+[22:37:32] laravel-frankenphp-classic rep 5: sidebar c=64 305.0 rps p50 201.215 p99 531.455 {'200': 2498} err 0 avg 817 B
+[22:37:42] laravel-frankenphp-classic rep 5: search c=1 56.9 rps p50 17.503 p99 18.863 {'200': 456} err 0 avg 8215 B
+[22:37:50] laravel-frankenphp-classic rep 5: search c=16 210.9 rps p50 75.583 p99 101.567 {'200': 1699} err 0 avg 8215 B
+[22:37:58] laravel-frankenphp-classic rep 5: search c=64 208.6 rps p50 303.615 p99 393.983 {'200': 1729} err 0 avg 8215 B
+[22:38:08] laravel-frankenphp-classic rep 5: avatar c=1 137.6 rps p50 7.211 p99 8.711 {'200': 1102} err 0 avg 2930 B
+[22:38:16] laravel-frankenphp-classic rep 5: avatar c=16 502.8 rps p50 31.711 p99 44.031 {'200': 4036} err 0 avg 2930 B
+[22:38:24] laravel-frankenphp-classic rep 5: avatar c=64 502.6 rps p50 126.911 p99 140.671 {'200': 4080} err 0 avg 2930 B
+[22:38:34] laravel-frankenphp-classic rep 5: static_css c=1 12780.3 rps p50 0.072 p99 0.104 {'200': 102244} err 0 avg 654 B
+[22:38:42] laravel-frankenphp-classic rep 5: static_css c=16 68455.4 rps p50 0.178 p99 1.31 {'200': 547670} err 0 avg 654 B
+[22:38:50] laravel-frankenphp-classic rep 5: static_css c=64 73363.3 rps p50 0.64 p99 4.275 {'200': 587023} err 0 avg 654 B
+[22:39:00] laravel-frankenphp-classic rep 5: up c=1 327.6 rps p50 3.011 p99 3.417 {'200': 2621} err 0 avg 73 B
+[22:39:08] laravel-frankenphp-classic rep 5: up c=16 1126.3 rps p50 13.783 p99 27.007 {'200': 9017} err 0 avg 73 B
+[22:39:17] laravel-frankenphp-classic rep 5: up c=64 1166.5 rps p50 54.559 p99 65.471 {'200': 9393} err 0 avg 73 B
+[22:39:27] laravel-frankenphp-classic rep 5: post_message c=1 62.7 rps p50 15.431 p99 28.687 {'200': 502} err 0 avg 1971 B
+[22:39:35] laravel-frankenphp-classic rep 5: post_message c=16 224.7 rps p50 68.159 p99 132.223 {'200': 1814} err 0 avg 1971 B
+[22:39:43] laravel-frankenphp-classic rep 5: post_message c=64 225.7 rps p50 279.295 p99 367.359 {'200': 1868} err 0 avg 1971 B
+[22:39:43] laravel-frankenphp-classic rep 5: writes ok {'acknowledged': 4508, 'new_messages': 4508, 'with_bench_rich_text': 4508, 'in_fts': 4508, 'fts_match': 4508, 'integrity': 'ok', 'settle_ms': 10} 
+[22:40:39] laravel-frankenphp-classic rep 5: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 40.447 p99 52.031 | tput 48.8 msg/s 2348 / 2348
+[22:42:21] laravel-frankenphp-classic rep 5: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 331.775 p99 368.127 | tput 5.0 msg/s 375 / 2335
+[22:42:23] laravel-frankenphp-classic rep 5: upload median 78.1ms
+[22:42:24] laravel-frankenphp-classic rep 5: upload thumbnail ok [200] jpeg 75289 bytes 
+[22:42:24] laravel-frankenphp-classic rep 5: INVALID: cable 1000 clients: saturated 375/2335 messages reached every client
+[22:42:25] laravel-frankenphp-classic rep 5: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-classic-5.json
+[22:43:15] load before run: 1.33 3.49 3.95 (waited 50s)
+[22:43:15] laravel-frankenphp rep 5: starting once-campfire-laravel-frankenphp:bench (load: 1.33 3.49 3.95)
+[22:43:26] laravel-frankenphp rep 5: cold start 905ms, idle 256MB (anon 118MB)
+[22:43:26] laravel-frankenphp rep 5: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[22:43:26] laravel-frankenphp rep 5: pages room_show 200 40 msgs 4027 elements 398945 B (20031 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13329 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8214 on the wire)
+[22:43:36] laravel-frankenphp rep 5: room_show c=1 46.7 rps p50 21.455 p99 22.911 {'200': 374} err 0 avg 20031 B
+[22:43:44] laravel-frankenphp rep 5: room_show c=16 180.4 rps p50 92.607 p99 130.111 {'200': 1454} err 0 avg 20031 B
+[22:43:53] laravel-frankenphp rep 5: room_show c=64 209.6 rps p50 304.127 p99 335.615 {'200': 1738} err 0 avg 20031 B
+[22:44:03] laravel-frankenphp rep 5: messages_page c=1 60.4 rps p50 16.447 p99 17.919 {'200': 484} err 0 avg 13329 B
+[22:44:11] laravel-frankenphp rep 5: messages_page c=16 221.9 rps p50 71.615 p99 102.655 {'200': 1789} err 0 avg 13329 B
+[22:44:19] laravel-frankenphp rep 5: messages_page c=64 221.1 rps p50 288.255 p99 319.231 {'200': 1831} err 0 avg 13329 B
+[22:44:29] laravel-frankenphp rep 5: sidebar c=1 519.1 rps p50 1.873 p99 2.201 {'200': 4153} err 0 avg 817 B
+[22:44:37] laravel-frankenphp rep 5: sidebar c=16 1865.2 rps p50 8.303 p99 16.991 {'200': 14937} err 0 avg 817 B
+[22:44:45] laravel-frankenphp rep 5: sidebar c=64 1815.3 rps p50 34.847 p99 46.335 {'200': 14584} err 0 avg 817 B
+[22:44:55] laravel-frankenphp rep 5: search c=1 143.9 rps p50 6.859 p99 8.319 {'200': 1151} err 0 avg 8214 B
+[22:45:03] laravel-frankenphp rep 5: search c=16 529.2 rps p50 30.015 p99 44.671 {'200': 4245} err 0 avg 8214 B
+[22:45:11] laravel-frankenphp rep 5: search c=64 530.5 rps p50 120.255 p99 133.631 {'200': 4306} err 0 avg 8214 B
+[22:45:21] laravel-frankenphp rep 5: avatar c=1 924.9 rps p50 0.997 p99 1.641 {'200': 7400} err 0 avg 2930 B
+[22:45:30] laravel-frankenphp rep 5: avatar c=16 2717.6 rps p50 4.587 p99 12.543 {'200': 21755} err 0 avg 2930 B
+[22:45:38] laravel-frankenphp rep 5: avatar c=64 3258.2 rps p50 19.135 p99 31.855 {'200': 26128} err 0 avg 2930 B
+[22:45:48] laravel-frankenphp rep 5: static_css c=1 11939.7 rps p50 0.078 p99 0.105 {'200': 95519} err 0 avg 654 B
+[22:45:56] laravel-frankenphp rep 5: static_css c=16 68140.9 rps p50 0.179 p99 1.267 {'200': 545156} err 0 avg 654 B
+[22:46:04] laravel-frankenphp rep 5: static_css c=64 71397.5 rps p50 0.646 p99 4.587 {'200': 571294} err 0 avg 654 B
+[22:46:14] laravel-frankenphp rep 5: up c=1 1415.0 rps p50 0.694 p99 0.914 {'200': 11321} err 0 avg 73 B
+[22:46:22] laravel-frankenphp rep 5: up c=16 4612.3 rps p50 3.115 p99 8.799 {'200': 36906} err 0 avg 73 B
+[22:46:30] laravel-frankenphp rep 5: up c=64 2603.2 rps p50 13.039 p99 24.111 {'200': 22907} err 0 avg 73 B
+[22:46:41] laravel-frankenphp rep 5: post_message c=1 239.5 rps p50 3.701 p99 17.103 {'200': 1917} err 0 avg 1977 B
+[22:46:49] laravel-frankenphp rep 5: post_message c=16 611.4 rps p50 19.855 p99 127.743 {'200': 4947} err 0 avg 1976 B
+[22:46:57] laravel-frankenphp rep 5: post_message c=64 617.2 rps p50 98.047 p99 209.791 {'200': 5022} err 0 avg 1976 B
+[22:46:57] laravel-frankenphp rep 5: writes ok {'acknowledged': 12848, 'new_messages': 12848, 'with_bench_rich_text': 12848, 'in_fts': 12848, 'fts_match': 12848, 'integrity': 'ok', 'settle_ms': 28} 
+[22:48:20] laravel-frankenphp rep 5: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 29.711 p99 41.823 | tput 51.6 msg/s 3877 / 7312
+[22:50:02] laravel-frankenphp rep 5: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 302.079 p99 361.727 | tput 5.0 msg/s 376 / 7232
+[22:50:04] laravel-frankenphp rep 5: upload median 60.4ms
+[22:50:04] laravel-frankenphp rep 5: upload thumbnail ok [200] jpeg 75289 bytes 
+[22:50:05] laravel-frankenphp rep 5: INVALID: cable 100 clients: saturated 3877/7312 messages reached every client; cable 1000 clients: saturated 376/7232 messages reached every client
+[22:50:05] laravel-frankenphp rep 5: done -> bench/results/2026-10-06-m3pro-grid/laravel-frankenphp-5.json
+[22:50:56] load before run: 1.28 3.31 3.88 (waited 50s)
+[22:50:56] symfony-classic rep 5: starting campfire-symfony:app (load: 1.28 3.31 3.88)
+[22:51:07] symfony-classic rep 5: cold start 825ms, idle 192MB (anon 64MB)
+[22:51:07] symfony-classic rep 5: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[22:51:07] symfony-classic rep 5: pages room_show 200 40 msgs 4000 elements 463229 B (45044 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35941 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6398 on the wire); search 200 13 msgs 1420 elements 165221 B (17704 on the wire)
+[22:51:17] symfony-classic rep 5: room_show c=1 48.5 rps p50 20.575 p99 22.175 {'200': 388} err 0 avg 45042 B
+[22:51:25] symfony-classic rep 5: room_show c=16 174.4 rps p50 91.583 p99 129.535 {'200': 1410} err 0 avg 45042 B
+[22:51:34] symfony-classic rep 5: room_show c=64 173.8 rps p50 367.359 p99 398.847 {'200': 1450} err 0 avg 45042 B
+[22:51:44] symfony-classic rep 5: messages_page c=1 97.7 rps p50 10.151 p99 11.055 {'200': 782} err 0 avg 35941 B
+[22:51:52] symfony-classic rep 5: messages_page c=16 350.5 rps p50 45.439 p99 63.423 {'200': 2816} err 0 avg 35941 B
+[22:52:00] symfony-classic rep 5: messages_page c=64 349.9 rps p50 182.655 p99 197.887 {'200': 2860} err 0 avg 35941 B
+[22:52:10] symfony-classic rep 5: sidebar c=1 58.7 rps p50 16.735 p99 18.783 {'200': 471} err 0 avg 6395 B
+[22:52:18] symfony-classic rep 5: sidebar c=16 216.9 rps p50 73.535 p99 97.023 {'200': 1747} err 0 avg 6395 B
+[22:52:26] symfony-classic rep 5: sidebar c=64 217.4 rps p50 293.631 p99 323.071 {'200': 1801} err 0 avg 6395 B
+[22:52:36] symfony-classic rep 5: search c=1 82.8 rps p50 11.999 p99 12.767 {'200': 663} err 0 avg 17702 B
+[22:52:44] symfony-classic rep 5: search c=16 300.9 rps p50 52.991 p99 74.559 {'200': 2421} err 0 avg 17702 B
+[22:52:53] symfony-classic rep 5: search c=64 301.3 rps p50 211.839 p99 230.015 {'200': 2471} err 0 avg 17702 B
+[22:53:03] symfony-classic rep 5: avatar c=1 82.7 rps p50 11.943 p99 13.903 {'200': 662} err 0 avg 3364 B
+[22:53:11] symfony-classic rep 5: avatar c=16 303.9 rps p50 52.607 p99 73.663 {'200': 2445} err 0 avg 3364 B
+[22:53:19] symfony-classic rep 5: avatar c=64 303.3 rps p50 210.431 p99 230.143 {'200': 2486} err 0 avg 3364 B
+[22:53:29] symfony-classic rep 5: static_css c=1 12863.6 rps p50 0.072 p99 0.1 {'200': 102910} err 0 avg 654 B
+[22:53:37] symfony-classic rep 5: static_css c=16 70973.8 rps p50 0.174 p99 1.253 {'200': 567823} err 0 avg 654 B
+[22:53:45] symfony-classic rep 5: static_css c=64 76249.7 rps p50 0.616 p99 4.151 {'200': 610123} err 0 avg 654 B
+[22:53:55] symfony-classic rep 5: up c=1 192.7 rps p50 5.155 p99 5.547 {'200': 1542} err 0 avg 73 B
+[22:54:03] symfony-classic rep 5: up c=16 708.6 rps p50 22.527 p99 34.431 {'200': 5680} err 0 avg 73 B
+[22:54:11] symfony-classic rep 5: up c=64 711.9 rps p50 89.791 p99 99.391 {'200': 5755} err 0 avg 73 B
+[22:54:21] symfony-classic rep 5: post_message c=1 72.4 rps p50 13.735 p99 14.775 {'200': 579} err 0 avg 2031 B
+[22:54:29] symfony-classic rep 5: post_message c=16 261.5 rps p50 60.735 p99 80.831 {'200': 2103} err 0 avg 2031 B
+[22:54:38] symfony-classic rep 5: post_message c=64 261.6 rps p50 243.967 p99 260.991 {'200': 2154} err 0 avg 2031 B
+[22:54:38] symfony-classic rep 5: writes ok {'acknowledged': 5329, 'new_messages': 5329, 'with_bench_rich_text': 5329, 'in_fts': 5329, 'fts_match': 5329, 'integrity': 'ok', 'settle_ms': 12} 
+[22:55:01] symfony-classic rep 5: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.655 p99 51.839 | tput 224.8 msg/s 3376 / 3376
+[22:55:28] symfony-classic rep 5: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 59.263 p99 67.327 | tput 108.5 msg/s 1833 / 1833
+[22:55:30] symfony-classic rep 5: upload median 63.6ms
+[22:55:30] symfony-classic rep 5: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[22:55:31] symfony-classic rep 5: valid
+[22:55:31] symfony-classic rep 5: done -> bench/results/2026-10-06-m3pro-grid/symfony-classic-5.json
+[22:57:01] load before run: 1.28 3.53 3.95 (waited 90s)
+[22:57:01] symfony rep 5: starting campfire-symfony:app (load: 1.28 3.53 3.95)
+[22:57:12] symfony rep 5: cold start 747ms, idle 230MB (anon 68MB)
+[22:57:13] symfony rep 5: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[22:57:13] symfony rep 5: pages room_show 200 40 msgs 4000 elements 463229 B (45050 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35915 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6394 on the wire); search 200 13 msgs 1420 elements 165221 B (17723 on the wire)
+[22:57:23] symfony rep 5: room_show c=1 209.6 rps p50 4.695 p99 5.111 {'200': 1677} err 0 avg 45049 B
+[22:57:31] symfony rep 5: room_show c=16 709.6 rps p50 22.207 p99 37.951 {'200': 5690} err 0 avg 45049 B
+[22:57:39] symfony rep 5: room_show c=64 718.8 rps p50 88.511 p99 104.447 {'200': 5811} err 0 avg 45049 B
+[22:57:49] symfony rep 5: messages_page c=1 542.0 rps p50 1.805 p99 2.029 {'200': 4336} err 0 avg 35915 B
+[22:57:57] symfony rep 5: messages_page c=16 1656.4 rps p50 9.335 p99 21.151 {'200': 13265} err 0 avg 35915 B
+[22:58:05] symfony rep 5: messages_page c=64 1731.0 rps p50 36.255 p99 57.855 {'200': 13899} err 0 avg 35915 B
+[22:58:15] symfony rep 5: sidebar c=1 807.8 rps p50 1.193 p99 1.404 {'200': 6463} err 0 avg 6395 B
+[22:58:23] symfony rep 5: sidebar c=16 2683.4 rps p50 5.455 p99 13.919 {'200': 21485} err 0 avg 6395 B
+[22:58:31] symfony rep 5: sidebar c=64 2852.8 rps p50 21.887 p99 39.167 {'200': 22868} err 0 avg 6395 B
+[22:58:41] symfony rep 5: search c=1 426.3 rps p50 2.305 p99 2.621 {'200': 3411} err 0 avg 17721 B
+[22:58:49] symfony rep 5: search c=16 1509.7 rps p50 10.367 p99 20.079 {'200': 12091} err 0 avg 17721 B
+[22:58:57] symfony rep 5: search c=64 1529.8 rps p50 41.439 p99 54.399 {'200': 12297} err 0 avg 17721 B
+[22:59:07] symfony rep 5: avatar c=1 1482.0 rps p50 0.639 p99 0.798 {'200': 11857} err 0 avg 3364 B
+[22:59:15] symfony rep 5: avatar c=16 4876.6 rps p50 2.777 p99 9.247 {'200': 39027} err 0 avg 3364 B
+[22:59:23] symfony rep 5: avatar c=64 5263.4 rps p50 11.423 p99 24.687 {'200': 42161} err 0 avg 3364 B
+[22:59:33] symfony rep 5: static_css c=1 12045.9 rps p50 0.077 p99 0.103 {'200': 96368} err 0 avg 654 B
+[22:59:41] symfony rep 5: static_css c=16 70923.4 rps p50 0.175 p99 1.188 {'200': 567405} err 0 avg 654 B
+[22:59:49] symfony rep 5: static_css c=64 74615.7 rps p50 0.631 p99 4.061 {'200': 597032} err 0 avg 654 B
+[22:59:59] symfony rep 5: up c=1 3253.2 rps p50 0.29 p99 0.381 {'200': 26026} err 0 avg 73 B
+[23:00:07] symfony rep 5: up c=16 10975.9 rps p50 1.345 p99 4.045 {'200': 87837} err 0 avg 73 B
+[23:00:15] symfony rep 5: up c=64 11429.3 rps p50 5.347 p99 13.911 {'200': 91513} err 0 avg 73 B
+[23:00:26] symfony rep 5: post_message c=1 668.0 rps p50 1.368 p99 5.619 {'200': 5344} err 0 avg 2033 B
+[23:00:34] symfony rep 5: post_message c=16 1658.1 rps p50 7.859 p99 43.103 {'200': 13281} err 0 avg 2033 B
+[23:00:42] symfony rep 5: post_message c=64 1630.3 rps p50 37.599 p99 72.895 {'200': 13149} err 0 avg 2033 B
+[23:00:42] symfony rep 5: writes ok {'acknowledged': 34561, 'new_messages': 34561, 'with_bench_rich_text': 34561, 'in_fts': 34561, 'fts_match': 34561, 'integrity': 'ok', 'settle_ms': 72} 
+[23:01:05] symfony rep 5: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 17.471 p99 19.663 | tput 972.8 msg/s 14596 / 14596
+[23:01:38] symfony rep 5: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 41.471 p99 51.327 | tput 169.7 msg/s 3938 / 3938
+[23:01:40] symfony rep 5: upload median 37.3ms
+[23:01:40] symfony rep 5: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[23:01:41] symfony rep 5: valid
+[23:01:41] symfony rep 5: done -> bench/results/2026-10-06-m3pro-grid/symfony-5.json
+[23:01:41] some reps failed or did not validate: see the Validation section of bench/results/2026-10-06-m3pro-grid/report.md

@@ -1,0 +1,20 @@
+
+ [OK] The database is up to date.                                               
+
+
+ [OK] Consuming messages from transport "async".                                
+
+
+ // The worker will automatically exit once it has exceeded 256M of memory, been
+ // running for 3600s or received a stop signal via the messenger:stop-workers  
+ // command.                                                                    
+
+ // Quit the worker with CONTROL-C.                                             
+
+ // Re-run the command with a -vv option to see logs about consumed messages.   
+
+Action Cable listening on ws://127.0.0.1:4391/cable (Event loop), publish socket /rails/var/run/cable.sock
+{"level":"warn","ts":1791321346.6437037,"logger":"admin","msg":"admin endpoint disabled"}
+{"level":"warn","ts":1791321346.643856,"logger":"http.auto_https","msg":"server is listening only on the HTTP port, so no automatic HTTPS will be applied to this server","server_name":"srv0","http_port":4390}
+{"level":"warn","ts":1791321346.8926022,"logger":"http","msg":"HTTP/2 skipped because it requires TLS","network":"tcp","addr":":4390"}
+{"level":"warn","ts":1791321346.89269,"logger":"http","msg":"HTTP/3 skipped because it requires TLS","network":"tcp","addr":":4390"}

@@ -1,0 +1,1228 @@
+date: 2026-10-06T23:01:43+00:00
+host: Apple M3 Pro (6P+6E cores), macOS 26.7.1; Docker VM: OrbStack, 12 vCPUs, 16819298304 B kernel 7.0.14-orbstack-00380-ga7e0a2dc9535
+host power: AC Power, lowpowermode 0
+server cpus: 0-3 (nproc 4); loadgen cpus: 4-7; harness cpus: 8-11; network: host; port: 4390
+workloads: suites [http cable upload]; http 8s at c=[1 16 64] (2s warm-up at c=4); cable clients [100 1000], 15s saturation with 4 posters; upload reps 5
+load wait: LOAD_MAX=1.5, LOAD_WAIT_SECS=900; write check settle: 10s; containers running before the run: 1
+user agent: (none)
+work dir: /opt/campfire-bench/work (overlay)
+harness: campfire-symfony bench/run @ 7dcc719 (2 changed files in bench/); once-campfire-rust @ 64f8635 (loadgen, seed)
+seed: 50a76ba5a2f63b93 production.sqlite3; loadgen: dbb998a3ba2cdf13
+rails image: campfire-reference:app linux/arm64 sha256:28a60771be65155fb70f9e3c14b16be434dbef133e96bca19381f3f7015ecb3d revision 254dd1d46f67f2bace6c79d77f0ac026ba4c9226 source  created 2026-10-05T09:16:44.540398778+02:00 digests campfire-reference@sha256:28a60771be65155fb70f9e3c14b16be434dbef133e96bca19381f3f7015ecb3d
+rails process model: Puma WEB_CONCURRENCY=3 workers x RAILS_MAX_THREADS=5, JOB_CONCURRENCY=3, resque-pool ceil(nproc*0.5)=2 workers, Thruster, in-container Redis on :6379; user 0:0
+django image: once-campfire-django:bench linux/arm64 sha256:32be9db6826422d2c56e58026deba74a5a31c9f440ee878edd71f1b8266faeb6 revision 7cff970b9860c952883ba5a6ed4d624194307973 source https://github.com/basecamp/once-campfire-django created 2026-10-05T09:29:30.629705849+02:00 digests once-campfire-django@sha256:32be9db6826422d2c56e58026deba74a5a31c9f440ee878edd71f1b8266faeb6
+django process model: Uvicorn WEB_WORKERS=4 processes (async; a job thread in each), Redis sidecar redis:7-alpine on 127.0.0.1:4392 pinned to 0-3; user 0:0
+laravel image: once-campfire-laravel:bench linux/arm64 sha256:b90afeddd8c2f08e0e3df889c171dcdddf1f1235faa43873c588baea2fcceecf revision 608d465904366652319fd7bcd4c727393f1b115d source https://github.com/basecamp/once-campfire-laravel created 2026-10-05T09:30:07.02982869+02:00 digests once-campfire-laravel@sha256:b90afeddd8c2f08e0e3df889c171dcdddf1f1235faa43873c588baea2fcceecf
+laravel process model: image defaults: nginx 2 workers, PHP-FPM pm=static 8 children, 1 queue:work, 1 Workerman cable process; CABLE_PORT=4391 FPM_PORT=4392; user 0:0
+laravel-frankenphp-classic image: once-campfire-laravel-frankenphp:bench linux/arm64 sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e revision none(label-inherited-from-FrankenPHP-233f793) source https://github.com/php/frankenphp created 2026-10-06T10:01:32.672343852+02:00 digests once-campfire-laravel-frankenphp@sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e
+laravel-frankenphp-classic process model: FrankenPHP classic mode (no worker), PHP_THREADS = 2×CPUs; bin/cable on 127.0.0.1:4391, queue:work; user 0:0
+laravel-frankenphp image: once-campfire-laravel-frankenphp:bench linux/arm64 sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e revision none(label-inherited-from-FrankenPHP-233f793) source https://github.com/php/frankenphp created 2026-10-06T10:01:32.672343852+02:00 digests once-campfire-laravel-frankenphp@sha256:8f2db872fec0e77c17b0eb585aca576ddfd79b3c5889e2555ad6bba53928453e
+laravel-frankenphp process model: Octane + FrankenPHP worker mode, PHP_WORKERS = 2×CPUs; bin/cable on 127.0.0.1:4391, queue:work; user 0:0
+express image: once-campfire-express:bench linux/arm64 sha256:45226fee5db058b943bb311079a69cbbbf19cbfc8007666de6846dd246d4ca48 revision 361330a0ecfb5abb74c8c67d243717282652aec5 source https://github.com/basecamp/once-campfire-express created 2026-10-06T09:14:28.804161029+02:00 digests once-campfire-express@sha256:45226fee5db058b943bb311079a69cbbbf19cbfc8007666de6846dd246d4ca48
+express process model: Node cluster: primary (jobs, cable IPC) + WEB_WORKERS=3 HTTP/WebSocket workers on :4390; user 0:0
+elixir image: once-campfire-elixir:bench linux/arm64 sha256:b1964eabffd7f7c69b55165cf705a1af35431f9e782c201dd0e2177119481bf4 revision f15fc9eb609286f1e3da970e7dfd95e3bf69f82f source https://github.com/basecamp/once-campfire-elixir created 2026-10-06T09:18:41.825638249+02:00 digests once-campfire-elixir@sha256:b1964eabffd7f7c69b55165cf705a1af35431f9e782c201dd0e2177119481bf4
+elixir process model: bin/container-start: Thruster :4390 -> Bandit :4391 in one BEAM (schedulers = 4 CPUs, CAMPFIRE_WORKER=1 job worker), in-container Redis on :6379; Rails-style env WEB_CONCURRENCY=3 JOB_CONCURRENCY=3 RAILS_MAX_THREADS=5; user 0:0
+go image: once-campfire-go:bench linux/arm64 sha256:ca8d0af681edec946969d951d15d0ae0b7716dd2e1f3f0305718be30d909e4b4 revision 8d2f7f24f56dac87dba0211b68b14d9e21e4b516 source https://github.com/basecamp/once-campfire-go created 2026-10-06T09:17:11.677373788+02:00 digests once-campfire-go@sha256:ca8d0af681edec946969d951d15d0ae0b7716dd2e1f3f0305718be30d909e4b4
+go process model: one campfire process: front server :4390, app 127.0.0.1:4391, in-process jobs JOB_CONCURRENCY=3, GOMAXPROCS=4; user 0:0
+rust image: once-campfire-rust:bench linux/arm64 sha256:ad5c4263480d9892dc2531faf480540381ed2bfc03b2f71b53feaac4e200160b revision ccece30e8e160d8c3e05bf395ee55ee35962093b source https://github.com/basecamp/once-campfire-rust created 2026-10-06T09:18:44.633579116+02:00 digests once-campfire-rust@sha256:ad5c4263480d9892dc2531faf480540381ed2bfc03b2f71b53feaac4e200160b
+rust process model: one campfire process: front server :4390, app 127.0.0.1:4391, RAILS_MAX_THREADS=5 reader pool, JOB_CONCURRENCY=3; user 0:0
+symfony-classic image: campfire-symfony:app linux/arm64 sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f revision none(label-inherited-from-FrankenPHP-233f793) source  created 2026-10-06T09:13:32.347124452+02:00 digests campfire-symfony@sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f
+symfony-classic process model: FrankenPHP classic mode (no worker), PHP_THREADS = 2×CPUs; campfire:cable on 127.0.0.1:4391, messenger:consume; user 0:0
+symfony image: campfire-symfony:app linux/arm64 sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f revision none(label-inherited-from-FrankenPHP-233f793) source  created 2026-10-06T09:13:32.347124452+02:00 digests campfire-symfony@sha256:aeabf684ed8d7fe95489ad715059c1de31535ff3c6ba9b4dc5f708b73e03a56f
+symfony process model: image defaults: FrankenPHP worker mode, campfire:cable on 127.0.0.1:4391, messenger:consume; user 0:0
+redis sidecar image: redis:7-alpine linux/arm64/v8 sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99 redis@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99
+[23:02:54] load before run: 1.37 3.47 3.91 (waited 70s)
+[23:02:54] rails rep 1: starting campfire-reference:app (load: 1.37 3.47 3.91)
+[23:03:07] rails rep 1: cold start 3172ms, idle 440MB (anon 284MB)
+[23:03:08] rails rep 1: signed in; room page 200 463708 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:03:08] rails rep 1: pages room_show 200 40 msgs 4000 elements 463720 B (44342 on the wire); messages_page 200 40 msgs 3720 elements 430925 B (34849 on the wire); sidebar 200 0 msgs 248 elements 31427 B (6269 on the wire); search 200 13 msgs 1420 elements 165519 B (17524 on the wire)
+[23:03:18] rails rep 1: room_show c=1 112.1 rps p50 8.767 p99 12.159 {'200': 897} err 0 avg 44337 B
+[23:03:26] rails rep 1: room_show c=16 252.1 rps p50 62.527 p99 117.759 {'200': 2027} err 0 avg 44337 B
+[23:03:35] rails rep 1: room_show c=64 232.7 rps p50 263.423 p99 382.207 {'200': 1930} err 0 avg 44337 B
+[23:03:45] rails rep 1: messages_page c=1 209.3 rps p50 4.687 p99 6.087 {'200': 1675} err 0 avg 34849 B
+[23:03:53] rails rep 1: messages_page c=16 438.8 rps p50 30.575 p99 121.023 {'200': 3539} err 0 avg 34849 B
+[23:04:01] rails rep 1: messages_page c=64 422.8 rps p50 152.703 p99 218.239 {'200': 3443} err 0 avg 34849 B
+[23:04:11] rails rep 1: sidebar c=1 277.8 rps p50 3.487 p99 5.003 {'200': 2223} err 0 avg 6267 B
+[23:04:19] rails rep 1: sidebar c=16 589.5 rps p50 26.239 p99 51.711 {'200': 4729} err 0 avg 6267 B
+[23:04:27] rails rep 1: sidebar c=64 585.8 rps p50 96.511 p99 218.111 {'200': 4775} err 0 avg 6267 B
+[23:04:37] rails rep 1: search c=1 214.9 rps p50 4.567 p99 5.983 {'200': 1719} err 0 avg 17522 B
+[23:04:45] rails rep 1: search c=16 457.8 rps p50 33.055 p99 76.095 {'200': 3681} err 0 avg 17522 B
+[23:04:53] rails rep 1: search c=64 462.8 rps p50 143.103 p99 195.967 {'200': 3774} err 0 avg 17522 B
+[23:05:03] rails rep 1: avatar c=1 9319.4 rps p50 0.078 p99 0.936 {'200': 74556} err 0 avg 3360 B
+[23:05:11] rails rep 1: avatar c=16 17203.3 rps p50 0.337 p99 7.147 {'200': 137643} err 0 avg 3360 B
+[23:05:19] rails rep 1: avatar c=64 18037.2 rps p50 1.233 p99 19.887 {'200': 144440} err 0 avg 3360 B
+[23:05:29] rails rep 1: static_css c=1 11806.3 rps p50 0.067 p99 0.121 {'200': 94451} err 0 avg 653 B
+[23:05:38] rails rep 1: static_css c=16 25744.9 rps p50 0.228 p99 5.847 {'200': 206019} err 0 avg 653 B
+[23:05:46] rails rep 1: static_css c=64 27375.2 rps p50 0.744 p99 14.223 {'200': 219148} err 0 avg 653 B
+[23:05:56] rails rep 1: up c=1 1832.0 rps p50 0.463 p99 2.143 {'200': 14657} err 0 avg 88 B
+[23:06:04] rails rep 1: up c=16 4149.2 rps p50 3.477 p99 10.919 {'200': 33209} err 0 avg 88 B
+[23:06:12] rails rep 1: up c=64 4987.0 rps p50 11.959 p99 29.359 {'200': 39965} err 0 avg 88 B
+[23:06:22] rails rep 1: post_message c=1 161.1 rps p50 5.767 p99 12.071 {'200': 1289} err 0 avg 2001 B
+[23:06:30] rails rep 1: post_message c=16 275.6 rps p50 41.439 p99 165.247 {'200': 2215} err 0 avg 2002 B
+[23:06:38] rails rep 1: post_message c=64 289.3 rps p50 217.471 p99 332.543 {'200': 2372} err 0 avg 2001 B
+[23:06:38] rails rep 1: writes ok {'acknowledged': 6302, 'new_messages': 6302, 'with_bench_rich_text': 6302, 'in_fts': 6302, 'fts_match': 6302, 'integrity': 'ok', 'settle_ms': 14} 
+[23:07:01] rails rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 47.263 p99 76.351 | tput 83.1 msg/s 1252 / 1252
+[23:07:29] rails rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 98.111 p99 162.175 | tput 11.3 msg/s 183 / 183
+[23:07:31] rails rep 1: upload median 80.4ms
+[23:07:31] rails rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[23:07:32] rails rep 1: valid
+[23:07:32] rails rep 1: done -> bench/results/2026-10-06-m3pro-all/rails-1.json
+[23:09:02] load before run: 1.30 3.90 4.15 (waited 90s)
+[23:09:02] django rep 1: starting once-campfire-django:bench (load: 1.30 3.90 4.15)
+[23:09:14] django rep 1: cold start 1118ms, idle 289MB (anon 223MB), redis sidecar 25MB
+[23:09:15] django rep 1: signed in; room page 200 419808 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:09:15] django rep 1: pages room_show 200 40 msgs 4000 elements 419808 B (20599 on the wire); messages_page 200 40 msgs 3400 elements 341364 B (11113 on the wire); sidebar 200 0 msgs 63 elements 7679 B (1968 on the wire); search 200 13 msgs 1420 elements 150507 B (9363 on the wire)
+[23:09:25] django rep 1: room_show c=1 79.9 rps p50 11.855 p99 17.647 {'200': 640} err 0 avg 20556 B
+[23:09:33] django rep 1: room_show c=16 249.1 rps p50 59.551 p99 144.511 {'200': 1999} err 0 avg 20555 B
+[23:09:41] django rep 1: room_show c=64 242.7 rps p50 241.663 p99 564.223 {'200': 1970} err 0 avg 20556 B
+[23:09:51] django rep 1: messages_page c=1 91.3 rps p50 10.167 p99 16.607 {'200': 731} err 0 avg 11072 B
+[23:09:59] django rep 1: messages_page c=16 287.4 rps p50 52.191 p99 134.527 {'200': 2313} err 0 avg 11072 B
+[23:10:07] django rep 1: messages_page c=64 275.9 rps p50 50.111 p99 866.303 {'200': 2299} err 0 avg 11072 B
+[23:10:17] django rep 1: sidebar c=1 361.7 rps p50 2.747 p99 3.175 {'200': 2894} err 0 avg 1956 B
+[23:10:25] django rep 1: sidebar c=16 1019.7 rps p50 13.231 p99 38.431 {'200': 8179} err 0 avg 1957 B
+[23:10:34] django rep 1: sidebar c=64 1000.1 rps p50 58.463 p99 141.951 {'200': 8041} err 0 avg 1957 B
+[23:10:44] django rep 1: search c=1 150.1 rps p50 6.243 p99 11.327 {'200': 1201} err 0 avg 9356 B
+[23:10:52] django rep 1: search c=16 408.9 rps p50 16.815 p99 124.159 {'200': 3291} err 0 avg 9356 B
+[23:11:00] django rep 1: search c=64 468.9 rps p50 36.255 p99 536.575 {'200': 3812} err 0 avg 9357 B
+[23:11:10] django rep 1: avatar c=1 405.0 rps p50 2.419 p99 3.615 {'200': 3240} err 0 avg 3410 B
+[23:11:18] django rep 1: avatar c=16 1178.8 rps p50 13.127 p99 24.735 {'200': 9442} err 0 avg 3410 B
+[23:11:26] django rep 1: avatar c=64 1128.3 rps p50 26.431 p99 188.415 {'200': 9094} err 0 avg 3410 B
+[23:11:36] django rep 1: static_css c=1 639.6 rps p50 1.529 p99 2.038 {'200': 5118} err 0 avg 703 B
+[23:11:44] django rep 1: static_css c=16 1771.9 rps p50 9.039 p99 17.167 {'200': 14184} err 0 avg 703 B
+[23:11:52] django rep 1: static_css c=64 1766.1 rps p50 32.959 p99 68.991 {'200': 14162} err 0 avg 703 B
+[23:12:02] django rep 1: up c=1 766.8 rps p50 1.292 p99 1.561 {'200': 6135} err 0 avg 73 B
+[23:12:10] django rep 1: up c=16 2195.2 rps p50 7.003 p99 15.023 {'200': 17569} err 0 avg 73 B
+[23:12:18] django rep 1: up c=64 2202.5 rps p50 15.751 p99 94.143 {'200': 17674} err 0 avg 73 B
+[23:12:28] django rep 1: post_message c=1 116.4 rps p50 7.007 p99 21.727 {'200': 933} err 0 avg 1922 B
+[23:12:37] django rep 1: post_message c=16 180.2 rps p50 37.183 p99 1059.839 {'200': 1497} err 0 avg 1924 B
+[23:12:45] django rep 1: post_message c=64 202.1 rps p50 62.367 p99 2967.551 {'200': 1718} err 0 avg 1924 B
+[23:12:45] django rep 1: writes ok {'acknowledged': 4615, 'new_messages': 4615, 'with_bench_rich_text': 4615, 'in_fts': 4615, 'fts_match': 4615, 'integrity': 'ok', 'settle_ms': 10} 
+[23:14:08] django rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 51.551 p99 79.743 | tput 0.5 msg/s 7 / 4167
+[23:15:42] django rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 3452.927 p99 6729.727 | tput 0.1 msg/s 1 / 3387
+[23:15:45] django rep 1: upload median 67.9ms
+[23:15:45] django rep 1: upload thumbnail ok [200] jpeg 84296 bytes 
+[23:15:46] django rep 1: INVALID: cable 100 clients: saturated 7/4167 messages reached every client; cable 1000 clients: saturated 1/3387 messages reached every client
+[23:15:46] django rep 1: done -> bench/results/2026-10-06-m3pro-all/django-1.json
+[23:15:46] load before run: 1.33 4.33 4.57 (waited 0s)
+[23:15:46] laravel rep 1: starting once-campfire-laravel:bench (load: 1.33 4.33 4.57)
+[23:15:58] laravel rep 1: cold start 1104ms, idle 156MB (anon 70MB)
+[23:15:58] laravel rep 1: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:15:58] laravel rep 1: pages room_show 200 40 msgs 4027 elements 398945 B (28933 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (19707 on the wire); sidebar 200 0 msgs 22 elements 2745 B (842 on the wire); search 200 13 msgs 1338 elements 136413 B (11189 on the wire)
+[23:16:08] laravel rep 1: room_show c=1 33.5 rps p50 29.487 p99 38.015 {'200': 268} err 0 avg 28933 B
+[23:16:16] laravel rep 1: room_show c=16 123.6 rps p50 129.151 p99 170.111 {'200': 1001} err 0 avg 28933 B
+[23:16:25] laravel rep 1: room_show c=64 121.0 rps p50 524.799 p99 572.415 {'200': 1027} err 0 avg 28933 B
+[23:16:35] laravel rep 1: messages_page c=1 38.0 rps p50 26.351 p99 28.495 {'200': 304} err 0 avg 19707 B
+[23:16:43] laravel rep 1: messages_page c=16 141.6 rps p50 112.703 p99 145.023 {'200': 1145} err 0 avg 19707 B
+[23:16:51] laravel rep 1: messages_page c=64 142.0 rps p50 449.535 p99 482.303 {'200': 1198} err 0 avg 19707 B
+[23:17:01] laravel rep 1: sidebar c=1 85.4 rps p50 11.679 p99 12.743 {'200': 683} err 0 avg 842 B
+[23:17:10] laravel rep 1: sidebar c=16 326.5 rps p50 48.863 p99 56.895 {'200': 2627} err 0 avg 842 B
+[23:17:18] laravel rep 1: sidebar c=64 325.4 rps p50 196.351 p99 209.151 {'200': 2663} err 0 avg 842 B
+[23:17:28] laravel rep 1: search c=1 57.3 rps p50 17.407 p99 20.031 {'200': 459} err 0 avg 11189 B
+[23:17:36] laravel rep 1: search c=16 219.4 rps p50 73.023 p99 104.511 {'200': 1768} err 0 avg 11189 B
+[23:17:44] laravel rep 1: search c=64 218.7 rps p50 292.607 p99 316.927 {'200': 1811} err 0 avg 11189 B
+[23:17:54] laravel rep 1: avatar c=1 136.6 rps p50 7.279 p99 8.479 {'200': 1093} err 0 avg 2916 B
+[23:18:02] laravel rep 1: avatar c=16 526.8 rps p50 30.319 p99 39.007 {'200': 4226} err 0 avg 2916 B
+[23:18:10] laravel rep 1: avatar c=64 525.1 rps p50 121.663 p99 130.751 {'200': 4261} err 0 avg 2916 B
+[23:18:20] laravel rep 1: static_css c=1 18071.4 rps p50 0.053 p99 0.068 {'200': 144572} err 0 avg 665 B
+[23:18:28] laravel rep 1: static_css c=16 119483.7 rps p50 0.131 p99 0.196 {'200': 955892} err 0 avg 665 B
+[23:18:36] laravel rep 1: static_css c=64 120686.8 rps p50 0.527 p99 0.718 {'200': 965597} err 0 avg 665 B
+[23:18:46] laravel rep 1: up c=1 326.3 rps p50 3.041 p99 3.323 {'200': 2611} err 0 avg 82 B
+[23:18:55] laravel rep 1: up c=16 1201.5 rps p50 13.071 p99 20.783 {'200': 9626} err 0 avg 82 B
+[23:19:03] laravel rep 1: up c=64 1065.8 rps p50 52.191 p99 67.007 {'200': 8579} err 0 avg 82 B
+[23:19:14] laravel rep 1: post_message c=1 12.5 rps p50 26.655 p99 884.223 {'200': 100} err 0 avg 2127 B
+[23:19:22] laravel rep 1: post_message c=16 53.1 rps p50 163.711 p99 1977.343 {'200': 447} err 0 avg 2127 B
+[23:19:34] laravel rep 1: post_message c=64 21.1 rps p50 2686.975 p99 5480.447 {'200': 233} err 0 avg 2125 B
+[23:19:34] laravel rep 1: writes ok {'acknowledged': 807, 'new_messages': 807, 'with_bench_rich_text': 807, 'in_fts': 807, 'fts_match': 807, 'integrity': 'ok', 'settle_ms': 3} 
+[23:20:12] laravel rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 193.407 p99 1912.831 | tput 8.9 msg/s 150 / 150
+[23:21:58] laravel rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 438.015 p99 733.695 | tput 4.4 msg/s 334 / 409
+[23:22:00] laravel rep 1: upload median 176.4ms
+[23:22:01] laravel rep 1: upload thumbnail ok [200] jpeg 75349 bytes 
+[23:22:01] laravel rep 1: INVALID: cable 1000 clients: saturated 334/409 messages reached every client
+[23:22:02] laravel rep 1: done -> bench/results/2026-10-06-m3pro-all/laravel-1.json
+[23:22:22] load before run: 1.34 3.20 4.08 (waited 20s)
+[23:22:22] laravel-frankenphp-classic rep 1: starting once-campfire-laravel-frankenphp:bench (load: 1.34 3.20 4.08)
+[23:22:33] laravel-frankenphp-classic rep 1: cold start 903ms, idle 227MB (anon 83MB)
+[23:22:33] laravel-frankenphp-classic rep 1: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:22:33] laravel-frankenphp-classic rep 1: pages room_show 200 40 msgs 4027 elements 398945 B (20032 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13311 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8215 on the wire)
+[23:22:44] laravel-frankenphp-classic rep 1: room_show c=1 32.2 rps p50 31.103 p99 33.119 {'200': 258} err 0 avg 20032 B
+[23:22:52] laravel-frankenphp-classic rep 1: room_show c=16 119.1 rps p50 133.887 p99 176.767 {'200': 966} err 0 avg 20032 B
+[23:23:00] laravel-frankenphp-classic rep 1: room_show c=64 119.6 rps p50 532.479 p99 591.871 {'200': 1020} err 0 avg 20032 B
+[23:23:10] laravel-frankenphp-classic rep 1: messages_page c=1 36.3 rps p50 27.439 p99 30.111 {'200': 291} err 0 avg 13311 B
+[23:23:18] laravel-frankenphp-classic rep 1: messages_page c=16 136.7 rps p50 116.671 p99 164.991 {'200': 1106} err 0 avg 13311 B
+[23:23:27] laravel-frankenphp-classic rep 1: messages_page c=64 136.0 rps p50 468.735 p99 517.631 {'200': 1148} err 0 avg 13311 B
+[23:23:37] laravel-frankenphp-classic rep 1: sidebar c=1 85.0 rps p50 11.751 p99 12.191 {'200': 681} err 0 avg 817 B
+[23:23:45] laravel-frankenphp-classic rep 1: sidebar c=16 317.1 rps p50 50.175 p99 70.463 {'200': 2551} err 0 avg 817 B
+[23:23:53] laravel-frankenphp-classic rep 1: sidebar c=64 316.3 rps p50 201.855 p99 220.287 {'200': 2591} err 0 avg 817 B
+[23:24:03] laravel-frankenphp-classic rep 1: search c=1 55.6 rps p50 17.935 p99 19.871 {'200': 445} err 0 avg 8215 B
+[23:24:11] laravel-frankenphp-classic rep 1: search c=16 211.3 rps p50 75.455 p99 105.471 {'200': 1703} err 0 avg 8215 B
+[23:24:20] laravel-frankenphp-classic rep 1: search c=64 211.1 rps p50 302.847 p99 330.239 {'200': 1750} err 0 avg 8215 B
+[23:24:30] laravel-frankenphp-classic rep 1: avatar c=1 132.7 rps p50 7.495 p99 8.695 {'200': 1062} err 0 avg 2930 B
+[23:24:38] laravel-frankenphp-classic rep 1: avatar c=16 502.9 rps p50 31.615 p99 45.055 {'200': 4036} err 0 avg 2930 B
+[23:24:46] laravel-frankenphp-classic rep 1: avatar c=64 503.8 rps p50 126.591 p99 140.287 {'200': 4090} err 0 avg 2930 B
+[23:24:56] laravel-frankenphp-classic rep 1: static_css c=1 12605.8 rps p50 0.072 p99 0.101 {'200': 100847} err 0 avg 654 B
+[23:25:04] laravel-frankenphp-classic rep 1: static_css c=16 68824.0 rps p50 0.179 p99 1.261 {'200': 550621} err 0 avg 654 B
+[23:25:12] laravel-frankenphp-classic rep 1: static_css c=64 72122.5 rps p50 0.642 p99 4.443 {'200': 577086} err 0 avg 654 B
+[23:25:22] laravel-frankenphp-classic rep 1: up c=1 311.9 rps p50 3.153 p99 3.487 {'200': 2496} err 0 avg 73 B
+[23:25:30] laravel-frankenphp-classic rep 1: up c=16 1053.1 rps p50 13.623 p99 24.511 {'200': 8436} err 0 avg 73 B
+[23:25:38] laravel-frankenphp-classic rep 1: up c=64 1180.6 rps p50 53.951 p99 63.807 {'200': 9510} err 0 avg 73 B
+[23:25:48] laravel-frankenphp-classic rep 1: post_message c=1 62.6 rps p50 15.439 p99 27.263 {'200': 501} err 0 avg 1975 B
+[23:25:56] laravel-frankenphp-classic rep 1: post_message c=16 225.5 rps p50 67.391 p99 167.807 {'200': 1821} err 0 avg 1976 B
+[23:26:05] laravel-frankenphp-classic rep 1: post_message c=64 227.5 rps p50 276.991 p99 368.383 {'200': 1881} err 0 avg 1976 B
+[23:26:05] laravel-frankenphp-classic rep 1: writes ok {'acknowledged': 4585, 'new_messages': 4585, 'with_bench_rich_text': 4585, 'in_fts': 4585, 'fts_match': 4585, 'integrity': 'ok', 'settle_ms': 10} 
+[23:27:02] laravel-frankenphp-classic rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 36.543 p99 52.895 | tput 49.0 msg/s 2415 / 2415
+[23:28:44] laravel-frankenphp-classic rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 290.559 p99 331.007 | tput 5.0 msg/s 372 / 2361
+[23:28:47] laravel-frankenphp-classic rep 1: upload median 79.3ms
+[23:28:47] laravel-frankenphp-classic rep 1: upload thumbnail ok [200] jpeg 75289 bytes 
+[23:28:47] laravel-frankenphp-classic rep 1: INVALID: cable 1000 clients: saturated 372/2361 messages reached every client
+[23:28:48] laravel-frankenphp-classic rep 1: done -> bench/results/2026-10-06-m3pro-all/laravel-frankenphp-classic-1.json
+[23:29:38] load before run: 1.27 3.31 3.99 (waited 50s)
+[23:29:38] laravel-frankenphp rep 1: starting once-campfire-laravel-frankenphp:bench (load: 1.27 3.31 3.99)
+[23:29:49] laravel-frankenphp rep 1: cold start 911ms, idle 211MB (anon 121MB)
+[23:29:49] laravel-frankenphp rep 1: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:29:49] laravel-frankenphp rep 1: pages room_show 200 40 msgs 4027 elements 398945 B (20030 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13307 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8212 on the wire)
+[23:29:59] laravel-frankenphp rep 1: room_show c=1 47.3 rps p50 21.135 p99 22.703 {'200': 379} err 0 avg 20030 B
+[23:30:08] laravel-frankenphp rep 1: room_show c=16 180.0 rps p50 91.583 p99 135.167 {'200': 1451} err 0 avg 20030 B
+[23:30:16] laravel-frankenphp rep 1: room_show c=64 209.5 rps p50 305.151 p99 332.031 {'200': 1736} err 0 avg 20030 B
+[23:30:26] laravel-frankenphp rep 1: messages_page c=1 60.6 rps p50 16.479 p99 17.199 {'200': 485} err 0 avg 13307 B
+[23:30:34] laravel-frankenphp rep 1: messages_page c=16 220.9 rps p50 71.999 p99 100.223 {'200': 1781} err 0 avg 13307 B
+[23:30:42] laravel-frankenphp rep 1: messages_page c=64 221.2 rps p50 287.999 p99 313.855 {'200': 1830} err 0 avg 13307 B
+[23:30:52] laravel-frankenphp rep 1: sidebar c=1 526.7 rps p50 1.867 p99 2.125 {'200': 4214} err 0 avg 817 B
+[23:31:00] laravel-frankenphp rep 1: sidebar c=16 1606.4 rps p50 8.383 p99 18.479 {'200': 12861} err 0 avg 817 B
+[23:31:08] laravel-frankenphp rep 1: sidebar c=64 1819.6 rps p50 34.719 p99 45.471 {'200': 14635} err 0 avg 817 B
+[23:31:18] laravel-frankenphp rep 1: search c=1 145.2 rps p50 6.783 p99 8.367 {'200': 1162} err 0 avg 8212 B
+[23:31:26] laravel-frankenphp rep 1: search c=16 525.2 rps p50 30.223 p99 45.471 {'200': 4216} err 0 avg 8212 B
+[23:31:35] laravel-frankenphp rep 1: search c=64 529.3 rps p50 120.319 p99 136.447 {'200': 4294} err 0 avg 8212 B
+[23:31:45] laravel-frankenphp rep 1: avatar c=1 938.4 rps p50 0.991 p99 1.994 {'200': 7508} err 0 avg 2930 B
+[23:31:53] laravel-frankenphp rep 1: avatar c=16 3127.5 rps p50 4.691 p99 12.463 {'200': 25033} err 0 avg 2930 B
+[23:32:01] laravel-frankenphp rep 1: avatar c=64 2362.3 rps p50 18.927 p99 32.575 {'200': 18938} err 0 avg 2930 B
+[23:32:11] laravel-frankenphp rep 1: static_css c=1 12791.1 rps p50 0.072 p99 0.1 {'200': 102329} err 0 avg 654 B
+[23:32:19] laravel-frankenphp rep 1: static_css c=16 67961.0 rps p50 0.178 p99 1.35 {'200': 543727} err 0 avg 654 B
+[23:32:27] laravel-frankenphp rep 1: static_css c=64 72925.7 rps p50 0.641 p99 4.247 {'200': 583505} err 0 avg 654 B
+[23:32:37] laravel-frankenphp rep 1: up c=1 1460.1 rps p50 0.673 p99 0.856 {'200': 11682} err 0 avg 73 B
+[23:32:45] laravel-frankenphp rep 1: up c=16 4547.3 rps p50 3.157 p99 8.895 {'200': 36402} err 0 avg 73 B
+[23:32:53] laravel-frankenphp rep 1: up c=64 4776.9 rps p50 12.975 p99 23.519 {'200': 38272} err 0 avg 73 B
+[23:33:03] laravel-frankenphp rep 1: post_message c=1 227.8 rps p50 3.655 p99 18.863 {'200': 1823} err 0 avg 1972 B
+[23:33:11] laravel-frankenphp rep 1: post_message c=16 599.3 rps p50 20.655 p99 131.199 {'200': 4839} err 0 avg 1972 B
+[23:33:19] laravel-frankenphp rep 1: post_message c=64 613.6 rps p50 98.303 p99 214.015 {'200': 4990} err 0 avg 1971 B
+[23:33:19] laravel-frankenphp rep 1: writes ok {'acknowledged': 11656, 'new_messages': 11656, 'with_bench_rich_text': 11656, 'in_fts': 11656, 'fts_match': 11656, 'integrity': 'ok', 'settle_ms': 25} 
+[23:34:42] laravel-frankenphp rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 26.175 p99 36.543 | tput 51.7 msg/s 3878 / 7399
+[23:36:24] laravel-frankenphp rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 303.359 p99 360.447 | tput 5.0 msg/s 377 / 7242
+[23:36:26] laravel-frankenphp rep 1: upload median 57.5ms
+[23:36:27] laravel-frankenphp rep 1: upload thumbnail ok [200] jpeg 75289 bytes 
+[23:36:27] laravel-frankenphp rep 1: INVALID: cable 100 clients: saturated 3878/7399 messages reached every client; cable 1000 clients: saturated 377/7242 messages reached every client
+[23:36:28] laravel-frankenphp rep 1: done -> bench/results/2026-10-06-m3pro-all/laravel-frankenphp-1.json
+[23:37:18] load before run: 1.31 3.32 3.93 (waited 50s)
+[23:37:18] express rep 1: starting once-campfire-express:bench (load: 1.31 3.32 3.93)
+[23:37:29] express rep 1: cold start 1008ms, idle 271MB (anon 162MB)
+[23:37:29] express rep 1: signed in; room page 200 419704 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:37:29] express rep 1: pages room_show 200 40 msgs 4000 elements 419704 B (20352 on the wire); messages_page 200 40 msgs 3400 elements 341364 B (11003 on the wire); sidebar 200 0 msgs 63 elements 7679 B (1903 on the wire); search 200 13 msgs 1420 elements 150507 B (9295 on the wire)
+[23:37:40] express rep 1: room_show c=1 211.6 rps p50 4.539 p99 8.479 {'200': 1693} err 0 avg 20353 B
+[23:37:48] express rep 1: room_show c=16 613.6 rps p50 25.151 p99 44.671 {'200': 4916} err 0 avg 20353 B
+[23:37:56] express rep 1: room_show c=64 646.0 rps p50 96.319 p99 148.863 {'200': 5201} err 0 avg 20353 B
+[23:38:06] express rep 1: messages_page c=1 273.7 rps p50 3.495 p99 6.807 {'200': 2190} err 0 avg 11003 B
+[23:38:14] express rep 1: messages_page c=16 793.9 rps p50 19.359 p99 38.463 {'200': 6363} err 0 avg 11003 B
+[23:38:22] express rep 1: messages_page c=64 807.6 rps p50 75.775 p99 122.303 {'200': 6496} err 0 avg 11003 B
+[23:38:32] express rep 1: sidebar c=1 1874.3 rps p50 0.487 p99 1.186 {'200': 14995} err 0 avg 1903 B
+[23:38:40] express rep 1: sidebar c=16 5821.8 rps p50 2.365 p99 11.071 {'200': 46582} err 0 avg 1903 B
+[23:38:48] express rep 1: sidebar c=64 6200.3 rps p50 8.943 p99 22.815 {'200': 49646} err 0 avg 1903 B
+[23:38:58] express rep 1: search c=1 473.9 rps p50 1.993 p99 7.227 {'200': 3792} err 0 avg 9294 B
+[23:39:06] express rep 1: search c=16 1501.1 rps p50 9.903 p99 23.535 {'200': 12017} err 0 avg 9293 B
+[23:39:14] express rep 1: search c=64 1524.1 rps p50 40.223 p99 73.343 {'200': 12236} err 0 avg 9293 B
+[23:39:24] express rep 1: avatar c=1 3881.4 rps p50 0.237 p99 0.321 {'200': 31052} err 0 avg 4004 B
+[23:39:32] express rep 1: avatar c=16 13027.8 rps p50 1.036 p99 4.651 {'200': 104231} err 0 avg 4004 B
+[23:39:40] express rep 1: avatar c=64 13442.3 rps p50 4.063 p99 18.351 {'200': 107582} err 0 avg 4004 B
+[23:39:50] express rep 1: static_css c=1 4344.3 rps p50 0.241 p99 0.283 {'200': 34756} err 0 avg 647 B
+[23:39:58] express rep 1: static_css c=16 21745.3 rps p50 0.575 p99 4.655 {'200': 173985} err 0 avg 647 B
+[23:40:06] express rep 1: static_css c=64 24853.5 rps p50 2.199 p99 9.895 {'200': 198895} err 0 avg 647 B
+[23:40:16] express rep 1: up c=1 6873.9 rps p50 0.136 p99 0.169 {'200': 54992} err 0 avg 73 B
+[23:40:24] express rep 1: up c=16 27546.0 rps p50 0.586 p99 1.27 {'200': 220388} err 0 avg 73 B
+[23:40:32] express rep 1: up c=64 26846.2 rps p50 2.293 p99 10.879 {'200': 214855} err 0 avg 73 B
+[23:40:42] express rep 1: post_message c=1 856.7 rps p50 1.067 p99 5.367 {'200': 6854} err 0 avg 1879 B
+[23:40:50] express rep 1: post_message c=16 1709.5 rps p50 8.019 p99 28.623 {'200': 13690} err 0 avg 1879 B
+[23:40:59] express rep 1: post_message c=64 1732.1 rps p50 27.823 p99 66.239 {'200': 15315} err 0 avg 1879 B
+[23:40:59] express rep 1: writes ok {'acknowledged': 38932, 'new_messages': 38932, 'with_bench_rich_text': 38932, 'in_fts': 38932, 'fts_match': 38932, 'integrity': 'ok', 'settle_ms': 89} 
+[23:41:26] express rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 20.415 p99 32.191 | tput 207.2 msg/s 3935 / 3935
+[23:41:54] express rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 47.071 p99 75.711 | tput 23.2 msg/s 387 / 387
+[23:41:56] express rep 1: upload median 34.2ms
+[23:41:57] express rep 1: upload thumbnail ok [200] jpeg 93976 bytes 
+[23:41:57] express rep 1: valid
+[23:41:58] express rep 1: done -> bench/results/2026-10-06-m3pro-all/express-1.json
+[23:42:58] load before run: 1.27 2.96 3.66 (waited 60s)
+[23:42:58] elixir rep 1: starting once-campfire-elixir:bench (load: 1.27 2.96 3.66)
+[23:43:09] elixir rep 1: cold start 976ms, idle 202MB (anon 119MB)
+[23:43:09] elixir rep 1: signed in; room page 200 463708 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[23:43:09] elixir rep 1: pages room_show 200 40 msgs 4000 elements 463720 B (21231 on the wire); messages_page 200 40 msgs 3720 elements 430925 B (12084 on the wire); sidebar 200 0 msgs 248 elements 31427 B (6103 on the wire); search 200 13 msgs 1420 elements 165519 B (10270 on the wire)
+[23:43:19] elixir rep 1: room_show c=1 320.8 rps p50 3.079 p99 4.419 {'200': 2567} err 0 avg 21231 B
+[23:43:27] elixir rep 1: room_show c=16 459.5 rps p50 35.007 p99 47.327 {'200': 3687} err 0 avg 21231 B
+[23:43:35] elixir rep 1: room_show c=64 518.5 rps p50 123.007 p99 150.911 {'200': 4203} err 0 avg 21231 B
+[23:43:45] elixir rep 1: messages_page c=1 399.1 rps p50 2.461 p99 3.493 {'200': 3193} err 0 avg 12084 B
+[23:43:53] elixir rep 1: messages_page c=16 707.1 rps p50 22.367 p99 34.335 {'200': 5672} err 0 avg 12084 B
+[23:44:01] elixir rep 1: messages_page c=64 711.3 rps p50 90.687 p99 114.111 {'200': 5737} err 0 avg 12084 B
+[23:44:11] elixir rep 1: sidebar c=1 766.7 rps p50 1.233 p99 2.697 {'200': 6134} err 0 avg 6107 B
+[23:44:20] elixir rep 1: sidebar c=16 936.8 rps p50 16.527 p99 29.215 {'200': 7507} err 0 avg 6106 B
+[23:44:28] elixir rep 1: sidebar c=64 925.2 rps p50 69.119 p99 92.223 {'200': 7435} err 0 avg 6107 B
+[23:44:38] elixir rep 1: search c=1 600.0 rps p50 1.584 p99 4.211 {'200': 4801} err 0 avg 10270 B
+[23:44:46] elixir rep 1: search c=16 778.0 rps p50 20.143 p99 29.679 {'200': 6234} err 0 avg 10270 B
+[23:44:54] elixir rep 1: search c=64 784.0 rps p50 81.343 p99 99.647 {'200': 6326} err 0 avg 10270 B
+[23:45:04] elixir rep 1: avatar c=1 9377.0 rps p50 0.077 p99 0.965 {'200': 75078} err 0 avg 3360 B
+[23:45:12] elixir rep 1: avatar c=16 18365.0 rps p50 0.303 p99 6.843 {'200': 146937} err 0 avg 3360 B
+[23:45:20] elixir rep 1: avatar c=64 19307.2 rps p50 1.09 p99 18.911 {'200': 154518} err 0 avg 3360 B
+[23:45:30] elixir rep 1: static_css c=1 11923.8 rps p50 0.067 p99 0.125 {'200': 95391} err 0 avg 653 B
+[23:45:38] elixir rep 1: static_css c=16 26392.6 rps p50 0.223 p99 5.939 {'200': 211231} err 0 avg 653 B
+[23:45:46] elixir rep 1: static_css c=64 26647.0 rps p50 0.754 p99 14.487 {'200': 213259} err 0 avg 653 B
+[23:45:56] elixir rep 1: up c=1 3158.8 rps p50 0.274 p99 1.821 {'200': 25271} err 0 avg 88 B
+[23:46:04] elixir rep 1: up c=16 6628.3 rps p50 2.055 p99 8.319 {'200': 53038} err 0 avg 88 B
+[23:46:12] elixir rep 1: up c=64 7708.5 rps p50 7.743 p99 19.903 {'200': 61717} err 0 avg 88 B
+[23:46:22] elixir rep 1: post_message c=1 291.7 rps p50 3.429 p99 6.239 {'200': 2335} err 0 avg 2006 B
+[23:46:30] elixir rep 1: post_message c=16 533.3 rps p50 29.631 p99 42.655 {'200': 4276} err 0 avg 2005 B
+[23:46:38] elixir rep 1: post_message c=64 583.0 rps p50 109.951 p99 136.447 {'200': 4698} err 0 avg 2005 B
+[23:46:38] elixir rep 1: writes ok {'acknowledged': 12259, 'new_messages': 12259, 'with_bench_rich_text': 12259, 'in_fts': 12259, 'fts_match': 12259, 'integrity': 'ok', 'settle_ms': 27} 
+[23:47:01] elixir rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 14.255 p99 23.119 | tput 312.9 msg/s 4695 / 4695
+[23:47:26] elixir rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 26.959 p99 36.447 | tput 74.1 msg/s 1115 / 1115
+[23:47:29] elixir rep 1: upload median 94.8ms
+[23:47:29] elixir rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[23:47:30] elixir rep 1: valid
+[23:47:30] elixir rep 1: done -> bench/results/2026-10-06-m3pro-all/elixir-1.json
+[23:49:00] load before run: 1.30 3.63 3.90 (waited 90s)
+[23:49:00] go rep 1: starting once-campfire-go:bench (load: 1.30 3.63 3.90)
+[23:49:11] go rep 1: cold start 545ms, idle 48MB (anon 9MB)
+[23:49:11] go rep 1: signed in; room page 200 373982 bytes, 3 streams, csrf NO , css /assets/_reset-9c3efd7b.css
+[23:49:11] go rep 1: no CSRF token on the page; posts rely on Sec-Fetch-Site: same-origin (csrf_mode sec-fetch-site)
+[23:49:12] go rep 1: pages room_show 200 40 msgs 3675 elements 373994 B (21285 on the wire); messages_page 200 40 msgs 3400 elements 342404 B (12816 on the wire); sidebar 200 0 msgs 84 elements 9462 B (2249 on the wire); search 200 13 msgs 1311 elements 135484 B (9464 on the wire)
+[23:49:22] go rep 1: room_show c=1 1032.4 rps p50 0.858 p99 4.703 {'200': 8260} err 0 avg 21280 B
+[23:49:30] go rep 1: room_show c=16 4168.9 rps p50 2.765 p99 13.007 {'200': 33367} err 0 avg 21280 B
+[23:49:38] go rep 1: room_show c=64 4121.9 rps p50 13.759 p99 57.471 {'200': 33022} err 0 avg 21280 B
+[23:49:48] go rep 1: messages_page c=1 1301.4 rps p50 0.714 p99 3.255 {'200': 10413} err 0 avg 12816 B
+[23:49:56] go rep 1: messages_page c=16 5236.0 rps p50 2.227 p99 9.767 {'200': 41902} err 0 avg 12816 B
+[23:50:04] go rep 1: messages_page c=64 5204.7 rps p50 9.655 p99 47.807 {'200': 41697} err 0 avg 12816 B
+[23:50:14] go rep 1: sidebar c=1 4276.6 rps p50 0.2 p99 0.726 {'200': 34213} err 0 avg 2249 B
+[23:50:22] go rep 1: sidebar c=16 13238.2 rps p50 0.98 p99 4.939 {'200': 105915} err 0 avg 2249 B
+[23:50:30] go rep 1: sidebar c=64 12518.6 rps p50 4.595 p99 12.991 {'200': 100199} err 0 avg 2249 B
+[23:50:40] go rep 1: search c=1 1786.4 rps p50 0.481 p99 3.847 {'200': 14292} err 0 avg 9464 B
+[23:50:48] go rep 1: search c=16 6836.3 rps p50 1.686 p99 9.767 {'200': 54704} err 0 avg 9464 B
+[23:50:56] go rep 1: search c=64 6571.2 rps p50 8.855 p99 27.359 {'200': 52623} err 0 avg 9464 B
+[23:51:06] go rep 1: avatar c=1 14104.8 rps p50 0.065 p99 0.092 {'200': 112840} err 0 avg 3389 B
+[23:51:14] go rep 1: avatar c=16 80770.6 rps p50 0.114 p99 2.032 {'200': 646194} err 0 avg 3389 B
+[23:51:22] go rep 1: avatar c=64 85689.3 rps p50 0.353 p99 5.815 {'200': 685656} err 0 avg 3389 B
+[23:51:32] go rep 1: static_css c=1 17593.4 rps p50 0.054 p99 0.077 {'200': 140748} err 0 avg 654 B
+[23:51:40] go rep 1: static_css c=16 105427.5 rps p50 0.08 p99 1.286 {'200': 843692} err 0 avg 654 B
+[23:51:48] go rep 1: static_css c=64 118015.0 rps p50 0.23 p99 4.827 {'200': 944304} err 0 avg 654 B
+[23:51:58] go rep 1: up c=1 13597.0 rps p50 0.07 p99 0.093 {'200': 108778} err 0 avg 98 B
+[23:52:06] go rep 1: up c=16 74721.0 rps p50 0.127 p99 1.818 {'200': 597791} err 0 avg 98 B
+[23:52:14] go rep 1: up c=64 81566.1 rps p50 0.382 p99 5.891 {'200': 652669} err 0 avg 98 B
+[23:52:24] go rep 1: post_message c=1 2397.3 rps p50 0.379 p99 0.94 {'200': 19192} err 0 avg 1919 B
+[23:52:32] go rep 1: post_message c=16 4593.5 rps p50 2.623 p99 13.647 {'200': 36760} err 0 avg 1919 B
+[23:52:40] go rep 1: post_message c=64 5050.5 rps p50 8.743 p99 57.279 {'200': 40427} err 0 avg 1918 B
+[23:52:40] go rep 1: writes ok {'acknowledged': 105701, 'new_messages': 105701, 'with_bench_rich_text': 105701, 'in_fts': 105701, 'fts_match': 105701, 'integrity': 'ok', 'settle_ms': 257} 
+[23:53:03] go rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 8.895 p99 10.855 | tput 2069.0 msg/s 31038 / 31038
+[23:53:28] go rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 25.727 p99 39.455 | tput 304.5 msg/s 4572 / 4572
+[23:53:31] go rep 1: upload median 33.7ms
+[23:53:31] go rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[23:53:31] go rep 1: valid
+[23:53:32] go rep 1: done -> bench/results/2026-10-06-m3pro-all/go-1.json
+[23:55:02] load before run: 1.32 4.11 4.25 (waited 90s)
+[23:55:02] rust rep 1: starting once-campfire-rust:bench (load: 1.32 4.11 4.25)
+[23:55:13] rust rep 1: cold start 493ms, idle 65MB (anon 15MB)
+[23:55:13] rust rep 1: signed in; room page 200 416122 bytes, 3 streams, csrf NO , css /assets/_reset-9c3efd7b.css
+[23:55:13] rust rep 1: no CSRF token on the page; posts rely on Sec-Fetch-Site: same-origin (csrf_mode sec-fetch-site)
+[23:55:13] rust rep 1: pages room_show 200 40 msgs 3675 elements 416134 B (24232 on the wire); messages_page 200 40 msgs 3400 elements 383844 B (16158 on the wire); sidebar 200 0 msgs 243 elements 30763 B (5910 on the wire); search 200 13 msgs 1311 elements 149623 B (9766 on the wire)
+[23:55:23] rust rep 1: room_show c=1 6991.4 rps p50 0.141 p99 0.172 {'200': 55932} err 0 avg 24231 B
+[23:55:31] rust rep 1: room_show c=16 22516.2 rps p50 0.614 p99 2.093 {'200': 180140} err 0 avg 24231 B
+[23:55:39] rust rep 1: room_show c=64 23265.5 rps p50 2.577 p99 6.143 {'200': 186184} err 0 avg 24231 B
+[23:55:49] rust rep 1: messages_page c=1 7380.0 rps p50 0.134 p99 0.166 {'200': 59042} err 0 avg 16158 B
+[23:55:57] rust rep 1: messages_page c=16 23389.0 rps p50 0.597 p99 1.972 {'200': 187122} err 0 avg 16158 B
+[23:56:05] rust rep 1: messages_page c=64 24656.1 rps p50 2.453 p99 5.615 {'200': 197303} err 0 avg 16158 B
+[23:56:15] rust rep 1: sidebar c=1 6690.6 rps p50 0.147 p99 0.182 {'200': 53525} err 0 avg 5910 B
+[23:56:23] rust rep 1: sidebar c=16 21942.9 rps p50 0.625 p99 2.129 {'200': 175557} err 0 avg 5910 B
+[23:56:31] rust rep 1: sidebar c=64 22163.6 rps p50 2.695 p99 6.511 {'200': 177357} err 0 avg 5910 B
+[23:56:41] rust rep 1: search c=1 5893.4 rps p50 0.169 p99 0.209 {'200': 47148} err 0 avg 9766 B
+[23:56:49] rust rep 1: search c=16 23649.4 rps p50 0.628 p99 1.445 {'200': 189207} err 0 avg 9766 B
+[23:56:57] rust rep 1: search c=64 28404.5 rps p50 2.095 p99 4.635 {'200': 227290} err 0 avg 9766 B
+[23:57:07] rust rep 1: avatar c=1 18133.1 rps p50 0.055 p99 0.075 {'200': 145066} err 0 avg 3368 B
+[23:57:15] rust rep 1: avatar c=16 129265.4 rps p50 0.094 p99 0.512 {'200': 1034160} err 0 avg 3368 B
+[23:57:23] rust rep 1: avatar c=64 138324.8 rps p50 0.363 p99 1.738 {'200': 1106729} err 0 avg 3368 B
+[23:57:33] rust rep 1: static_css c=1 18549.3 rps p50 0.055 p99 0.073 {'200': 148395} err 0 avg 654 B
+[23:57:41] rust rep 1: static_css c=16 127035.8 rps p50 0.098 p99 0.515 {'200': 1016318} err 0 avg 654 B
+[23:57:49] rust rep 1: static_css c=64 141092.7 rps p50 0.342 p99 1.824 {'200': 1128890} err 0 avg 654 B
+[23:57:59] rust rep 1: up c=1 14536.7 rps p50 0.069 p99 0.088 {'200': 116295} err 0 avg 90 B
+[23:58:07] rust rep 1: up c=16 93307.0 rps p50 0.146 p99 0.604 {'200': 746480} err 0 avg 90 B
+[23:58:15] rust rep 1: up c=64 98575.3 rps p50 0.585 p99 1.966 {'200': 788726} err 0 avg 90 B
+[23:58:25] rust rep 1: post_message c=1 2922.0 rps p50 0.34 p99 0.425 {'200': 23377} err 0 avg 1993 B
+[23:58:33] rust rep 1: post_message c=16 6799.5 rps p50 2.247 p99 5.579 {'200': 54412} err 0 avg 1992 B
+[23:58:42] rust rep 1: post_message c=64 7268.3 rps p50 8.751 p99 15.543 {'200': 58198} err 0 avg 1992 B
+[23:58:42] rust rep 1: writes ok {'acknowledged': 147434, 'new_messages': 147434, 'with_bench_rich_text': 147434, 'in_fts': 147434, 'fts_match': 147434, 'integrity': 'ok', 'settle_ms': 368} 
+[23:59:05] rust rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 7.223 p99 9.071 | tput 3229.5 msg/s 48447 / 48447
+[23:59:30] rust rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 22.063 p99 27.135 | tput 569.6 msg/s 8549 / 8549
+[23:59:32] rust rep 1: upload median 33.4ms
+[23:59:32] rust rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[23:59:33] rust rep 1: valid
+[23:59:33] rust rep 1: done -> bench/results/2026-10-06-m3pro-all/rust-1.json
+[00:01:04] load before run: 1.39 4.10 4.38 (waited 90s)
+[00:01:04] symfony-classic rep 1: starting campfire-symfony:app (load: 1.39 4.10 4.38)
+[00:01:15] symfony-classic rep 1: cold start 830ms, idle 228MB (anon 65MB)
+[00:01:15] symfony-classic rep 1: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[00:01:15] symfony-classic rep 1: pages room_show 200 40 msgs 4000 elements 463229 B (45026 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35919 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6398 on the wire); search 200 13 msgs 1420 elements 165221 B (17702 on the wire)
+[00:01:25] symfony-classic rep 1: room_show c=1 49.1 rps p50 20.319 p99 21.375 {'200': 393} err 0 avg 45025 B
+[00:01:33] symfony-classic rep 1: room_show c=16 174.3 rps p50 91.647 p99 113.727 {'200': 1408} err 0 avg 45025 B
+[00:01:42] symfony-classic rep 1: room_show c=64 174.3 rps p50 366.335 p99 397.823 {'200': 1456} err 0 avg 45025 B
+[00:01:52] symfony-classic rep 1: messages_page c=1 97.5 rps p50 10.239 p99 10.815 {'200': 781} err 0 avg 35919 B
+[00:02:00] symfony-classic rep 1: messages_page c=16 350.3 rps p50 45.631 p99 59.743 {'200': 2814} err 0 avg 35919 B
+[00:02:08] symfony-classic rep 1: messages_page c=64 349.4 rps p50 182.655 p99 199.295 {'200': 2858} err 0 avg 35919 B
+[00:02:18] symfony-classic rep 1: sidebar c=1 58.3 rps p50 17.039 p99 18.095 {'200': 467} err 0 avg 6395 B
+[00:02:26] symfony-classic rep 1: sidebar c=16 217.4 rps p50 73.471 p99 102.975 {'200': 1753} err 0 avg 6395 B
+[00:02:34] symfony-classic rep 1: sidebar c=64 217.4 rps p50 293.887 p99 323.327 {'200': 1798} err 0 avg 6395 B
+[00:02:44] symfony-classic rep 1: search c=1 82.3 rps p50 12.071 p99 13.055 {'200': 659} err 0 avg 17702 B
+[00:02:52] symfony-classic rep 1: search c=16 301.0 rps p50 53.023 p99 72.959 {'200': 2420} err 0 avg 17701 B
+[00:03:01] symfony-classic rep 1: search c=64 301.1 rps p50 212.351 p99 229.375 {'200': 2470} err 0 avg 17701 B
+[00:03:11] symfony-classic rep 1: avatar c=1 80.3 rps p50 12.495 p99 13.583 {'200': 643} err 0 avg 3364 B
+[00:03:19] symfony-classic rep 1: avatar c=16 303.6 rps p50 52.639 p99 72.831 {'200': 2442} err 0 avg 3364 B
+[00:03:27] symfony-classic rep 1: avatar c=64 303.8 rps p50 210.431 p99 229.887 {'200': 2491} err 0 avg 3364 B
+[00:03:37] symfony-classic rep 1: static_css c=1 12888.0 rps p50 0.071 p99 0.101 {'200': 103117} err 0 avg 654 B
+[00:03:45] symfony-classic rep 1: static_css c=16 70063.1 rps p50 0.176 p99 1.227 {'200': 560535} err 0 avg 654 B
+[00:03:53] symfony-classic rep 1: static_css c=64 74105.5 rps p50 0.631 p99 4.151 {'200': 592927} err 0 avg 654 B
+[00:04:03] symfony-classic rep 1: up c=1 187.2 rps p50 5.367 p99 5.547 {'200': 1498} err 0 avg 73 B
+[00:04:11] symfony-classic rep 1: up c=16 706.4 rps p50 22.575 p99 35.999 {'200': 5667} err 0 avg 73 B
+[00:04:19] symfony-classic rep 1: up c=64 712.1 rps p50 89.535 p99 99.839 {'200': 5757} err 0 avg 73 B
+[00:04:29] symfony-classic rep 1: post_message c=1 70.2 rps p50 14.191 p99 15.271 {'200': 562} err 0 avg 2032 B
+[00:04:37] symfony-classic rep 1: post_message c=16 260.9 rps p50 61.023 p99 81.471 {'200': 2101} err 0 avg 2031 B
+[00:04:46] symfony-classic rep 1: post_message c=64 259.8 rps p50 245.631 p99 266.495 {'200': 2141} err 0 avg 2031 B
+[00:04:46] symfony-classic rep 1: writes ok {'acknowledged': 5290, 'new_messages': 5290, 'with_bench_rich_text': 5290, 'in_fts': 5290, 'fts_match': 5290, 'integrity': 'ok', 'settle_ms': 12} 
+[00:05:09] symfony-classic rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.303 p99 50.751 | tput 222.1 msg/s 3336 / 3336
+[00:05:35] symfony-classic rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 61.631 p99 76.287 | tput 110.5 msg/s 1804 / 1804
+[00:05:37] symfony-classic rep 1: upload median 64.1ms
+[00:05:38] symfony-classic rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:05:38] symfony-classic rep 1: valid
+[00:05:39] symfony-classic rep 1: done -> bench/results/2026-10-06-m3pro-all/symfony-classic-1.json
+[00:06:59] load before run: 1.48 3.83 4.30 (waited 80s)
+[00:06:59] symfony rep 1: starting campfire-symfony:app (load: 1.48 3.83 4.30)
+[00:07:10] symfony rep 1: cold start 773ms, idle 229MB (anon 67MB)
+[00:07:10] symfony rep 1: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[00:07:10] symfony rep 1: pages room_show 200 40 msgs 4000 elements 463229 B (44987 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35932 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6393 on the wire); search 200 13 msgs 1420 elements 165221 B (17726 on the wire)
+[00:07:20] symfony rep 1: room_show c=1 206.1 rps p50 4.775 p99 5.259 {'200': 1649} err 0 avg 44987 B
+[00:07:28] symfony rep 1: room_show c=16 712.7 rps p50 22.127 p99 36.095 {'200': 5716} err 0 avg 44987 B
+[00:07:36] symfony rep 1: room_show c=64 717.1 rps p50 88.639 p99 105.855 {'200': 5797} err 0 avg 44987 B
+[00:07:46] symfony rep 1: messages_page c=1 534.1 rps p50 1.847 p99 2.113 {'200': 4273} err 0 avg 35932 B
+[00:07:54] symfony rep 1: messages_page c=16 1594.4 rps p50 9.583 p99 21.615 {'200': 12770} err 0 avg 35932 B
+[00:08:03] symfony rep 1: messages_page c=64 1740.2 rps p50 36.095 p99 58.751 {'200': 13966} err 0 avg 35932 B
+[00:08:13] symfony rep 1: sidebar c=1 801.5 rps p50 1.205 p99 1.422 {'200': 6413} err 0 avg 6395 B
+[00:08:21] symfony rep 1: sidebar c=16 2701.1 rps p50 5.383 p99 14.119 {'200': 21661} err 0 avg 6395 B
+[00:08:29] symfony rep 1: sidebar c=64 2898.9 rps p50 21.647 p99 37.119 {'200': 23246} err 0 avg 6395 B
+[00:08:39] symfony rep 1: search c=1 424.3 rps p50 2.317 p99 2.571 {'200': 3395} err 0 avg 17721 B
+[00:08:47] symfony rep 1: search c=16 1518.4 rps p50 10.327 p99 19.839 {'200': 12159} err 0 avg 17721 B
+[00:08:55] symfony rep 1: search c=64 1529.4 rps p50 41.375 p99 55.935 {'200': 12296} err 0 avg 17721 B
+[00:09:05] symfony rep 1: avatar c=1 1462.2 rps p50 0.648 p99 0.78 {'200': 11698} err 0 avg 3364 B
+[00:09:13] symfony rep 1: avatar c=16 4761.9 rps p50 2.891 p99 9.191 {'200': 38105} err 0 avg 3364 B
+[00:09:21] symfony rep 1: avatar c=64 5285.1 rps p50 11.359 p99 25.087 {'200': 42338} err 0 avg 3364 B
+[00:09:31] symfony rep 1: static_css c=1 12059.7 rps p50 0.078 p99 0.103 {'200': 96478} err 0 avg 654 B
+[00:09:39] symfony rep 1: static_css c=16 71614.1 rps p50 0.173 p99 1.18 {'200': 572945} err 0 avg 654 B
+[00:09:47] symfony rep 1: static_css c=64 75906.0 rps p50 0.619 p99 4.191 {'200': 607352} err 0 avg 654 B
+[00:09:57] symfony rep 1: up c=1 3212.7 rps p50 0.293 p99 0.389 {'200': 25702} err 0 avg 73 B
+[00:10:05] symfony rep 1: up c=16 11010.0 rps p50 1.338 p99 4.163 {'200': 88094} err 0 avg 73 B
+[00:10:13] symfony rep 1: up c=64 11554.1 rps p50 5.291 p99 13.615 {'200': 92504} err 0 avg 73 B
+[00:10:23] symfony rep 1: post_message c=1 673.1 rps p50 1.359 p99 5.587 {'200': 5386} err 0 avg 2032 B
+[00:10:31] symfony rep 1: post_message c=16 1656.1 rps p50 7.955 p99 43.615 {'200': 13264} err 0 avg 2033 B
+[00:10:39] symfony rep 1: post_message c=64 1664.8 rps p50 36.959 p99 72.191 {'200': 13389} err 0 avg 2033 B
+[00:10:39] symfony rep 1: writes ok {'acknowledged': 34861, 'new_messages': 34861, 'with_bench_rich_text': 34861, 'in_fts': 34861, 'fts_match': 34861, 'integrity': 'ok', 'settle_ms': 73} 
+[00:11:02] symfony rep 1: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 17.615 p99 22.239 | tput 967.4 msg/s 14514 / 14514
+[00:11:34] symfony rep 1: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 41.343 p99 51.007 | tput 171.6 msg/s 3697 / 3697
+[00:11:36] symfony rep 1: upload median 34.9ms
+[00:11:36] symfony rep 1: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:11:37] symfony rep 1: valid
+[00:11:37] symfony rep 1: done -> bench/results/2026-10-06-m3pro-all/symfony-1.json
+[00:13:07] load before run: 1.28 3.82 4.31 (waited 90s)
+[00:13:07] symfony rep 2: starting campfire-symfony:app (load: 1.28 3.82 4.31)
+[00:13:18] symfony rep 2: cold start 797ms, idle 221MB (anon 67MB)
+[00:13:19] symfony rep 2: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[00:13:19] symfony rep 2: pages room_show 200 40 msgs 4000 elements 463229 B (45046 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35953 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6393 on the wire); search 200 13 msgs 1420 elements 165221 B (17710 on the wire)
+[00:13:29] symfony rep 2: room_show c=1 209.1 rps p50 4.699 p99 5.179 {'200': 1673} err 0 avg 45045 B
+[00:13:37] symfony rep 2: room_show c=16 713.0 rps p50 22.191 p99 35.903 {'200': 5715} err 0 avg 45045 B
+[00:13:45] symfony rep 2: room_show c=64 717.7 rps p50 88.831 p99 102.335 {'200': 5805} err 0 avg 45045 B
+[00:13:55] symfony rep 2: messages_page c=1 538.5 rps p50 1.838 p99 2.026 {'200': 4309} err 0 avg 35953 B
+[00:14:03] symfony rep 2: messages_page c=16 1620.5 rps p50 9.447 p99 21.167 {'200': 12975} err 0 avg 35953 B
+[00:14:11] symfony rep 2: messages_page c=64 1726.6 rps p50 36.351 p99 59.295 {'200': 13877} err 0 avg 35953 B
+[00:14:21] symfony rep 2: sidebar c=1 833.3 rps p50 1.148 p99 1.38 {'200': 6667} err 0 avg 6395 B
+[00:14:29] symfony rep 2: sidebar c=16 2711.4 rps p50 5.351 p99 13.999 {'200': 21746} err 0 avg 6395 B
+[00:14:37] symfony rep 2: sidebar c=64 2893.1 rps p50 21.663 p99 36.991 {'200': 23200} err 0 avg 6395 B
+[00:14:47] symfony rep 2: search c=1 429.6 rps p50 2.289 p99 2.575 {'200': 3437} err 0 avg 17712 B
+[00:14:55] symfony rep 2: search c=16 1495.3 rps p50 10.415 p99 21.215 {'200': 11975} err 0 avg 17712 B
+[00:15:03] symfony rep 2: search c=64 1529.4 rps p50 41.439 p99 55.231 {'200': 12296} err 0 avg 17712 B
+[00:15:13] symfony rep 2: avatar c=1 1543.1 rps p50 0.604 p99 0.769 {'200': 12345} err 0 avg 3364 B
+[00:15:21] symfony rep 2: avatar c=16 4783.8 rps p50 2.863 p99 9.303 {'200': 38282} err 0 avg 3364 B
+[00:15:29] symfony rep 2: avatar c=64 5283.5 rps p50 11.335 p99 24.479 {'200': 42322} err 0 avg 3364 B
+[00:15:39] symfony rep 2: static_css c=1 12747.2 rps p50 0.072 p99 0.101 {'200': 101979} err 0 avg 654 B
+[00:15:47] symfony rep 2: static_css c=16 69290.0 rps p50 0.176 p99 1.292 {'200': 554350} err 0 avg 654 B
+[00:15:55] symfony rep 2: static_css c=64 74019.8 rps p50 0.631 p99 4.191 {'200': 592279} err 0 avg 654 B
+[00:16:05] symfony rep 2: up c=1 3360.5 rps p50 0.278 p99 0.39 {'200': 26890} err 0 avg 73 B
+[00:16:13] symfony rep 2: up c=16 11131.3 rps p50 1.324 p99 3.999 {'200': 89092} err 0 avg 73 B
+[00:16:22] symfony rep 2: up c=64 11557.8 rps p50 5.271 p99 13.831 {'200': 92542} err 0 avg 73 B
+[00:16:32] symfony rep 2: post_message c=1 690.8 rps p50 1.339 p99 5.571 {'200': 5527} err 0 avg 2033 B
+[00:16:40] symfony rep 2: post_message c=16 1651.5 rps p50 7.979 p99 42.143 {'200': 13260} err 0 avg 2033 B
+[00:16:48] symfony rep 2: post_message c=64 1667.8 rps p50 37.055 p99 72.831 {'200': 13400} err 0 avg 2033 B
+[00:16:48] symfony rep 2: writes ok {'acknowledged': 35029, 'new_messages': 35029, 'with_bench_rich_text': 35029, 'in_fts': 35029, 'fts_match': 35029, 'integrity': 'ok', 'settle_ms': 73} 
+[00:17:11] symfony rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 17.263 p99 20.367 | tput 981.4 msg/s 14727 / 14727
+[00:17:43] symfony rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 40.319 p99 66.751 | tput 171.8 msg/s 3877 / 3877
+[00:17:46] symfony rep 2: upload median 37.0ms
+[00:17:46] symfony rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:17:46] symfony rep 2: valid
+[00:17:47] symfony rep 2: done -> bench/results/2026-10-06-m3pro-all/symfony-2.json
+[00:19:07] load before run: 1.43 3.81 4.29 (waited 80s)
+[00:19:07] symfony-classic rep 2: starting campfire-symfony:app (load: 1.43 3.81 4.29)
+[00:19:18] symfony-classic rep 2: cold start 772ms, idle 218MB (anon 64MB)
+[00:19:18] symfony-classic rep 2: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[00:19:18] symfony-classic rep 2: pages room_show 200 40 msgs 4000 elements 463229 B (45026 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35956 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6392 on the wire); search 200 13 msgs 1420 elements 165221 B (17704 on the wire)
+[00:19:28] symfony-classic rep 2: room_show c=1 48.8 rps p50 20.479 p99 21.183 {'200': 391} err 0 avg 45024 B
+[00:19:37] symfony-classic rep 2: room_show c=16 174.0 rps p50 91.711 p99 124.863 {'200': 1404} err 0 avg 45024 B
+[00:19:45] symfony-classic rep 2: room_show c=64 174.2 rps p50 366.335 p99 404.735 {'200': 1454} err 0 avg 45024 B
+[00:19:55] symfony-classic rep 2: messages_page c=1 98.1 rps p50 10.111 p99 10.863 {'200': 785} err 0 avg 35956 B
+[00:20:03] symfony-classic rep 2: messages_page c=16 349.8 rps p50 45.727 p99 60.575 {'200': 2810} err 0 avg 35956 B
+[00:20:11] symfony-classic rep 2: messages_page c=64 349.3 rps p50 182.655 p99 198.143 {'200': 2857} err 0 avg 35956 B
+[00:20:21] symfony-classic rep 2: sidebar c=1 58.6 rps p50 16.911 p99 17.983 {'200': 469} err 0 avg 6395 B
+[00:20:29] symfony-classic rep 2: sidebar c=16 216.9 rps p50 73.663 p99 100.223 {'200': 1747} err 0 avg 6395 B
+[00:20:38] symfony-classic rep 2: sidebar c=64 217.0 rps p50 294.399 p99 324.863 {'200': 1797} err 0 avg 6395 B
+[00:20:48] symfony-classic rep 2: search c=1 81.4 rps p50 12.263 p99 12.839 {'200': 652} err 0 avg 17707 B
+[00:20:56] symfony-classic rep 2: search c=16 300.3 rps p50 53.119 p99 69.823 {'200': 2416} err 0 avg 17707 B
+[00:21:04] symfony-classic rep 2: search c=64 300.6 rps p50 212.479 p99 231.167 {'200': 2465} err 0 avg 17707 B
+[00:21:14] symfony-classic rep 2: avatar c=1 80.5 rps p50 12.463 p99 13.567 {'200': 644} err 0 avg 3364 B
+[00:21:22] symfony-classic rep 2: avatar c=16 303.7 rps p50 52.639 p99 72.447 {'200': 2442} err 0 avg 3364 B
+[00:21:30] symfony-classic rep 2: avatar c=64 303.7 rps p50 210.431 p99 230.783 {'200': 2492} err 0 avg 3364 B
+[00:21:40] symfony-classic rep 2: static_css c=1 12750.8 rps p50 0.072 p99 0.1 {'200': 102008} err 0 avg 654 B
+[00:21:48] symfony-classic rep 2: static_css c=16 70095.4 rps p50 0.174 p99 1.361 {'200': 560794} err 0 avg 654 B
+[00:21:56] symfony-classic rep 2: static_css c=64 74171.0 rps p50 0.623 p99 4.459 {'200': 593476} err 0 avg 654 B
+[00:22:06] symfony-classic rep 2: up c=1 187.3 rps p50 5.375 p99 5.547 {'200': 1499} err 0 avg 73 B
+[00:22:14] symfony-classic rep 2: up c=16 712.2 rps p50 22.335 p99 34.271 {'200': 5710} err 0 avg 73 B
+[00:22:23] symfony-classic rep 2: up c=64 711.6 rps p50 89.855 p99 98.751 {'200': 5754} err 0 avg 73 B
+[00:22:33] symfony-classic rep 2: post_message c=1 70.2 rps p50 14.191 p99 14.911 {'200': 562} err 0 avg 2032 B
+[00:22:41] symfony-classic rep 2: post_message c=16 261.8 rps p50 61.055 p99 79.935 {'200': 2106} err 0 avg 2032 B
+[00:22:49] symfony-classic rep 2: post_message c=64 261.4 rps p50 244.223 p99 264.447 {'200': 2152} err 0 avg 2031 B
+[00:22:49] symfony-classic rep 2: writes ok {'acknowledged': 5302, 'new_messages': 5302, 'with_bench_rich_text': 5302, 'in_fts': 5302, 'fts_match': 5302, 'integrity': 'ok', 'settle_ms': 12} 
+[00:23:12] symfony-classic rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.175 p99 52.735 | tput 224.5 msg/s 3370 / 3370
+[00:23:39] symfony-classic rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 58.399 p99 68.863 | tput 108.7 msg/s 1852 / 1852
+[00:23:42] symfony-classic rep 2: upload median 62.5ms
+[00:23:42] symfony-classic rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:23:42] symfony-classic rep 2: valid
+[00:23:43] symfony-classic rep 2: done -> bench/results/2026-10-06-m3pro-all/symfony-classic-2.json
+[00:25:13] load before run: 1.32 3.68 4.22 (waited 90s)
+[00:25:13] rust rep 2: starting once-campfire-rust:bench (load: 1.32 3.68 4.22)
+[00:25:23] rust rep 2: cold start 403ms, idle 63MB (anon 15MB)
+[00:25:24] rust rep 2: signed in; room page 200 416122 bytes, 3 streams, csrf NO , css /assets/_reset-9c3efd7b.css
+[00:25:24] rust rep 2: no CSRF token on the page; posts rely on Sec-Fetch-Site: same-origin (csrf_mode sec-fetch-site)
+[00:25:24] rust rep 2: pages room_show 200 40 msgs 3675 elements 416134 B (24232 on the wire); messages_page 200 40 msgs 3400 elements 383844 B (16158 on the wire); sidebar 200 0 msgs 243 elements 30763 B (5910 on the wire); search 200 13 msgs 1311 elements 149623 B (9766 on the wire)
+[00:25:34] rust rep 2: room_show c=1 6953.1 rps p50 0.142 p99 0.174 {'200': 55626} err 0 avg 24231 B
+[00:25:42] rust rep 2: room_show c=16 22540.6 rps p50 0.617 p99 2.079 {'200': 180343} err 0 avg 24231 B
+[00:25:50] rust rep 2: room_show c=64 22761.2 rps p50 2.617 p99 6.459 {'200': 182145} err 0 avg 24231 B
+[00:26:00] rust rep 2: messages_page c=1 7333.4 rps p50 0.135 p99 0.165 {'200': 58668} err 0 avg 16158 B
+[00:26:08] rust rep 2: messages_page c=16 23907.1 rps p50 0.582 p99 1.967 {'200': 191272} err 0 avg 16158 B
+[00:26:16] rust rep 2: messages_page c=64 24741.3 rps p50 2.451 p99 5.511 {'200': 197990} err 0 avg 16158 B
+[00:26:26] rust rep 2: sidebar c=1 6774.1 rps p50 0.146 p99 0.179 {'200': 54194} err 0 avg 5910 B
+[00:26:34] rust rep 2: sidebar c=16 22443.8 rps p50 0.617 p99 2.029 {'200': 179561} err 0 avg 5910 B
+[00:26:42] rust rep 2: sidebar c=64 22707.2 rps p50 2.625 p99 6.435 {'200': 181714} err 0 avg 5910 B
+[00:26:52] rust rep 2: search c=1 5960.9 rps p50 0.167 p99 0.206 {'200': 47688} err 0 avg 9766 B
+[00:27:00] rust rep 2: search c=16 23560.8 rps p50 0.632 p99 1.45 {'200': 188499} err 0 avg 9766 B
+[00:27:08] rust rep 2: search c=64 28680.7 rps p50 2.073 p99 4.619 {'200': 229491} err 0 avg 9766 B
+[00:27:18] rust rep 2: avatar c=1 18577.8 rps p50 0.054 p99 0.073 {'200': 148623} err 0 avg 3368 B
+[00:27:26] rust rep 2: avatar c=16 125936.4 rps p50 0.097 p99 0.529 {'200': 1007525} err 0 avg 3368 B
+[00:27:34] rust rep 2: avatar c=64 136655.1 rps p50 0.369 p99 1.705 {'200': 1093428} err 0 avg 3368 B
+[00:27:44] rust rep 2: static_css c=1 19053.7 rps p50 0.053 p99 0.072 {'200': 152431} err 0 avg 654 B
+[00:27:52] rust rep 2: static_css c=16 125889.7 rps p50 0.099 p99 0.516 {'200': 1007166} err 0 avg 654 B
+[00:28:00] rust rep 2: static_css c=64 141915.4 rps p50 0.343 p99 1.78 {'200': 1135523} err 0 avg 654 B
+[00:28:10] rust rep 2: up c=1 14710.6 rps p50 0.069 p99 0.088 {'200': 117686} err 0 avg 90 B
+[00:28:18] rust rep 2: up c=16 95870.9 rps p50 0.141 p99 0.588 {'200': 766996} err 0 avg 90 B
+[00:28:26] rust rep 2: up c=64 97473.2 rps p50 0.592 p99 1.973 {'200': 779884} err 0 avg 90 B
+[00:28:36] rust rep 2: post_message c=1 2758.7 rps p50 0.362 p99 0.442 {'200': 22070} err 0 avg 1992 B
+[00:28:44] rust rep 2: post_message c=16 6703.1 rps p50 2.275 p99 5.719 {'200': 53633} err 0 avg 1992 B
+[00:28:52] rust rep 2: post_message c=64 7189.0 rps p50 8.847 p99 15.703 {'200': 57571} err 0 avg 1992 B
+[00:28:53] rust rep 2: writes ok {'acknowledged': 144697, 'new_messages': 144697, 'with_bench_rich_text': 144697, 'in_fts': 144697, 'fts_match': 144697, 'integrity': 'ok', 'settle_ms': 359} 
+[00:29:16] rust rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 7.319 p99 12.671 | tput 3215.1 msg/s 48231 / 48231
+[00:29:41] rust rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 23.871 p99 30.415 | tput 569.9 msg/s 8554 / 8554
+[00:29:43] rust rep 2: upload median 37.5ms
+[00:29:43] rust rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:29:44] rust rep 2: valid
+[00:29:44] rust rep 2: done -> bench/results/2026-10-06-m3pro-all/rust-2.json
+[00:31:14] load before run: 1.43 4.14 4.45 (waited 90s)
+[00:31:14] go rep 2: starting once-campfire-go:bench (load: 1.43 4.14 4.45)
+[00:31:25] go rep 2: cold start 362ms, idle 48MB (anon 9MB)
+[00:31:25] go rep 2: signed in; room page 200 373982 bytes, 3 streams, csrf NO , css /assets/_reset-9c3efd7b.css
+[00:31:25] go rep 2: no CSRF token on the page; posts rely on Sec-Fetch-Site: same-origin (csrf_mode sec-fetch-site)
+[00:31:25] go rep 2: pages room_show 200 40 msgs 3675 elements 373994 B (21285 on the wire); messages_page 200 40 msgs 3400 elements 342404 B (12816 on the wire); sidebar 200 0 msgs 84 elements 9462 B (2249 on the wire); search 200 13 msgs 1311 elements 135484 B (9464 on the wire)
+[00:31:35] go rep 2: room_show c=1 1035.7 rps p50 0.857 p99 4.595 {'200': 8286} err 0 avg 21280 B
+[00:31:43] go rep 2: room_show c=16 4206.4 rps p50 2.807 p99 12.199 {'200': 33666} err 0 avg 21280 B
+[00:31:51] go rep 2: room_show c=64 4104.8 rps p50 14.047 p99 46.655 {'200': 32900} err 0 avg 21280 B
+[00:32:01] go rep 2: messages_page c=1 1306.6 rps p50 0.712 p99 3.323 {'200': 10453} err 0 avg 12816 B
+[00:32:09] go rep 2: messages_page c=16 5256.6 rps p50 2.223 p99 9.567 {'200': 42067} err 0 avg 12816 B
+[00:32:17] go rep 2: messages_page c=64 5147.3 rps p50 9.271 p99 51.551 {'200': 41234} err 0 avg 12816 B
+[00:32:27] go rep 2: sidebar c=1 4324.3 rps p50 0.198 p99 0.766 {'200': 34595} err 0 avg 2249 B
+[00:32:35] go rep 2: sidebar c=16 12426.4 rps p50 1.042 p99 5.459 {'200': 99443} err 0 avg 2249 B
+[00:32:43] go rep 2: sidebar c=64 12128.7 rps p50 4.795 p99 13.103 {'200': 97081} err 0 avg 2249 B
+[00:32:53] go rep 2: search c=1 1831.0 rps p50 0.463 p99 3.751 {'200': 14649} err 0 avg 9464 B
+[00:33:01] go rep 2: search c=16 6938.0 rps p50 1.624 p99 9.567 {'200': 55522} err 0 avg 9464 B
+[00:33:09] go rep 2: search c=64 6575.4 rps p50 8.839 p99 27.535 {'200': 52697} err 0 avg 9464 B
+[00:33:20] go rep 2: avatar c=1 14325.4 rps p50 0.064 p99 0.09 {'200': 114604} err 0 avg 3389 B
+[00:33:28] go rep 2: avatar c=16 78226.1 rps p50 0.118 p99 2.221 {'200': 625837} err 0 avg 3389 B
+[00:33:36] go rep 2: avatar c=64 85293.4 rps p50 0.354 p99 5.691 {'200': 682727} err 0 avg 3389 B
+[00:33:46] go rep 2: static_css c=1 18301.0 rps p50 0.053 p99 0.073 {'200': 146410} err 0 avg 654 B
+[00:33:54] go rep 2: static_css c=16 103940.1 rps p50 0.079 p99 1.338 {'200': 831560} err 0 avg 654 B
+[00:34:02] go rep 2: static_css c=64 118400.4 rps p50 0.229 p99 4.783 {'200': 947424} err 0 avg 654 B
+[00:34:12] go rep 2: up c=1 13668.9 rps p50 0.069 p99 0.093 {'200': 109352} err 0 avg 98 B
+[00:34:20] go rep 2: up c=16 72479.4 rps p50 0.129 p99 2.005 {'200': 579970} err 0 avg 98 B
+[00:34:28] go rep 2: up c=64 81734.1 rps p50 0.378 p99 5.851 {'200': 654389} err 0 avg 98 B
+[00:34:38] go rep 2: post_message c=1 2439.5 rps p50 0.369 p99 1.01 {'200': 19516} err 0 avg 1920 B
+[00:34:46] go rep 2: post_message c=16 4545.2 rps p50 2.631 p99 13.903 {'200': 36387} err 0 avg 1919 B
+[00:34:54] go rep 2: post_message c=64 5401.6 rps p50 8.599 p99 55.359 {'200': 43277} err 0 avg 1918 B
+[00:34:54] go rep 2: writes ok {'acknowledged': 108353, 'new_messages': 108353, 'with_bench_rich_text': 108353, 'in_fts': 108353, 'fts_match': 108353, 'integrity': 'ok', 'settle_ms': 265} 
+[00:35:17] go rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 9.679 p99 12.415 | tput 2059.8 msg/s 30900 / 30900
+[00:35:42] go rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 27.231 p99 38.591 | tput 302.2 msg/s 4538 / 4538
+[00:35:44] go rep 2: upload median 31.7ms
+[00:35:44] go rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:35:45] go rep 2: valid
+[00:35:45] go rep 2: done -> bench/results/2026-10-06-m3pro-all/go-2.json
+[00:37:16] load before run: 1.38 4.21 4.58 (waited 90s)
+[00:37:16] elixir rep 2: starting once-campfire-elixir:bench (load: 1.38 4.21 4.58)
+[00:37:27] elixir rep 2: cold start 798ms, idle 176MB (anon 110MB)
+[00:37:27] elixir rep 2: signed in; room page 200 463708 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[00:37:27] elixir rep 2: pages room_show 200 40 msgs 4000 elements 463720 B (21233 on the wire); messages_page 200 40 msgs 3720 elements 430925 B (12085 on the wire); sidebar 200 0 msgs 248 elements 31427 B (6106 on the wire); search 200 13 msgs 1420 elements 165519 B (10269 on the wire)
+[00:37:37] elixir rep 2: room_show c=1 320.8 rps p50 3.041 p99 5.871 {'200': 2567} err 0 avg 21228 B
+[00:37:45] elixir rep 2: room_show c=16 476.0 rps p50 33.631 p99 44.703 {'200': 3820} err 0 avg 21228 B
+[00:37:53] elixir rep 2: room_show c=64 484.8 rps p50 132.351 p99 155.263 {'200': 3928} err 0 avg 21228 B
+[00:38:03] elixir rep 2: messages_page c=1 404.1 rps p50 2.417 p99 4.083 {'200': 3233} err 0 avg 12085 B
+[00:38:11] elixir rep 2: messages_page c=16 897.4 rps p50 15.767 p99 34.271 {'200': 7191} err 0 avg 12085 B
+[00:38:19] elixir rep 2: messages_page c=64 728.7 rps p50 86.655 p99 120.511 {'200': 5878} err 0 avg 12085 B
+[00:38:29] elixir rep 2: sidebar c=1 822.1 rps p50 1.164 p99 3.221 {'200': 6577} err 0 avg 6106 B
+[00:38:37] elixir rep 2: sidebar c=16 961.7 rps p50 16.263 p99 25.135 {'200': 7698} err 0 avg 6107 B
+[00:38:45] elixir rep 2: sidebar c=64 897.7 rps p50 70.783 p99 91.903 {'200': 7223} err 0 avg 6106 B
+[00:38:55] elixir rep 2: search c=1 612.8 rps p50 1.577 p99 3.437 {'200': 4903} err 0 avg 10263 B
+[00:39:03] elixir rep 2: search c=16 764.6 rps p50 20.575 p99 30.943 {'200': 6126} err 0 avg 10263 B
+[00:39:12] elixir rep 2: search c=64 809.9 rps p50 78.207 p99 102.207 {'200': 6530} err 0 avg 10263 B
+[00:39:22] elixir rep 2: avatar c=1 9341.1 rps p50 0.077 p99 1.03 {'200': 74730} err 0 avg 3360 B
+[00:39:30] elixir rep 2: avatar c=16 17907.8 rps p50 0.319 p99 6.971 {'200': 143349} err 0 avg 3360 B
+[00:39:38] elixir rep 2: avatar c=64 18423.1 rps p50 1.117 p99 19.455 {'200': 147427} err 0 avg 3360 B
+[00:39:48] elixir rep 2: static_css c=1 11904.3 rps p50 0.067 p99 0.141 {'200': 95235} err 0 avg 653 B
+[00:39:56] elixir rep 2: static_css c=16 26037.0 rps p50 0.218 p99 5.911 {'200': 208313} err 0 avg 653 B
+[00:40:04] elixir rep 2: static_css c=64 25613.2 rps p50 0.813 p99 14.727 {'200': 205012} err 0 avg 653 B
+[00:40:14] elixir rep 2: up c=1 3230.3 rps p50 0.265 p99 1.753 {'200': 25843} err 0 avg 88 B
+[00:40:22] elixir rep 2: up c=16 6806.7 rps p50 2.014 p99 7.831 {'200': 54465} err 0 avg 88 B
+[00:40:30] elixir rep 2: up c=64 7725.2 rps p50 7.727 p99 20.159 {'200': 61848} err 0 avg 88 B
+[00:40:40] elixir rep 2: post_message c=1 286.6 rps p50 3.539 p99 6.611 {'200': 2293} err 0 avg 2006 B
+[00:40:48] elixir rep 2: post_message c=16 532.8 rps p50 29.343 p99 44.159 {'200': 4270} err 0 avg 2005 B
+[00:40:56] elixir rep 2: post_message c=64 568.9 rps p50 112.383 p99 141.951 {'200': 4602} err 0 avg 2004 B
+[00:40:56] elixir rep 2: writes ok {'acknowledged': 12126, 'new_messages': 12126, 'with_bench_rich_text': 12126, 'in_fts': 12126, 'fts_match': 12126, 'integrity': 'ok', 'settle_ms': 26} 
+[00:41:19] elixir rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 14.351 p99 18.607 | tput 316.7 msg/s 4753 / 4753
+[00:41:44] elixir rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 28.111 p99 38.847 | tput 74.3 msg/s 1117 / 1117
+[00:41:47] elixir rep 2: upload median 92.2ms
+[00:41:47] elixir rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[00:41:47] elixir rep 2: valid
+[00:41:48] elixir rep 2: done -> bench/results/2026-10-06-m3pro-all/elixir-2.json
+[00:43:28] load before run: 1.31 4.01 4.53 (waited 100s)
+[00:43:28] express rep 2: starting once-campfire-express:bench (load: 1.31 4.01 4.53)
+[00:43:39] express rep 2: cold start 618ms, idle 270MB (anon 162MB)
+[00:43:39] express rep 2: signed in; room page 200 419704 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[00:43:39] express rep 2: pages room_show 200 40 msgs 4000 elements 419704 B (20354 on the wire); messages_page 200 40 msgs 3400 elements 341364 B (11003 on the wire); sidebar 200 0 msgs 63 elements 7679 B (1903 on the wire); search 200 13 msgs 1420 elements 150507 B (9296 on the wire)
+[00:43:49] express rep 2: room_show c=1 212.8 rps p50 4.535 p99 8.167 {'200': 1703} err 0 avg 20353 B
+[00:43:57] express rep 2: room_show c=16 614.6 rps p50 24.943 p99 45.951 {'200': 4924} err 0 avg 20353 B
+[00:44:06] express rep 2: room_show c=64 628.8 rps p50 98.943 p99 155.263 {'200': 5061} err 0 avg 20353 B
+[00:44:16] express rep 2: messages_page c=1 270.3 rps p50 3.541 p99 7.059 {'200': 2163} err 0 avg 11003 B
+[00:44:24] express rep 2: messages_page c=16 797.6 rps p50 19.199 p99 37.471 {'200': 6393} err 0 avg 11003 B
+[00:44:32] express rep 2: messages_page c=64 814.3 rps p50 74.815 p99 124.159 {'200': 6559} err 0 avg 11003 B
+[00:44:42] express rep 2: sidebar c=1 1869.6 rps p50 0.493 p99 1.156 {'200': 14957} err 0 avg 1903 B
+[00:44:50] express rep 2: sidebar c=16 5801.9 rps p50 2.329 p99 11.263 {'200': 46425} err 0 avg 1903 B
+[00:44:58] express rep 2: sidebar c=64 6220.8 rps p50 9.079 p99 23.151 {'200': 49832} err 0 avg 1903 B
+[00:45:08] express rep 2: search c=1 475.7 rps p50 1.989 p99 7.031 {'200': 3806} err 0 avg 9294 B
+[00:45:16] express rep 2: search c=16 1539.4 rps p50 9.575 p99 23.375 {'200': 12325} err 0 avg 9294 B
+[00:45:24] express rep 2: search c=64 1531.1 rps p50 39.679 p99 69.759 {'200': 12286} err 0 avg 9294 B
+[00:45:34] express rep 2: avatar c=1 3783.7 rps p50 0.242 p99 0.321 {'200': 30270} err 0 avg 4004 B
+[00:45:42] express rep 2: avatar c=16 12464.7 rps p50 1.001 p99 4.735 {'200': 99725} err 0 avg 4004 B
+[00:45:50] express rep 2: avatar c=64 13603.8 rps p50 4.303 p99 18.479 {'200': 108893} err 0 avg 4004 B
+[00:46:00] express rep 2: static_css c=1 4267.2 rps p50 0.243 p99 0.289 {'200': 34139} err 0 avg 647 B
+[00:46:08] express rep 2: static_css c=16 21875.2 rps p50 0.562 p99 4.555 {'200': 175276} err 0 avg 647 B
+[00:46:16] express rep 2: static_css c=64 24323.3 rps p50 2.177 p99 10.239 {'200': 194627} err 0 avg 647 B
+[00:46:26] express rep 2: up c=1 6686.9 rps p50 0.143 p99 0.166 {'200': 53496} err 0 avg 73 B
+[00:46:34] express rep 2: up c=16 27117.0 rps p50 0.596 p99 1.789 {'200': 217169} err 0 avg 73 B
+[00:46:42] express rep 2: up c=64 26883.0 rps p50 2.051 p99 10.295 {'200': 215135} err 0 avg 73 B
+[00:46:52] express rep 2: post_message c=1 819.0 rps p50 1.124 p99 4.683 {'200': 6554} err 0 avg 1880 B
+[00:47:00] express rep 2: post_message c=16 1682.5 rps p50 7.879 p99 32.447 {'200': 13484} err 0 avg 1879 B
+[00:47:08] express rep 2: post_message c=64 1861.8 rps p50 32.271 p99 73.215 {'200': 14946} err 0 avg 1878 B
+[00:47:08] express rep 2: writes ok {'acknowledged': 37992, 'new_messages': 37992, 'with_bench_rich_text': 37992, 'in_fts': 37992, 'fts_match': 37992, 'integrity': 'ok', 'settle_ms': 89} 
+[00:47:39] express rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 21.263 p99 32.959 | tput 181.4 msg/s 4047 / 4047
+[00:48:09] express rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 43.615 p99 82.687 | tput 22.9 msg/s 427 / 427
+[00:48:11] express rep 2: upload median 34.4ms
+[00:48:11] express rep 2: upload thumbnail ok [200] jpeg 93976 bytes 
+[00:48:12] express rep 2: valid
+[00:48:12] express rep 2: done -> bench/results/2026-10-06-m3pro-all/express-2.json
+[00:49:03] load before run: 1.38 3.15 4.05 (waited 50s)
+[00:49:03] laravel-frankenphp rep 2: starting once-campfire-laravel-frankenphp:bench (load: 1.38 3.15 4.05)
+[00:49:14] laravel-frankenphp rep 2: cold start 885ms, idle 269MB (anon 121MB)
+[00:49:14] laravel-frankenphp rep 2: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[00:49:14] laravel-frankenphp rep 2: pages room_show 200 40 msgs 4027 elements 398945 B (20030 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13333 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8213 on the wire)
+[00:49:24] laravel-frankenphp rep 2: room_show c=1 46.8 rps p50 21.375 p99 22.079 {'200': 375} err 0 avg 20030 B
+[00:49:32] laravel-frankenphp rep 2: room_show c=16 179.1 rps p50 91.903 p99 137.727 {'200': 1444} err 0 avg 20030 B
+[00:49:40] laravel-frankenphp rep 2: room_show c=64 210.6 rps p50 302.591 p99 334.335 {'200': 1746} err 0 avg 20030 B
+[00:49:50] laravel-frankenphp rep 2: messages_page c=1 60.4 rps p50 16.511 p99 17.039 {'200': 483} err 0 avg 13333 B
+[00:49:59] laravel-frankenphp rep 2: messages_page c=16 221.1 rps p50 72.063 p99 101.183 {'200': 1784} err 0 avg 13333 B
+[00:50:07] laravel-frankenphp rep 2: messages_page c=64 221.6 rps p50 287.743 p99 318.207 {'200': 1833} err 0 avg 13333 B
+[00:50:17] laravel-frankenphp rep 2: sidebar c=1 520.7 rps p50 1.891 p99 2.163 {'200': 4166} err 0 avg 817 B
+[00:50:25] laravel-frankenphp rep 2: sidebar c=16 1813.2 rps p50 8.503 p99 17.823 {'200': 14520} err 0 avg 817 B
+[00:50:33] laravel-frankenphp rep 2: sidebar c=64 1510.0 rps p50 34.335 p99 48.703 {'200': 12128} err 0 avg 817 B
+[00:50:43] laravel-frankenphp rep 2: search c=1 145.2 rps p50 6.807 p99 8.431 {'200': 1162} err 0 avg 8213 B
+[00:50:51] laravel-frankenphp rep 2: search c=16 526.5 rps p50 30.159 p99 44.223 {'200': 4227} err 0 avg 8213 B
+[00:50:59] laravel-frankenphp rep 2: search c=64 485.0 rps p50 120.255 p99 803.327 {'200': 3935} err 0 avg 8213 B
+[00:51:09] laravel-frankenphp rep 2: avatar c=1 987.6 rps p50 0.96 p99 1.532 {'200': 7902} err 0 avg 2930 B
+[00:51:17] laravel-frankenphp rep 2: avatar c=16 3118.0 rps p50 4.651 p99 12.983 {'200': 24956} err 0 avg 2930 B
+[00:51:25] laravel-frankenphp rep 2: avatar c=64 3255.2 rps p50 19.119 p99 31.551 {'200': 26100} err 0 avg 2930 B
+[00:51:35] laravel-frankenphp rep 2: static_css c=1 12554.7 rps p50 0.073 p99 0.103 {'200': 100439} err 0 avg 654 B
+[00:51:43] laravel-frankenphp rep 2: static_css c=16 67860.4 rps p50 0.178 p99 1.416 {'200': 542914} err 0 avg 654 B
+[00:51:51] laravel-frankenphp rep 2: static_css c=64 74165.5 rps p50 0.633 p99 4.255 {'200': 593439} err 0 avg 654 B
+[00:52:01] laravel-frankenphp rep 2: up c=1 1334.5 rps p50 0.652 p99 1.053 {'200': 10677} err 0 avg 73 B
+[00:52:09] laravel-frankenphp rep 2: up c=16 4561.3 rps p50 3.211 p99 8.495 {'200': 36505} err 0 avg 73 B
+[00:52:17] laravel-frankenphp rep 2: up c=64 4737.4 rps p50 13.007 p99 23.663 {'200': 37948} err 0 avg 73 B
+[00:52:27] laravel-frankenphp rep 2: post_message c=1 241.5 rps p50 3.637 p99 16.847 {'200': 1932} err 0 avg 1972 B
+[00:52:36] laravel-frankenphp rep 2: post_message c=16 575.5 rps p50 20.543 p99 153.855 {'200': 4625} err 0 avg 1971 B
+[00:52:44] laravel-frankenphp rep 2: post_message c=64 610.5 rps p50 99.327 p99 221.951 {'200': 4954} err 0 avg 1972 B
+[00:52:44] laravel-frankenphp rep 2: writes ok {'acknowledged': 11690, 'new_messages': 11690, 'with_bench_rich_text': 11690, 'in_fts': 11690, 'fts_match': 11690, 'integrity': 'ok', 'settle_ms': 25} 
+[00:54:07] laravel-frankenphp rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 26.799 p99 52.927 | tput 52.1 msg/s 3906 / 7411
+[00:55:48] laravel-frankenphp rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 289.279 p99 333.823 | tput 5.0 msg/s 376 / 7093
+[00:55:51] laravel-frankenphp rep 2: upload median 58.1ms
+[00:55:51] laravel-frankenphp rep 2: upload thumbnail ok [200] jpeg 75289 bytes 
+[00:55:52] laravel-frankenphp rep 2: INVALID: cable 100 clients: saturated 3906/7411 messages reached every client; cable 1000 clients: saturated 376/7093 messages reached every client
+[00:55:52] laravel-frankenphp rep 2: done -> bench/results/2026-10-06-m3pro-all/laravel-frankenphp-2.json
+[00:56:42] load before run: 1.34 3.32 3.98 (waited 50s)
+[00:56:42] laravel-frankenphp-classic rep 2: starting once-campfire-laravel-frankenphp:bench (load: 1.34 3.32 3.98)
+[00:56:53] laravel-frankenphp-classic rep 2: cold start 1045ms, idle 166MB (anon 83MB)
+[00:56:54] laravel-frankenphp-classic rep 2: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[00:56:54] laravel-frankenphp-classic rep 2: pages room_show 200 40 msgs 4027 elements 398945 B (20031 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13315 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8215 on the wire)
+[00:57:04] laravel-frankenphp-classic rep 2: room_show c=1 32.8 rps p50 30.463 p99 33.151 {'200': 263} err 0 avg 20031 B
+[00:57:12] laravel-frankenphp-classic rep 2: room_show c=16 120.3 rps p50 132.479 p99 196.095 {'200': 975} err 0 avg 20031 B
+[00:57:21] laravel-frankenphp-classic rep 2: room_show c=64 119.6 rps p50 532.479 p99 589.823 {'200': 1017} err 0 avg 20031 B
+[00:57:31] laravel-frankenphp-classic rep 2: messages_page c=1 36.8 rps p50 27.151 p99 29.135 {'200': 295} err 0 avg 13315 B
+[00:57:39] laravel-frankenphp-classic rep 2: messages_page c=16 136.5 rps p50 116.607 p99 167.039 {'200': 1108} err 0 avg 13315 B
+[00:57:47] laravel-frankenphp-classic rep 2: messages_page c=64 136.8 rps p50 466.175 p99 515.583 {'200': 1155} err 0 avg 13315 B
+[00:57:57] laravel-frankenphp-classic rep 2: sidebar c=1 86.1 rps p50 11.575 p99 12.615 {'200': 689} err 0 avg 817 B
+[00:58:05] laravel-frankenphp-classic rep 2: sidebar c=16 319.9 rps p50 49.919 p99 68.991 {'200': 2571} err 0 avg 817 B
+[00:58:14] laravel-frankenphp-classic rep 2: sidebar c=64 316.4 rps p50 202.111 p99 220.543 {'200': 2592} err 0 avg 817 B
+[00:58:24] laravel-frankenphp-classic rep 2: search c=1 55.7 rps p50 17.839 p99 20.543 {'200': 446} err 0 avg 8215 B
+[00:58:32] laravel-frankenphp-classic rep 2: search c=16 211.0 rps p50 75.455 p99 104.127 {'200': 1702} err 0 avg 8215 B
+[00:58:40] laravel-frankenphp-classic rep 2: search c=64 211.9 rps p50 301.055 p99 325.887 {'200': 1757} err 0 avg 8215 B
+[00:58:50] laravel-frankenphp-classic rep 2: avatar c=1 134.6 rps p50 7.403 p99 8.431 {'200': 1077} err 0 avg 2930 B
+[00:58:58] laravel-frankenphp-classic rep 2: avatar c=16 503.6 rps p50 31.599 p99 44.703 {'200': 4041} err 0 avg 2930 B
+[00:59:06] laravel-frankenphp-classic rep 2: avatar c=64 503.4 rps p50 126.783 p99 140.159 {'200': 4086} err 0 avg 2930 B
+[00:59:16] laravel-frankenphp-classic rep 2: static_css c=1 12356.6 rps p50 0.075 p99 0.105 {'200': 98854} err 0 avg 654 B
+[00:59:24] laravel-frankenphp-classic rep 2: static_css c=16 67651.8 rps p50 0.179 p99 1.339 {'200': 541240} err 0 avg 654 B
+[00:59:32] laravel-frankenphp-classic rep 2: static_css c=64 71561.0 rps p50 0.647 p99 4.579 {'200': 572602} err 0 avg 654 B
+[00:59:42] laravel-frankenphp-classic rep 2: up c=1 311.3 rps p50 3.165 p99 3.505 {'200': 2491} err 0 avg 73 B
+[00:59:50] laravel-frankenphp-classic rep 2: up c=16 1160.1 rps p50 13.663 p99 22.815 {'200': 9293} err 0 avg 73 B
+[00:59:58] laravel-frankenphp-classic rep 2: up c=64 995.6 rps p50 54.719 p99 76.799 {'200': 8015} err 0 avg 73 B
+[01:00:08] laravel-frankenphp-classic rep 2: post_message c=1 62.4 rps p50 15.279 p99 29.231 {'200': 500} err 0 avg 1974 B
+[01:00:17] laravel-frankenphp-classic rep 2: post_message c=16 223.4 rps p50 68.287 p99 155.007 {'200': 1800} err 0 avg 1973 B
+[01:00:25] laravel-frankenphp-classic rep 2: post_message c=64 221.7 rps p50 284.671 p99 373.503 {'200': 1834} err 0 avg 1973 B
+[01:00:25] laravel-frankenphp-classic rep 2: writes ok {'acknowledged': 4494, 'new_messages': 4494, 'with_bench_rich_text': 4494, 'in_fts': 4494, 'fts_match': 4494, 'integrity': 'ok', 'settle_ms': 10} 
+[01:01:22] laravel-frankenphp-classic rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 37.759 p99 53.919 | tput 49.5 msg/s 2421 / 2421
+[01:03:04] laravel-frankenphp-classic rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 319.231 p99 402.943 | tput 5.0 msg/s 372 / 2298
+[01:03:06] laravel-frankenphp-classic rep 2: upload median 78.4ms
+[01:03:06] laravel-frankenphp-classic rep 2: upload thumbnail ok [200] jpeg 75289 bytes 
+[01:03:07] laravel-frankenphp-classic rep 2: INVALID: cable 1000 clients: saturated 372/2298 messages reached every client
+[01:03:07] laravel-frankenphp-classic rep 2: done -> bench/results/2026-10-06-m3pro-all/laravel-frankenphp-classic-2.json
+[01:03:47] load before run: 1.29 3.44 3.97 (waited 40s)
+[01:03:47] laravel rep 2: starting once-campfire-laravel:bench (load: 1.29 3.44 3.97)
+[01:03:58] laravel rep 2: cold start 820ms, idle 156MB (anon 70MB)
+[01:03:59] laravel rep 2: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:03:59] laravel rep 2: pages room_show 200 40 msgs 4027 elements 398945 B (28936 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (19703 on the wire); sidebar 200 0 msgs 22 elements 2745 B (842 on the wire); search 200 13 msgs 1338 elements 136413 B (11189 on the wire)
+[01:04:09] laravel rep 2: room_show c=1 34.0 rps p50 29.231 p99 31.183 {'200': 273} err 0 avg 28936 B
+[01:04:17] laravel rep 2: room_show c=16 123.5 rps p50 129.407 p99 159.359 {'200': 1001} err 0 avg 28936 B
+[01:04:26] laravel rep 2: room_show c=64 122.7 rps p50 517.887 p99 586.751 {'200': 1043} err 0 avg 28936 B
+[01:04:36] laravel rep 2: messages_page c=1 38.2 rps p50 26.127 p99 26.815 {'200': 306} err 0 avg 19703 B
+[01:04:44] laravel rep 2: messages_page c=16 141.6 rps p50 112.895 p99 149.887 {'200': 1145} err 0 avg 19703 B
+[01:04:52] laravel rep 2: messages_page c=64 141.7 rps p50 451.839 p99 484.351 {'200': 1194} err 0 avg 19703 B
+[01:05:02] laravel rep 2: sidebar c=1 87.3 rps p50 11.431 p99 12.447 {'200': 699} err 0 avg 842 B
+[01:05:10] laravel rep 2: sidebar c=16 328.3 rps p50 48.639 p99 56.927 {'200': 2640} err 0 avg 842 B
+[01:05:19] laravel rep 2: sidebar c=64 326.1 rps p50 196.095 p99 208.383 {'200': 2667} err 0 avg 842 B
+[01:05:29] laravel rep 2: search c=1 57.6 rps p50 17.311 p99 19.759 {'200': 461} err 0 avg 11189 B
+[01:05:37] laravel rep 2: search c=16 219.0 rps p50 73.023 p99 100.095 {'200': 1763} err 0 avg 11189 B
+[01:05:45] laravel rep 2: search c=64 218.3 rps p50 292.607 p99 316.927 {'200': 1805} err 0 avg 11189 B
+[01:05:55] laravel rep 2: avatar c=1 141.2 rps p50 7.035 p99 8.103 {'200': 1130} err 0 avg 2916 B
+[01:06:03] laravel rep 2: avatar c=16 525.5 rps p50 30.271 p99 40.063 {'200': 4216} err 0 avg 2916 B
+[01:06:11] laravel rep 2: avatar c=64 524.9 rps p50 121.791 p99 130.879 {'200': 4261} err 0 avg 2916 B
+[01:06:21] laravel rep 2: static_css c=1 18811.2 rps p50 0.052 p99 0.065 {'200': 150490} err 0 avg 665 B
+[01:06:29] laravel rep 2: static_css c=16 120507.1 rps p50 0.13 p99 0.177 {'200': 964087} err 0 avg 665 B
+[01:06:37] laravel rep 2: static_css c=64 121737.3 rps p50 0.522 p99 0.694 {'200': 974033} err 0 avg 665 B
+[01:06:47] laravel rep 2: up c=1 331.0 rps p50 3.015 p99 3.315 {'200': 2648} err 0 avg 82 B
+[01:06:55] laravel rep 2: up c=16 1210.8 rps p50 13.031 p99 20.207 {'200': 9700} err 0 avg 82 B
+[01:07:03] laravel rep 2: up c=64 1049.0 rps p50 52.991 p99 71.615 {'200': 8448} err 0 avg 82 B
+[01:07:16] laravel rep 2: post_message c=1 9.9 rps p50 26.239 p99 1716.223 {'200': 81} err 0 avg 2127 B
+[01:07:25] laravel rep 2: post_message c=16 39.3 rps p50 133.631 p99 2598.911 {'200': 388} err 0 avg 2127 B
+[01:07:37] laravel rep 2: post_message c=64 24.7 rps p50 1744.895 p99 5152.767 {'200': 286} err 0 avg 2126 B
+[01:07:37] laravel rep 2: writes ok {'acknowledged': 793, 'new_messages': 793, 'with_bench_rich_text': 793, 'in_fts': 793, 'fts_match': 793, 'integrity': 'ok', 'settle_ms': 3} 
+[01:08:06] laravel rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 81.343 p99 1370.111 | tput 6.6 msg/s 115 / 115
+[01:09:52] laravel rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 499.199 p99 804.863 | tput 4.5 msg/s 338 / 466
+[01:09:55] laravel rep 2: upload median 119.7ms
+[01:09:55] laravel rep 2: upload thumbnail ok [200] jpeg 75349 bytes 
+[01:09:56] laravel rep 2: INVALID: cable 1000 clients: saturated 338/466 messages reached every client
+[01:09:57] laravel rep 2: done -> bench/results/2026-10-06-m3pro-all/laravel-2.json
+[01:10:07] load before run: 1.48 3.12 3.78 (waited 10s)
+[01:10:07] django rep 2: starting once-campfire-django:bench (load: 1.48 3.12 3.78)
+[01:10:18] django rep 2: cold start 858ms, idle 290MB (anon 223MB), redis sidecar 25MB
+[01:10:19] django rep 2: signed in; room page 200 419808 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:10:19] django rep 2: pages room_show 200 40 msgs 4000 elements 419808 B (20572 on the wire); messages_page 200 40 msgs 3400 elements 341364 B (11095 on the wire); sidebar 200 0 msgs 63 elements 7679 B (1993 on the wire); search 200 13 msgs 1420 elements 150507 B (9345 on the wire)
+[01:10:29] django rep 2: room_show c=1 78.2 rps p50 12.159 p99 18.351 {'200': 626} err 0 avg 20555 B
+[01:10:37] django rep 2: room_show c=16 214.0 rps p50 47.967 p99 215.423 {'200': 1729} err 0 avg 20556 B
+[01:10:45] django rep 2: room_show c=64 240.1 rps p50 265.727 p99 424.703 {'200': 1961} err 0 avg 20556 B
+[01:10:55] django rep 2: messages_page c=1 88.9 rps p50 10.327 p99 21.807 {'200': 711} err 0 avg 11071 B
+[01:11:03] django rep 2: messages_page c=16 288.8 rps p50 42.303 p99 149.631 {'200': 2332} err 0 avg 11072 B
+[01:11:11] django rep 2: messages_page c=64 280.6 rps p50 167.295 p99 531.967 {'200': 2324} err 0 avg 11071 B
+[01:11:22] django rep 2: sidebar c=1 350.7 rps p50 2.833 p99 3.237 {'200': 2806} err 0 avg 1956 B
+[01:11:30] django rep 2: sidebar c=16 1040.4 rps p50 14.871 p99 27.583 {'200': 8338} err 0 avg 1957 B
+[01:11:38] django rep 2: sidebar c=64 1006.3 rps p50 48.991 p99 148.991 {'200': 8087} err 0 avg 1956 B
+[01:11:48] django rep 2: search c=1 148.6 rps p50 6.371 p99 11.383 {'200': 1189} err 0 avg 9356 B
+[01:11:56] django rep 2: search c=16 483.7 rps p50 30.159 p99 73.407 {'200': 3878} err 0 avg 9356 B
+[01:12:04] django rep 2: search c=64 464.6 rps p50 48.831 p99 502.015 {'200': 3764} err 0 avg 9356 B
+[01:12:14] django rep 2: avatar c=1 401.8 rps p50 2.441 p99 3.405 {'200': 3215} err 0 avg 3410 B
+[01:12:22] django rep 2: avatar c=16 1151.8 rps p50 10.503 p99 36.191 {'200': 9230} err 0 avg 3410 B
+[01:12:30] django rep 2: avatar c=64 1134.0 rps p50 58.367 p99 104.191 {'200': 9110} err 0 avg 3410 B
+[01:12:40] django rep 2: static_css c=1 629.8 rps p50 1.56 p99 2.044 {'200': 5039} err 0 avg 703 B
+[01:12:48] django rep 2: static_css c=16 1796.3 rps p50 8.607 p99 16.591 {'200': 14379} err 0 avg 703 B
+[01:12:56] django rep 2: static_css c=64 1757.2 rps p50 37.919 p99 67.903 {'200': 14090} err 0 avg 703 B
+[01:13:06] django rep 2: up c=1 772.7 rps p50 1.282 p99 1.554 {'200': 6182} err 0 avg 73 B
+[01:13:14] django rep 2: up c=16 2180.3 rps p50 7.031 p99 15.375 {'200': 17456} err 0 avg 73 B
+[01:13:22] django rep 2: up c=64 2134.5 rps p50 6.743 p99 120.639 {'200': 17134} err 0 avg 73 B
+[01:13:32] django rep 2: post_message c=1 117.2 rps p50 6.991 p99 24.159 {'200': 938} err 0 avg 1924 B
+[01:13:40] django rep 2: post_message c=16 243.7 rps p50 30.847 p99 657.407 {'200': 2002} err 0 avg 1925 B
+[01:13:49] django rep 2: post_message c=64 174.2 rps p50 68.095 p99 3577.855 {'200': 1518} err 0 avg 1924 B
+[01:13:49] django rep 2: writes ok {'acknowledged': 4940, 'new_messages': 4940, 'with_bench_rich_text': 4940, 'in_fts': 4940, 'fts_match': 4940, 'integrity': 'ok', 'settle_ms': 11} 
+[01:15:12] django rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 54.879 p99 77.119 | tput 0.4 msg/s 6 / 4364
+[01:16:47] django rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 3768.319 p99 7192.575 | tput 0.1 msg/s 1 / 4842
+[01:16:49] django rep 2: upload median 65.4ms
+[01:16:49] django rep 2: upload thumbnail ok [200] jpeg 84296 bytes 
+[01:16:50] django rep 2: INVALID: cable 100 clients: saturated 6/4364 messages reached every client; cable 1000 clients: saturated 1/4842 messages reached every client
+[01:16:51] django rep 2: done -> bench/results/2026-10-06-m3pro-all/django-2.json
+[01:16:51] load before run: 1.38 4.25 4.43 (waited 0s)
+[01:16:51] rails rep 2: starting campfire-reference:app (load: 1.38 4.25 4.43)
+[01:17:03] rails rep 2: cold start 2369ms, idle 431MB (anon 283MB)
+[01:17:04] rails rep 2: signed in; room page 200 463708 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:17:04] rails rep 2: pages room_show 200 40 msgs 4000 elements 463720 B (44346 on the wire); messages_page 200 40 msgs 3720 elements 430925 B (34902 on the wire); sidebar 200 0 msgs 248 elements 31427 B (6270 on the wire); search 200 13 msgs 1420 elements 165519 B (17525 on the wire)
+[01:17:14] rails rep 2: room_show c=1 112.8 rps p50 8.743 p99 11.079 {'200': 903} err 0 avg 44342 B
+[01:17:22] rails rep 2: room_show c=16 258.9 rps p50 59.167 p99 127.743 {'200': 2087} err 0 avg 44342 B
+[01:17:31] rails rep 2: room_show c=64 239.0 rps p50 265.727 p99 346.623 {'200': 1977} err 0 avg 44342 B
+[01:17:41] rails rep 2: messages_page c=1 213.1 rps p50 4.571 p99 6.115 {'200': 1706} err 0 avg 34902 B
+[01:17:49] rails rep 2: messages_page c=16 441.8 rps p50 34.687 p99 81.983 {'200': 3547} err 0 avg 34902 B
+[01:17:57] rails rep 2: messages_page c=64 426.0 rps p50 149.375 p99 203.519 {'200': 3464} err 0 avg 34902 B
+[01:18:07] rails rep 2: sidebar c=1 276.3 rps p50 3.517 p99 4.887 {'200': 2211} err 0 avg 6267 B
+[01:18:15] rails rep 2: sidebar c=16 589.2 rps p50 25.919 p99 55.903 {'200': 4725} err 0 avg 6267 B
+[01:18:23] rails rep 2: sidebar c=64 592.7 rps p50 110.015 p99 188.159 {'200': 4833} err 0 avg 6267 B
+[01:18:33] rails rep 2: search c=1 214.6 rps p50 4.555 p99 6.171 {'200': 1717} err 0 avg 17524 B
+[01:18:41] rails rep 2: search c=16 456.1 rps p50 33.535 p99 78.143 {'200': 3656} err 0 avg 17524 B
+[01:18:49] rails rep 2: search c=64 460.0 rps p50 139.007 p99 191.231 {'200': 3737} err 0 avg 17524 B
+[01:18:59] rails rep 2: avatar c=1 9254.9 rps p50 0.077 p99 0.967 {'200': 74040} err 0 avg 3360 B
+[01:19:07] rails rep 2: avatar c=16 17862.1 rps p50 0.328 p99 6.743 {'200': 142910} err 0 avg 3360 B
+[01:19:15] rails rep 2: avatar c=64 18449.5 rps p50 1.101 p99 19.263 {'200': 147712} err 0 avg 3360 B
+[01:19:25] rails rep 2: static_css c=1 11852.6 rps p50 0.067 p99 0.127 {'200': 94831} err 0 avg 653 B
+[01:19:34] rails rep 2: static_css c=16 26693.3 rps p50 0.22 p99 5.671 {'200': 213567} err 0 avg 653 B
+[01:19:42] rails rep 2: static_css c=64 25659.7 rps p50 0.803 p99 14.383 {'200': 205334} err 0 avg 653 B
+[01:19:52] rails rep 2: up c=1 1937.3 rps p50 0.444 p99 2.159 {'200': 15499} err 0 avg 88 B
+[01:20:00] rails rep 2: up c=16 4203.8 rps p50 3.439 p99 10.639 {'200': 33647} err 0 avg 88 B
+[01:20:08] rails rep 2: up c=64 5079.1 rps p50 11.631 p99 29.039 {'200': 40684} err 0 avg 88 B
+[01:20:18] rails rep 2: post_message c=1 157.7 rps p50 5.879 p99 15.703 {'200': 1262} err 0 avg 2001 B
+[01:20:26] rails rep 2: post_message c=16 274.5 rps p50 49.055 p99 162.687 {'200': 2207} err 0 avg 2001 B
+[01:20:34] rails rep 2: post_message c=64 276.0 rps p50 227.199 p99 327.935 {'200': 2264} err 0 avg 2001 B
+[01:20:34] rails rep 2: writes ok {'acknowledged': 6123, 'new_messages': 6123, 'with_bench_rich_text': 6123, 'in_fts': 6123, 'fts_match': 6123, 'integrity': 'ok', 'settle_ms': 13} 
+[01:20:57] rails rep 2: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 46.335 p99 68.799 | tput 84.9 msg/s 1280 / 1280
+[01:21:25] rails rep 2: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 92.927 p99 127.679 | tput 11.9 msg/s 199 / 199
+[01:21:28] rails rep 2: upload median 65.6ms
+[01:21:28] rails rep 2: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[01:21:28] rails rep 2: valid
+[01:21:29] rails rep 2: done -> bench/results/2026-10-06-m3pro-all/rails-2.json
+[01:22:59] load before run: 1.45 4.16 4.48 (waited 90s)
+[01:22:59] rails rep 3: starting campfire-reference:app (load: 1.45 4.16 4.48)
+[01:23:12] rails rep 3: cold start 2402ms, idle 438MB (anon 287MB)
+[01:23:12] rails rep 3: signed in; room page 200 463708 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:23:13] rails rep 3: pages room_show 200 40 msgs 4000 elements 463720 B (44365 on the wire); messages_page 200 40 msgs 3720 elements 430925 B (34888 on the wire); sidebar 200 0 msgs 248 elements 31427 B (6267 on the wire); search 200 13 msgs 1420 elements 165519 B (17544 on the wire)
+[01:23:23] rails rep 3: room_show c=1 114.0 rps p50 8.735 p99 10.431 {'200': 912} err 0 avg 44362 B
+[01:23:31] rails rep 3: room_show c=16 253.7 rps p50 33.887 p99 236.671 {'200': 2059} err 0 avg 44362 B
+[01:23:39] rails rep 3: room_show c=64 231.3 rps p50 276.991 p99 344.063 {'200': 1904} err 0 avg 44362 B
+[01:23:49] rails rep 3: messages_page c=1 210.0 rps p50 4.603 p99 7.051 {'200': 1681} err 0 avg 34888 B
+[01:23:57] rails rep 3: messages_page c=16 434.6 rps p50 35.455 p99 87.615 {'200': 3499} err 0 avg 34888 B
+[01:24:06] rails rep 3: messages_page c=64 399.0 rps p50 156.415 p99 229.887 {'200': 3259} err 0 avg 34888 B
+[01:24:16] rails rep 3: sidebar c=1 267.6 rps p50 3.653 p99 4.843 {'200': 2141} err 0 avg 6267 B
+[01:24:24] rails rep 3: sidebar c=16 554.7 rps p50 27.135 p99 61.375 {'200': 4453} err 0 avg 6267 B
+[01:24:32] rails rep 3: sidebar c=64 485.5 rps p50 132.351 p99 211.967 {'200': 3950} err 0 avg 6267 B
+[01:24:42] rails rep 3: search c=1 201.0 rps p50 4.915 p99 6.167 {'200': 1608} err 0 avg 17544 B
+[01:24:50] rails rep 3: search c=16 433.7 rps p50 31.807 p99 108.799 {'200': 3486} err 0 avg 17544 B
+[01:24:58] rails rep 3: search c=64 388.8 rps p50 161.535 p99 249.343 {'200': 3177} err 0 avg 17544 B
+[01:25:08] rails rep 3: avatar c=1 9188.0 rps p50 0.079 p99 0.976 {'200': 73505} err 0 avg 3360 B
+[01:25:16] rails rep 3: avatar c=16 17181.9 rps p50 0.33 p99 7.231 {'200': 137465} err 0 avg 3360 B
+[01:25:24] rails rep 3: avatar c=64 18993.2 rps p50 0.982 p99 19.583 {'200': 152074} err 0 avg 3360 B
+[01:25:34] rails rep 3: static_css c=1 11581.4 rps p50 0.068 p99 0.128 {'200': 92652} err 0 avg 653 B
+[01:25:42] rails rep 3: static_css c=16 26503.5 rps p50 0.219 p99 5.803 {'200': 212130} err 0 avg 653 B
+[01:25:50] rails rep 3: static_css c=64 26095.5 rps p50 0.76 p99 15.079 {'200': 208814} err 0 avg 653 B
+[01:26:00] rails rep 3: up c=1 1901.5 rps p50 0.455 p99 1.88 {'200': 15215} err 0 avg 88 B
+[01:26:08] rails rep 3: up c=16 4147.1 rps p50 3.497 p99 10.567 {'200': 33194} err 0 avg 88 B
+[01:26:16] rails rep 3: up c=64 4972.5 rps p50 12.007 p99 29.071 {'200': 39830} err 0 avg 88 B
+[01:26:26] rails rep 3: post_message c=1 148.4 rps p50 6.067 p99 19.999 {'200': 1189} err 0 avg 2001 B
+[01:26:34] rails rep 3: post_message c=16 263.4 rps p50 47.039 p99 182.271 {'200': 2115} err 0 avg 2002 B
+[01:26:43] rails rep 3: post_message c=64 280.3 rps p50 233.087 p99 345.087 {'200': 2298} err 0 avg 2001 B
+[01:26:43] rails rep 3: writes ok {'acknowledged': 6009, 'new_messages': 6009, 'with_bench_rich_text': 6009, 'in_fts': 6009, 'fts_match': 6009, 'integrity': 'ok', 'settle_ms': 14} 
+[01:27:06] rails rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 48.607 p99 84.607 | tput 85.5 msg/s 1288 / 1288
+[01:27:34] rails rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 100.287 p99 151.167 | tput 11.7 msg/s 199 / 199
+[01:27:37] rails rep 3: upload median 83.7ms
+[01:27:37] rails rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[01:27:37] rails rep 3: valid
+[01:27:38] rails rep 3: done -> bench/results/2026-10-06-m3pro-all/rails-3.json
+[01:29:08] load before run: 1.35 4.05 4.49 (waited 90s)
+[01:29:08] django rep 3: starting once-campfire-django:bench (load: 1.35 4.05 4.49)
+[01:29:19] django rep 3: cold start 848ms, idle 289MB (anon 223MB), redis sidecar 25MB
+[01:29:20] django rep 3: signed in; room page 200 419808 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:29:20] django rep 3: pages room_show 200 40 msgs 4000 elements 419808 B (20522 on the wire); messages_page 200 40 msgs 3400 elements 341364 B (11097 on the wire); sidebar 200 0 msgs 63 elements 7679 B (1977 on the wire); search 200 13 msgs 1420 elements 150507 B (9329 on the wire)
+[01:29:30] django rep 3: room_show c=1 78.0 rps p50 12.199 p99 19.359 {'200': 625} err 0 avg 20555 B
+[01:29:38] django rep 3: room_show c=16 250.0 rps p50 60.063 p99 132.223 {'200': 2010} err 0 avg 20557 B
+[01:29:46] django rep 3: room_show c=64 241.2 rps p50 151.295 p99 842.239 {'200': 1973} err 0 avg 20556 B
+[01:29:56] django rep 3: messages_page c=1 89.4 rps p50 10.311 p99 16.863 {'200': 716} err 0 avg 11070 B
+[01:30:04] django rep 3: messages_page c=16 293.1 rps p50 50.527 p99 120.511 {'200': 2359} err 0 avg 11071 B
+[01:30:13] django rep 3: messages_page c=64 281.5 rps p50 218.495 p99 497.919 {'200': 2296} err 0 avg 11072 B
+[01:30:23] django rep 3: sidebar c=1 357.1 rps p50 2.785 p99 3.129 {'200': 2858} err 0 avg 1957 B
+[01:30:31] django rep 3: sidebar c=16 985.4 rps p50 16.847 p99 30.831 {'200': 7896} err 0 avg 1957 B
+[01:30:39] django rep 3: sidebar c=64 990.3 rps p50 64.799 p99 158.207 {'200': 7973} err 0 avg 1957 B
+[01:30:49] django rep 3: search c=1 147.7 rps p50 6.319 p99 11.359 {'200': 1182} err 0 avg 9355 B
+[01:30:57] django rep 3: search c=16 462.0 rps p50 34.879 p99 81.215 {'200': 3711} err 0 avg 9356 B
+[01:31:05] django rep 3: search c=64 469.7 rps p50 36.991 p99 520.191 {'200': 3848} err 0 avg 9356 B
+[01:31:15] django rep 3: avatar c=1 399.6 rps p50 2.457 p99 3.157 {'200': 3197} err 0 avg 3410 B
+[01:31:23] django rep 3: avatar c=16 1133.9 rps p50 9.423 p99 40.607 {'200': 9085} err 0 avg 3410 B
+[01:31:31] django rep 3: avatar c=64 1126.0 rps p50 22.063 p99 198.783 {'200': 9065} err 0 avg 3410 B
+[01:31:41] django rep 3: static_css c=1 634.2 rps p50 1.544 p99 2.025 {'200': 5074} err 0 avg 702 B
+[01:31:49] django rep 3: static_css c=16 1706.6 rps p50 10.135 p99 20.767 {'200': 13665} err 0 avg 703 B
+[01:31:57] django rep 3: static_css c=64 1745.4 rps p50 16.415 p99 129.407 {'200': 14008} err 0 avg 703 B
+[01:32:07] django rep 3: up c=1 762.6 rps p50 1.298 p99 1.58 {'200': 6101} err 0 avg 73 B
+[01:32:15] django rep 3: up c=16 2162.2 rps p50 4.999 p99 20.831 {'200': 17315} err 0 avg 73 B
+[01:32:23] django rep 3: up c=64 2198.6 rps p50 17.599 p99 86.975 {'200': 17636} err 0 avg 73 B
+[01:32:33] django rep 3: post_message c=1 116.8 rps p50 6.995 p99 23.327 {'200': 935} err 0 avg 1926 B
+[01:32:42] django rep 3: post_message c=16 227.6 rps p50 31.983 p99 773.119 {'200': 1869} err 0 avg 1925 B
+[01:32:51] django rep 3: post_message c=64 163.8 rps p50 69.951 p99 3760.127 {'200': 1447} err 0 avg 1923 B
+[01:32:51] django rep 3: writes ok {'acknowledged': 4715, 'new_messages': 4715, 'with_bench_rich_text': 4715, 'in_fts': 4715, 'fts_match': 4715, 'integrity': 'ok', 'settle_ms': 11} 
+[01:34:14] django rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 53.215 p99 88.959 | tput 0.4 msg/s 6 / 4383
+[01:35:47] django rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 2947.071 p99 6082.559 | tput 0.1 msg/s 1 / 4103
+[01:35:49] django rep 3: upload median 65.3ms
+[01:35:49] django rep 3: upload thumbnail ok [200] jpeg 84296 bytes 
+[01:35:50] django rep 3: INVALID: cable 100 clients: saturated 6/4383 messages reached every client; cable 1000 clients: saturated 1/4103 messages reached every client
+[01:35:51] django rep 3: done -> bench/results/2026-10-06-m3pro-all/django-3.json
+[01:35:51] load before run: 1.41 4.18 4.70 (waited 0s)
+[01:35:51] laravel rep 3: starting once-campfire-laravel:bench (load: 1.41 4.18 4.70)
+[01:36:02] laravel rep 3: cold start 728ms, idle 156MB (anon 70MB)
+[01:36:02] laravel rep 3: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:36:02] laravel rep 3: pages room_show 200 40 msgs 4027 elements 398945 B (28955 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (19718 on the wire); sidebar 200 0 msgs 22 elements 2745 B (842 on the wire); search 200 13 msgs 1338 elements 136413 B (11192 on the wire)
+[01:36:12] laravel rep 3: room_show c=1 33.8 rps p50 29.775 p99 32.655 {'200': 271} err 0 avg 28955 B
+[01:36:20] laravel rep 3: room_show c=16 123.9 rps p50 128.959 p99 178.175 {'200': 1004} err 0 avg 28955 B
+[01:36:29] laravel rep 3: room_show c=64 122.8 rps p50 518.399 p99 588.287 {'200': 1042} err 0 avg 28955 B
+[01:36:39] laravel rep 3: messages_page c=1 38.2 rps p50 26.031 p99 27.583 {'200': 306} err 0 avg 19718 B
+[01:36:47] laravel rep 3: messages_page c=16 142.4 rps p50 112.191 p99 148.223 {'200': 1151} err 0 avg 19718 B
+[01:36:55] laravel rep 3: messages_page c=64 141.6 rps p50 451.071 p99 494.079 {'200': 1192} err 0 avg 19718 B
+[01:37:05] laravel rep 3: sidebar c=1 87.9 rps p50 11.391 p99 11.799 {'200': 704} err 0 avg 842 B
+[01:37:14] laravel rep 3: sidebar c=16 328.0 rps p50 48.543 p99 62.655 {'200': 2638} err 0 avg 842 B
+[01:37:22] laravel rep 3: sidebar c=64 326.9 rps p50 195.839 p99 211.327 {'200': 2676} err 0 avg 842 B
+[01:37:32] laravel rep 3: search c=1 57.7 rps p50 17.295 p99 19.903 {'200': 462} err 0 avg 11192 B
+[01:37:40] laravel rep 3: search c=16 219.0 rps p50 72.895 p99 95.103 {'200': 1766} err 0 avg 11192 B
+[01:37:48] laravel rep 3: search c=64 218.8 rps p50 291.839 p99 318.975 {'200': 1812} err 0 avg 11192 B
+[01:37:58] laravel rep 3: avatar c=1 141.4 rps p50 7.015 p99 8.167 {'200': 1131} err 0 avg 2916 B
+[01:38:06] laravel rep 3: avatar c=16 524.5 rps p50 30.415 p99 40.959 {'200': 4210} err 0 avg 2916 B
+[01:38:14] laravel rep 3: avatar c=64 526.4 rps p50 121.343 p99 128.895 {'200': 4269} err 0 avg 2916 B
+[01:38:24] laravel rep 3: static_css c=1 18604.5 rps p50 0.052 p99 0.066 {'200': 148837} err 0 avg 665 B
+[01:38:32] laravel rep 3: static_css c=16 119604.4 rps p50 0.131 p99 0.176 {'200': 956862} err 0 avg 665 B
+[01:38:40] laravel rep 3: static_css c=64 120466.8 rps p50 0.528 p99 0.703 {'200': 963831} err 0 avg 665 B
+[01:38:50] laravel rep 3: up c=1 337.0 rps p50 2.965 p99 3.235 {'200': 2697} err 0 avg 82 B
+[01:38:58] laravel rep 3: up c=16 1140.3 rps p50 13.167 p99 23.247 {'200': 9134} err 0 avg 82 B
+[01:39:07] laravel rep 3: up c=64 1213.7 rps p50 52.415 p99 60.671 {'200': 9768} err 0 avg 82 B
+[01:39:17] laravel rep 3: post_message c=1 11.4 rps p50 18.223 p99 1945.599 {'200': 98} err 0 avg 2130 B
+[01:39:28] laravel rep 3: post_message c=16 25.1 rps p50 97.023 p99 4143.103 {'200': 274} err 0 avg 2130 B
+[01:39:39] laravel rep 3: post_message c=64 26.5 rps p50 1782.783 p99 3842.047 {'200': 277} err 0 avg 2129 B
+[01:39:39] laravel rep 3: writes ok {'acknowledged': 677, 'new_messages': 677, 'with_bench_rich_text': 677, 'in_fts': 677, 'fts_match': 677, 'integrity': 'ok', 'settle_ms': 2} 
+[01:40:06] laravel rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 100.991 p99 1216.511 | tput 12.7 msg/s 200 / 200
+[01:41:52] laravel rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 502.271 p99 879.103 | tput 4.4 msg/s 334 / 500
+[01:41:54] laravel rep 3: upload median 123.0ms
+[01:41:54] laravel rep 3: upload thumbnail ok [200] jpeg 75349 bytes 
+[01:41:55] laravel rep 3: INVALID: cable 1000 clients: saturated 334/500 messages reached every client
+[01:41:55] laravel rep 3: done -> bench/results/2026-10-06-m3pro-all/laravel-3.json
+[01:42:16] load before run: 1.37 3.18 4.19 (waited 20s)
+[01:42:16] laravel-frankenphp-classic rep 3: starting once-campfire-laravel-frankenphp:bench (load: 1.37 3.18 4.19)
+[01:42:27] laravel-frankenphp-classic rep 3: cold start 827ms, idle 228MB (anon 84MB)
+[01:42:27] laravel-frankenphp-classic rep 3: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:42:27] laravel-frankenphp-classic rep 3: pages room_show 200 40 msgs 4027 elements 398945 B (20030 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13181 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8213 on the wire)
+[01:42:37] laravel-frankenphp-classic rep 3: room_show c=1 32.9 rps p50 30.255 p99 32.639 {'200': 264} err 0 avg 20030 B
+[01:42:45] laravel-frankenphp-classic rep 3: room_show c=16 119.8 rps p50 132.991 p99 191.871 {'200': 972} err 0 avg 20030 B
+[01:42:54] laravel-frankenphp-classic rep 3: room_show c=64 119.1 rps p50 534.015 p99 590.847 {'200': 1015} err 0 avg 20030 B
+[01:43:04] laravel-frankenphp-classic rep 3: messages_page c=1 36.7 rps p50 27.231 p99 29.295 {'200': 294} err 0 avg 13181 B
+[01:43:12] laravel-frankenphp-classic rep 3: messages_page c=16 136.7 rps p50 116.287 p99 164.863 {'200': 1107} err 0 avg 13181 B
+[01:43:21] laravel-frankenphp-classic rep 3: messages_page c=64 136.4 rps p50 466.687 p99 514.303 {'200': 1153} err 0 avg 13181 B
+[01:43:31] laravel-frankenphp-classic rep 3: sidebar c=1 85.6 rps p50 11.631 p99 12.503 {'200': 685} err 0 avg 817 B
+[01:43:39] laravel-frankenphp-classic rep 3: sidebar c=16 319.3 rps p50 49.951 p99 67.839 {'200': 2567} err 0 avg 817 B
+[01:43:47] laravel-frankenphp-classic rep 3: sidebar c=64 317.3 rps p50 201.343 p99 220.031 {'200': 2599} err 0 avg 817 B
+[01:43:57] laravel-frankenphp-classic rep 3: search c=1 56.0 rps p50 17.807 p99 20.207 {'200': 449} err 0 avg 8213 B
+[01:44:05] laravel-frankenphp-classic rep 3: search c=16 211.6 rps p50 75.519 p99 97.279 {'200': 1708} err 0 avg 8213 B
+[01:44:13] laravel-frankenphp-classic rep 3: search c=64 210.8 rps p50 302.335 p99 329.727 {'200': 1747} err 0 avg 8213 B
+[01:44:23] laravel-frankenphp-classic rep 3: avatar c=1 134.2 rps p50 7.403 p99 8.999 {'200': 1074} err 0 avg 2930 B
+[01:44:31] laravel-frankenphp-classic rep 3: avatar c=16 504.6 rps p50 31.583 p99 42.815 {'200': 4049} err 0 avg 2930 B
+[01:44:40] laravel-frankenphp-classic rep 3: avatar c=64 503.9 rps p50 126.783 p99 138.751 {'200': 4093} err 0 avg 2930 B
+[01:44:50] laravel-frankenphp-classic rep 3: static_css c=1 12088.7 rps p50 0.078 p99 0.104 {'200': 96710} err 0 avg 654 B
+[01:44:58] laravel-frankenphp-classic rep 3: static_css c=16 68581.3 rps p50 0.179 p99 1.249 {'200': 548674} err 0 avg 654 B
+[01:45:06] laravel-frankenphp-classic rep 3: static_css c=64 73486.9 rps p50 0.642 p99 4.103 {'200': 588013} err 0 avg 654 B
+[01:45:16] laravel-frankenphp-classic rep 3: up c=1 312.0 rps p50 3.169 p99 3.497 {'200': 2497} err 0 avg 73 B
+[01:45:24] laravel-frankenphp-classic rep 3: up c=16 1145.0 rps p50 13.735 p99 24.239 {'200': 9174} err 0 avg 73 B
+[01:45:32] laravel-frankenphp-classic rep 3: up c=64 1029.4 rps p50 54.399 p99 73.087 {'200': 8288} err 0 avg 73 B
+[01:45:42] laravel-frankenphp-classic rep 3: post_message c=1 62.7 rps p50 15.447 p99 28.207 {'200': 502} err 0 avg 1972 B
+[01:45:50] laravel-frankenphp-classic rep 3: post_message c=16 227.1 rps p50 67.071 p99 156.671 {'200': 1830} err 0 avg 1971 B
+[01:45:58] laravel-frankenphp-classic rep 3: post_message c=64 225.2 rps p50 279.551 p99 357.631 {'200': 1862} err 0 avg 1971 B
+[01:45:58] laravel-frankenphp-classic rep 3: writes ok {'acknowledged': 4582, 'new_messages': 4582, 'with_bench_rich_text': 4582, 'in_fts': 4582, 'fts_match': 4582, 'integrity': 'ok', 'settle_ms': 10} 
+[01:46:55] laravel-frankenphp-classic rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 39.807 p99 65.663 | tput 48.9 msg/s 2379 / 2379
+[01:48:37] laravel-frankenphp-classic rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 338.175 p99 382.975 | tput 4.9 msg/s 369 / 2374
+[01:48:39] laravel-frankenphp-classic rep 3: upload median 80.8ms
+[01:48:39] laravel-frankenphp-classic rep 3: upload thumbnail ok [200] jpeg 75289 bytes 
+[01:48:40] laravel-frankenphp-classic rep 3: INVALID: cable 1000 clients: saturated 369/2374 messages reached every client
+[01:48:40] laravel-frankenphp-classic rep 3: done -> bench/results/2026-10-06-m3pro-all/laravel-frankenphp-classic-3.json
+[01:49:31] load before run: 1.33 3.26 4.02 (waited 50s)
+[01:49:31] laravel-frankenphp rep 3: starting once-campfire-laravel-frankenphp:bench (load: 1.33 3.26 4.02)
+[01:49:42] laravel-frankenphp rep 3: cold start 924ms, idle 179MB (anon 115MB)
+[01:49:42] laravel-frankenphp rep 3: signed in; room page 200 398945 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:49:42] laravel-frankenphp rep 3: pages room_show 200 40 msgs 4027 elements 398945 B (20026 on the wire); messages_page 200 40 msgs 3880 elements 380027 B (13310 on the wire); sidebar 200 0 msgs 22 elements 2745 B (817 on the wire); search 200 13 msgs 1338 elements 136413 B (8211 on the wire)
+[01:49:52] laravel-frankenphp rep 3: room_show c=1 46.9 rps p50 21.439 p99 21.999 {'200': 376} err 0 avg 20026 B
+[01:50:00] laravel-frankenphp rep 3: room_show c=16 179.0 rps p50 92.927 p99 125.759 {'200': 1443} err 0 avg 20026 B
+[01:50:09] laravel-frankenphp rep 3: room_show c=64 210.4 rps p50 303.103 p99 331.007 {'200': 1747} err 0 avg 20026 B
+[01:50:19] laravel-frankenphp rep 3: messages_page c=1 60.3 rps p50 16.511 p99 17.423 {'200': 483} err 0 avg 13310 B
+[01:50:27] laravel-frankenphp rep 3: messages_page c=16 219.7 rps p50 72.319 p99 101.759 {'200': 1769} err 0 avg 13310 B
+[01:50:35] laravel-frankenphp rep 3: messages_page c=64 222.3 rps p50 286.719 p99 315.647 {'200': 1838} err 0 avg 13310 B
+[01:50:45] laravel-frankenphp rep 3: sidebar c=1 526.1 rps p50 1.872 p99 2.117 {'200': 4210} err 0 avg 817 B
+[01:50:53] laravel-frankenphp rep 3: sidebar c=16 1814.7 rps p50 8.415 p99 18.271 {'200': 14532} err 0 avg 817 B
+[01:51:01] laravel-frankenphp rep 3: sidebar c=64 1462.5 rps p50 34.463 p99 50.495 {'200': 11752} err 0 avg 817 B
+[01:51:11] laravel-frankenphp rep 3: search c=1 145.4 rps p50 6.783 p99 8.199 {'200': 1164} err 0 avg 8211 B
+[01:51:19] laravel-frankenphp rep 3: search c=16 527.9 rps p50 30.159 p99 43.295 {'200': 4235} err 0 avg 8211 B
+[01:51:27] laravel-frankenphp rep 3: search c=64 481.7 rps p50 120.383 p99 864.767 {'200': 3956} err 0 avg 8211 B
+[01:51:37] laravel-frankenphp rep 3: avatar c=1 998.7 rps p50 0.951 p99 1.544 {'200': 7990} err 0 avg 2930 B
+[01:51:45] laravel-frankenphp rep 3: avatar c=16 3140.4 rps p50 4.643 p99 12.575 {'200': 25134} err 0 avg 2930 B
+[01:51:53] laravel-frankenphp rep 3: avatar c=64 3219.3 rps p50 19.439 p99 30.943 {'200': 25807} err 0 avg 2930 B
+[01:52:03] laravel-frankenphp rep 3: static_css c=1 12456.7 rps p50 0.073 p99 0.103 {'200': 99658} err 0 avg 654 B
+[01:52:12] laravel-frankenphp rep 3: static_css c=16 66782.3 rps p50 0.18 p99 1.441 {'200': 534295} err 0 avg 654 B
+[01:52:20] laravel-frankenphp rep 3: static_css c=64 72745.5 rps p50 0.643 p99 4.323 {'200': 582076} err 0 avg 654 B
+[01:52:30] laravel-frankenphp rep 3: up c=1 1281.0 rps p50 0.672 p99 1.179 {'200': 10248} err 0 avg 73 B
+[01:52:38] laravel-frankenphp rep 3: up c=16 4644.1 rps p50 3.111 p99 8.607 {'200': 37164} err 0 avg 73 B
+[01:52:46] laravel-frankenphp rep 3: up c=64 4917.9 rps p50 12.519 p99 23.215 {'200': 39398} err 0 avg 73 B
+[01:52:56] laravel-frankenphp rep 3: post_message c=1 246.7 rps p50 3.595 p99 17.039 {'200': 1976} err 0 avg 1973 B
+[01:53:04] laravel-frankenphp rep 3: post_message c=16 608.9 rps p50 19.999 p99 130.431 {'200': 4910} err 0 avg 1972 B
+[01:53:12] laravel-frankenphp rep 3: post_message c=64 609.7 rps p50 99.199 p99 213.119 {'200': 4953} err 0 avg 1972 B
+[01:53:12] laravel-frankenphp rep 3: writes ok {'acknowledged': 12287, 'new_messages': 12287, 'with_bench_rich_text': 12287, 'in_fts': 12287, 'fts_match': 12287, 'integrity': 'ok', 'settle_ms': 27} 
+[01:54:35] laravel-frankenphp rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 28.175 p99 40.287 | tput 51.6 msg/s 3870 / 7383
+[01:56:17] laravel-frankenphp rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 327.423 p99 404.991 | tput 5.1 msg/s 379 / 7222
+[01:56:19] laravel-frankenphp rep 3: upload median 56.6ms
+[01:56:19] laravel-frankenphp rep 3: upload thumbnail ok [200] jpeg 75289 bytes 
+[01:56:20] laravel-frankenphp rep 3: INVALID: cable 100 clients: saturated 3870/7383 messages reached every client; cable 1000 clients: saturated 379/7222 messages reached every client
+[01:56:20] laravel-frankenphp rep 3: done -> bench/results/2026-10-06-m3pro-all/laravel-frankenphp-3.json
+[01:57:10] load before run: 1.36 3.52 4.07 (waited 50s)
+[01:57:10] express rep 3: starting once-campfire-express:bench (load: 1.36 3.52 4.07)
+[01:57:21] express rep 3: cold start 777ms, idle 272MB (anon 164MB)
+[01:57:22] express rep 3: signed in; room page 200 419704 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[01:57:22] express rep 3: pages room_show 200 40 msgs 4000 elements 419704 B (20352 on the wire); messages_page 200 40 msgs 3400 elements 341364 B (11003 on the wire); sidebar 200 0 msgs 63 elements 7679 B (1903 on the wire); search 200 13 msgs 1420 elements 150507 B (9292 on the wire)
+[01:57:32] express rep 3: room_show c=1 208.0 rps p50 4.639 p99 8.255 {'200': 1664} err 0 avg 20353 B
+[01:57:40] express rep 3: room_show c=16 617.6 rps p50 24.879 p99 47.519 {'200': 4944} err 0 avg 20353 B
+[01:57:48] express rep 3: room_show c=64 633.4 rps p50 98.175 p99 153.343 {'200': 5101} err 0 avg 20353 B
+[01:57:58] express rep 3: messages_page c=1 275.0 rps p50 3.479 p99 6.719 {'200': 2201} err 0 avg 11003 B
+[01:58:06] express rep 3: messages_page c=16 796.9 rps p50 19.455 p99 36.223 {'200': 6386} err 0 avg 11003 B
+[01:58:14] express rep 3: messages_page c=64 807.8 rps p50 76.607 p99 130.175 {'200': 6502} err 0 avg 11003 B
+[01:58:24] express rep 3: sidebar c=1 1853.9 rps p50 0.498 p99 0.965 {'200': 14832} err 0 avg 1903 B
+[01:58:32] express rep 3: sidebar c=16 5637.7 rps p50 2.411 p99 11.983 {'200': 45111} err 0 avg 1903 B
+[01:58:40] express rep 3: sidebar c=64 6141.6 rps p50 9.663 p99 22.607 {'200': 49177} err 0 avg 1903 B
+[01:58:50] express rep 3: search c=1 477.1 rps p50 1.979 p99 7.307 {'200': 3817} err 0 avg 9293 B
+[01:58:58] express rep 3: search c=16 1529.6 rps p50 9.671 p99 22.959 {'200': 12257} err 0 avg 9294 B
+[01:59:06] express rep 3: search c=64 1532.3 rps p50 39.871 p99 71.359 {'200': 12292} err 0 avg 9293 B
+[01:59:16] express rep 3: avatar c=1 3933.9 rps p50 0.227 p99 0.325 {'200': 31489} err 0 avg 4004 B
+[01:59:24] express rep 3: avatar c=16 13086.4 rps p50 1.029 p99 4.643 {'200': 104701} err 0 avg 4004 B
+[01:59:32] express rep 3: avatar c=64 13459.0 rps p50 3.781 p99 18.991 {'200': 107723} err 0 avg 4004 B
+[01:59:42] express rep 3: static_css c=1 4262.4 rps p50 0.244 p99 0.289 {'200': 34100} err 0 avg 647 B
+[01:59:50] express rep 3: static_css c=16 23215.9 rps p50 0.521 p99 4.091 {'200': 185744} err 0 avg 647 B
+[01:59:58] express rep 3: static_css c=64 25238.8 rps p50 2.165 p99 9.351 {'200': 201957} err 0 avg 647 B
+[02:00:08] express rep 3: up c=1 6682.3 rps p50 0.143 p99 0.173 {'200': 53459} err 0 avg 73 B
+[02:00:17] express rep 3: up c=16 27040.3 rps p50 0.514 p99 2.089 {'200': 216345} err 0 avg 73 B
+[02:00:25] express rep 3: up c=64 27002.8 rps p50 2.111 p99 10.479 {'200': 216085} err 0 avg 73 B
+[02:00:35] express rep 3: post_message c=1 847.3 rps p50 1.081 p99 5.007 {'200': 6779} err 0 avg 1879 B
+[02:00:43] express rep 3: post_message c=16 1679.9 rps p50 8.207 p99 31.615 {'200': 13449} err 0 avg 1879 B
+[02:00:51] express rep 3: post_message c=64 1859.5 rps p50 30.831 p99 82.239 {'200': 14931} err 0 avg 1879 B
+[02:00:51] express rep 3: writes ok {'acknowledged': 38189, 'new_messages': 38189, 'with_bench_rich_text': 38189, 'in_fts': 38189, 'fts_match': 38189, 'integrity': 'ok', 'settle_ms': 88} 
+[02:02:14] express rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 33.055 p99 45.183 | tput 85.8 msg/s 6437 / 20723
+[02:02:42] express rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 46.271 p99 56.895 | tput 23.5 msg/s 381 / 381
+[02:02:44] express rep 3: upload median 35.2ms
+[02:02:44] express rep 3: upload thumbnail ok [200] jpeg 93976 bytes 
+[02:02:45] express rep 3: INVALID: cable 100 clients: saturated 6437/20723 messages reached every client
+[02:02:45] express rep 3: done -> bench/results/2026-10-06-m3pro-all/express-3.json
+[02:03:25] load before run: 1.29 2.96 3.72 (waited 40s)
+[02:03:25] elixir rep 3: starting once-campfire-elixir:bench (load: 1.29 2.96 3.72)
+[02:03:36] elixir rep 3: cold start 796ms, idle 189MB (anon 122MB)
+[02:03:36] elixir rep 3: signed in; room page 200 463708 bytes, 3 streams, csrf yes , css /assets/_reset-9c3efd7b.css
+[02:03:37] elixir rep 3: pages room_show 200 40 msgs 4000 elements 463720 B (21234 on the wire); messages_page 200 40 msgs 3720 elements 430925 B (12083 on the wire); sidebar 200 0 msgs 248 elements 31427 B (6106 on the wire); search 200 13 msgs 1420 elements 165519 B (10265 on the wire)
+[02:03:47] elixir rep 3: room_show c=1 317.4 rps p50 3.077 p99 4.999 {'200': 2540} err 0 avg 21232 B
+[02:03:55] elixir rep 3: room_show c=16 459.5 rps p50 34.847 p99 47.871 {'200': 3688} err 0 avg 21232 B
+[02:04:03] elixir rep 3: room_show c=64 526.0 rps p50 121.279 p99 147.583 {'200': 4257} err 0 avg 21232 B
+[02:04:13] elixir rep 3: messages_page c=1 399.1 rps p50 2.455 p99 4.347 {'200': 3194} err 0 avg 12083 B
+[02:04:21] elixir rep 3: messages_page c=16 715.9 rps p50 22.207 p99 32.991 {'200': 5741} err 0 avg 12083 B
+[02:04:29] elixir rep 3: messages_page c=64 714.9 rps p50 88.831 p99 119.999 {'200': 5770} err 0 avg 12083 B
+[02:04:39] elixir rep 3: sidebar c=1 772.8 rps p50 1.228 p99 2.869 {'200': 6183} err 0 avg 6107 B
+[02:04:47] elixir rep 3: sidebar c=16 947.1 rps p50 16.415 p99 26.415 {'200': 7585} err 0 avg 6107 B
+[02:04:55] elixir rep 3: sidebar c=64 927.5 rps p50 68.607 p99 89.599 {'200': 7476} err 0 avg 6107 B
+[02:05:05] elixir rep 3: search c=1 631.2 rps p50 1.528 p99 3.863 {'200': 5050} err 0 avg 10265 B
+[02:05:13] elixir rep 3: search c=16 780.8 rps p50 20.495 p99 29.039 {'200': 6258} err 0 avg 10265 B
+[02:05:21] elixir rep 3: search c=64 790.8 rps p50 80.703 p99 96.703 {'200': 6384} err 0 avg 10265 B
+[02:05:31] elixir rep 3: avatar c=1 9327.4 rps p50 0.078 p99 0.991 {'200': 74620} err 0 avg 3360 B
+[02:05:39] elixir rep 3: avatar c=16 17856.4 rps p50 0.309 p99 7.015 {'200': 142888} err 0 avg 3360 B
+[02:05:47] elixir rep 3: avatar c=64 18250.0 rps p50 1.15 p99 19.583 {'200': 146051} err 0 avg 3360 B
+[02:05:57] elixir rep 3: static_css c=1 11696.3 rps p50 0.068 p99 0.125 {'200': 93571} err 0 avg 653 B
+[02:06:05] elixir rep 3: static_css c=16 25851.7 rps p50 0.218 p99 6.039 {'200': 206830} err 0 avg 653 B
+[02:06:13] elixir rep 3: static_css c=64 26070.0 rps p50 0.785 p99 14.727 {'200': 208709} err 0 avg 653 B
+[02:06:23] elixir rep 3: up c=1 3239.1 rps p50 0.266 p99 1.54 {'200': 25914} err 0 avg 88 B
+[02:06:31] elixir rep 3: up c=16 6676.7 rps p50 2.029 p99 8.287 {'200': 53447} err 0 avg 88 B
+[02:06:39] elixir rep 3: up c=64 7895.1 rps p50 7.523 p99 19.759 {'200': 63207} err 0 avg 88 B
+[02:06:50] elixir rep 3: post_message c=1 285.9 rps p50 3.495 p99 6.415 {'200': 2287} err 0 avg 2006 B
+[02:06:58] elixir rep 3: post_message c=16 528.2 rps p50 29.727 p99 45.663 {'200': 4234} err 0 avg 2004 B
+[02:07:06] elixir rep 3: post_message c=64 590.3 rps p50 107.583 p99 137.343 {'200': 4751} err 0 avg 2004 B
+[02:07:06] elixir rep 3: writes ok {'acknowledged': 12220, 'new_messages': 12220, 'with_bench_rich_text': 12220, 'in_fts': 12220, 'fts_match': 12220, 'integrity': 'ok', 'settle_ms': 26} 
+[02:07:29] elixir rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 12.719 p99 18.607 | tput 316.4 msg/s 4751 / 4751
+[02:07:54] elixir rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 29.183 p99 38.943 | tput 76.0 msg/s 1141 / 1141
+[02:07:56] elixir rep 3: upload median 91.3ms
+[02:07:57] elixir rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[02:07:57] elixir rep 3: valid
+[02:07:58] elixir rep 3: done -> bench/results/2026-10-06-m3pro-all/elixir-3.json
+[02:09:38] load before run: 1.36 3.87 4.08 (waited 100s)
+[02:09:38] go rep 3: starting once-campfire-go:bench (load: 1.36 3.87 4.08)
+[02:09:48] go rep 3: cold start 431ms, idle 48MB (anon 9MB)
+[02:09:49] go rep 3: signed in; room page 200 373982 bytes, 3 streams, csrf NO , css /assets/_reset-9c3efd7b.css
+[02:09:49] go rep 3: no CSRF token on the page; posts rely on Sec-Fetch-Site: same-origin (csrf_mode sec-fetch-site)
+[02:09:49] go rep 3: pages room_show 200 40 msgs 3675 elements 373994 B (21285 on the wire); messages_page 200 40 msgs 3400 elements 342404 B (12816 on the wire); sidebar 200 0 msgs 84 elements 9462 B (2249 on the wire); search 200 13 msgs 1311 elements 135484 B (9464 on the wire)
+[02:09:59] go rep 3: room_show c=1 1038.4 rps p50 0.858 p99 4.623 {'200': 8308} err 0 avg 21280 B
+[02:10:07] go rep 3: room_show c=16 4164.0 rps p50 2.931 p99 12.559 {'200': 33327} err 0 avg 21280 B
+[02:10:15] go rep 3: room_show c=64 4082.4 rps p50 13.751 p99 55.263 {'200': 32723} err 0 avg 21280 B
+[02:10:25] go rep 3: messages_page c=1 1299.6 rps p50 0.718 p99 3.251 {'200': 10397} err 0 avg 12816 B
+[02:10:33] go rep 3: messages_page c=16 5198.4 rps p50 2.225 p99 9.823 {'200': 41601} err 0 avg 12816 B
+[02:10:41] go rep 3: messages_page c=64 5157.9 rps p50 9.479 p99 52.863 {'200': 41323} err 0 avg 12816 B
+[02:10:51] go rep 3: sidebar c=1 4268.3 rps p50 0.201 p99 0.708 {'200': 34147} err 0 avg 2249 B
+[02:10:59] go rep 3: sidebar c=16 12489.4 rps p50 1.028 p99 5.387 {'200': 99931} err 0 avg 2249 B
+[02:11:07] go rep 3: sidebar c=64 12158.4 rps p50 4.743 p99 13.279 {'200': 97309} err 0 avg 2249 B
+[02:11:17] go rep 3: search c=1 1808.8 rps p50 0.482 p99 3.509 {'200': 14471} err 0 avg 9464 B
+[02:11:25] go rep 3: search c=16 6825.7 rps p50 1.68 p99 9.783 {'200': 54621} err 0 avg 9464 B
+[02:11:33] go rep 3: search c=64 6663.0 rps p50 8.599 p99 32.015 {'200': 53400} err 0 avg 9464 B
+[02:11:43] go rep 3: avatar c=1 14139.0 rps p50 0.065 p99 0.091 {'200': 113113} err 0 avg 3389 B
+[02:11:51] go rep 3: avatar c=16 78632.5 rps p50 0.116 p99 2.207 {'200': 629087} err 0 avg 3389 B
+[02:11:59] go rep 3: avatar c=64 85732.0 rps p50 0.354 p99 5.611 {'200': 686039} err 0 avg 3389 B
+[02:12:09] go rep 3: static_css c=1 17550.4 rps p50 0.054 p99 0.076 {'200': 140405} err 0 avg 654 B
+[02:12:17] go rep 3: static_css c=16 104840.1 rps p50 0.081 p99 1.253 {'200': 838754} err 0 avg 654 B
+[02:12:25] go rep 3: static_css c=64 118966.3 rps p50 0.233 p99 4.695 {'200': 951941} err 0 avg 654 B
+[02:12:35] go rep 3: up c=1 13676.8 rps p50 0.069 p99 0.094 {'200': 109415} err 0 avg 98 B
+[02:12:43] go rep 3: up c=16 73238.7 rps p50 0.127 p99 1.96 {'200': 585954} err 0 avg 98 B
+[02:12:51] go rep 3: up c=64 80876.2 rps p50 0.381 p99 5.991 {'200': 647132} err 0 avg 98 B
+[02:13:01] go rep 3: post_message c=1 2365.6 rps p50 0.382 p99 0.939 {'200': 18925} err 0 avg 1919 B
+[02:13:09] go rep 3: post_message c=16 4496.6 rps p50 2.657 p99 14.191 {'200': 35984} err 0 avg 1919 B
+[02:13:17] go rep 3: post_message c=64 5100.3 rps p50 8.799 p99 58.431 {'200': 40863} err 0 avg 1918 B
+[02:13:18] go rep 3: writes ok {'acknowledged': 105064, 'new_messages': 105064, 'with_bench_rich_text': 105064, 'in_fts': 105064, 'fts_match': 105064, 'integrity': 'ok', 'settle_ms': 256} 
+[02:13:41] go rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 9.687 p99 20.783 | tput 2032.0 msg/s 30485 / 30485
+[02:14:06] go rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 27.743 p99 35.935 | tput 305.0 msg/s 4579 / 4579
+[02:14:08] go rep 3: upload median 31.2ms
+[02:14:08] go rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[02:14:09] go rep 3: valid
+[02:14:09] go rep 3: done -> bench/results/2026-10-06-m3pro-all/go-3.json
+[02:15:39] load before run: 1.31 3.95 4.24 (waited 90s)
+[02:15:39] rust rep 3: starting once-campfire-rust:bench (load: 1.31 3.95 4.24)
+[02:15:50] rust rep 3: cold start 345ms, idle 66MB (anon 15MB)
+[02:15:50] rust rep 3: signed in; room page 200 416122 bytes, 3 streams, csrf NO , css /assets/_reset-9c3efd7b.css
+[02:15:50] rust rep 3: no CSRF token on the page; posts rely on Sec-Fetch-Site: same-origin (csrf_mode sec-fetch-site)
+[02:15:50] rust rep 3: pages room_show 200 40 msgs 3675 elements 416134 B (24232 on the wire); messages_page 200 40 msgs 3400 elements 383844 B (16158 on the wire); sidebar 200 0 msgs 243 elements 30763 B (5910 on the wire); search 200 13 msgs 1311 elements 149623 B (9766 on the wire)
+[02:16:00] rust rep 3: room_show c=1 6942.0 rps p50 0.142 p99 0.174 {'200': 55537} err 0 avg 24231 B
+[02:16:08] rust rep 3: room_show c=16 22542.0 rps p50 0.615 p99 2.071 {'200': 180349} err 0 avg 24231 B
+[02:16:16] rust rep 3: room_show c=64 22917.0 rps p50 2.617 p99 6.267 {'200': 183406} err 0 avg 24231 B
+[02:16:26] rust rep 3: messages_page c=1 7272.2 rps p50 0.136 p99 0.168 {'200': 58178} err 0 avg 16158 B
+[02:16:34] rust rep 3: messages_page c=16 24092.1 rps p50 0.583 p99 1.83 {'200': 192754} err 0 avg 16158 B
+[02:16:42] rust rep 3: messages_page c=64 24535.5 rps p50 2.463 p99 5.659 {'200': 196349} err 0 avg 16158 B
+[02:16:52] rust rep 3: sidebar c=1 6703.5 rps p50 0.147 p99 0.181 {'200': 53629} err 0 avg 5910 B
+[02:17:00] rust rep 3: sidebar c=16 22301.7 rps p50 0.619 p99 2.081 {'200': 178430} err 0 avg 5910 B
+[02:17:08] rust rep 3: sidebar c=64 22789.7 rps p50 2.633 p99 6.187 {'200': 182382} err 0 avg 5910 B
+[02:17:18] rust rep 3: search c=1 5938.0 rps p50 0.168 p99 0.207 {'200': 47504} err 0 avg 9766 B
+[02:17:26] rust rep 3: search c=16 23214.3 rps p50 0.639 p99 1.493 {'200': 185729} err 0 avg 9766 B
+[02:17:34] rust rep 3: search c=64 28668.3 rps p50 2.071 p99 4.567 {'200': 229429} err 0 avg 9766 B
+[02:17:44] rust rep 3: avatar c=1 18341.2 rps p50 0.055 p99 0.073 {'200': 146731} err 0 avg 3368 B
+[02:17:52] rust rep 3: avatar c=16 126895.1 rps p50 0.095 p99 0.534 {'200': 1015201} err 0 avg 3368 B
+[02:18:00] rust rep 3: avatar c=64 137497.4 rps p50 0.361 p99 1.793 {'200': 1100134} err 0 avg 3368 B
+[02:18:10] rust rep 3: static_css c=1 18897.0 rps p50 0.054 p99 0.073 {'200': 151177} err 0 avg 654 B
+[02:18:18] rust rep 3: static_css c=16 126343.1 rps p50 0.098 p99 0.526 {'200': 1010794} err 0 avg 654 B
+[02:18:26] rust rep 3: static_css c=64 145153.2 rps p50 0.329 p99 1.806 {'200': 1161407} err 0 avg 654 B
+[02:18:36] rust rep 3: up c=1 14610.9 rps p50 0.069 p99 0.089 {'200': 116888} err 0 avg 90 B
+[02:18:44] rust rep 3: up c=16 93161.0 rps p50 0.146 p99 0.599 {'200': 745312} err 0 avg 90 B
+[02:18:52] rust rep 3: up c=64 95795.0 rps p50 0.604 p99 1.984 {'200': 766484} err 0 avg 90 B
+[02:19:03] rust rep 3: post_message c=1 2803.4 rps p50 0.356 p99 0.436 {'200': 22428} err 0 avg 1993 B
+[02:19:11] rust rep 3: post_message c=16 6645.2 rps p50 2.297 p99 5.535 {'200': 53175} err 0 avg 1992 B
+[02:19:19] rust rep 3: post_message c=64 7096.1 rps p50 8.935 p99 16.143 {'200': 56824} err 0 avg 1992 B
+[02:19:19] rust rep 3: writes ok {'acknowledged': 143777, 'new_messages': 143777, 'with_bench_rich_text': 143777, 'in_fts': 143777, 'fts_match': 143777, 'integrity': 'ok', 'settle_ms': 355} 
+[02:19:42] rust rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 7.507 p99 22.223 | tput 3199.6 msg/s 47997 / 47997
+[02:20:07] rust rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 23.023 p99 28.879 | tput 564.7 msg/s 8476 / 8476
+[02:20:09] rust rep 3: upload median 35.6ms
+[02:20:09] rust rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[02:20:10] rust rep 3: valid
+[02:20:10] rust rep 3: done -> bench/results/2026-10-06-m3pro-all/rust-3.json
+[02:21:51] load before run: 1.31 4.06 4.38 (waited 100s)
+[02:21:51] symfony-classic rep 3: starting campfire-symfony:app (load: 1.31 4.06 4.38)
+[02:22:01] symfony-classic rep 3: cold start 736ms, idle 227MB (anon 64MB)
+[02:22:02] symfony-classic rep 3: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[02:22:02] symfony-classic rep 3: pages room_show 200 40 msgs 4000 elements 463229 B (45060 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35934 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6396 on the wire); search 200 13 msgs 1420 elements 165221 B (17741 on the wire)
+[02:22:12] symfony-classic rep 3: room_show c=1 48.6 rps p50 20.495 p99 22.479 {'200': 389} err 0 avg 45057 B
+[02:22:20] symfony-classic rep 3: room_show c=16 174.3 rps p50 91.647 p99 124.159 {'200': 1406} err 0 avg 45057 B
+[02:22:29] symfony-classic rep 3: room_show c=64 174.0 rps p50 367.359 p99 397.055 {'200': 1452} err 0 avg 45057 B
+[02:22:39] symfony-classic rep 3: messages_page c=1 97.5 rps p50 10.119 p99 11.087 {'200': 781} err 0 avg 35934 B
+[02:22:47] symfony-classic rep 3: messages_page c=16 349.8 rps p50 45.663 p99 61.023 {'200': 2811} err 0 avg 35934 B
+[02:22:55] symfony-classic rep 3: messages_page c=64 350.1 rps p50 182.399 p99 196.863 {'200': 2862} err 0 avg 35934 B
+[02:23:05] symfony-classic rep 3: sidebar c=1 58.9 rps p50 16.703 p99 17.983 {'200': 472} err 0 avg 6395 B
+[02:23:13] symfony-classic rep 3: sidebar c=16 216.5 rps p50 73.599 p99 101.823 {'200': 1744} err 0 avg 6395 B
+[02:23:21] symfony-classic rep 3: sidebar c=64 217.1 rps p50 293.887 p99 323.839 {'200': 1798} err 0 avg 6395 B
+[02:23:31] symfony-classic rep 3: search c=1 83.2 rps p50 11.943 p99 12.759 {'200': 666} err 0 avg 17743 B
+[02:23:39] symfony-classic rep 3: search c=16 300.0 rps p50 53.215 p99 69.439 {'200': 2414} err 0 avg 17743 B
+[02:23:48] symfony-classic rep 3: search c=64 300.8 rps p50 212.735 p99 231.039 {'200': 2466} err 0 avg 17743 B
+[02:23:58] symfony-classic rep 3: avatar c=1 83.5 rps p50 11.831 p99 12.767 {'200': 668} err 0 avg 3364 B
+[02:24:06] symfony-classic rep 3: avatar c=16 303.4 rps p50 52.703 p99 73.279 {'200': 2439} err 0 avg 3364 B
+[02:24:14] symfony-classic rep 3: avatar c=64 303.4 rps p50 210.687 p99 231.679 {'200': 2489} err 0 avg 3364 B
+[02:24:24] symfony-classic rep 3: static_css c=1 12994.6 rps p50 0.071 p99 0.099 {'200': 103958} err 0 avg 654 B
+[02:24:32] symfony-classic rep 3: static_css c=16 69448.9 rps p50 0.176 p99 1.263 {'200': 555614} err 0 avg 654 B
+[02:24:40] symfony-classic rep 3: static_css c=64 74564.6 rps p50 0.628 p99 4.167 {'200': 596636} err 0 avg 654 B
+[02:24:50] symfony-classic rep 3: up c=1 194.1 rps p50 5.087 p99 5.523 {'200': 1553} err 0 avg 73 B
+[02:24:58] symfony-classic rep 3: up c=16 712.4 rps p50 22.447 p99 32.207 {'200': 5712} err 0 avg 73 B
+[02:25:06] symfony-classic rep 3: up c=64 712.0 rps p50 89.535 p99 100.159 {'200': 5759} err 0 avg 73 B
+[02:25:16] symfony-classic rep 3: post_message c=1 71.9 rps p50 13.791 p99 15.351 {'200': 576} err 0 avg 2031 B
+[02:25:24] symfony-classic rep 3: post_message c=16 261.5 rps p50 60.767 p99 79.871 {'200': 2105} err 0 avg 2031 B
+[02:25:33] symfony-classic rep 3: post_message c=64 261.3 rps p50 244.735 p99 262.399 {'200': 2151} err 0 avg 2031 B
+[02:25:33] symfony-classic rep 3: writes ok {'acknowledged': 5322, 'new_messages': 5322, 'with_bench_rich_text': 5322, 'in_fts': 5322, 'fts_match': 5322, 'integrity': 'ok', 'settle_ms': 11} 
+[02:25:56] symfony-classic rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 47.039 p99 51.519 | tput 225.0 msg/s 3378 / 3378
+[02:26:22] symfony-classic rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 59.647 p99 68.991 | tput 109.5 msg/s 1815 / 1815
+[02:26:25] symfony-classic rep 3: upload median 62.3ms
+[02:26:25] symfony-classic rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[02:26:25] symfony-classic rep 3: valid
+[02:26:26] symfony-classic rep 3: done -> bench/results/2026-10-06-m3pro-all/symfony-classic-3.json
+[02:27:46] load before run: 1.30 3.74 4.27 (waited 80s)
+[02:27:46] symfony rep 3: starting campfire-symfony:app (load: 1.30 3.74 4.27)
+[02:27:57] symfony rep 3: cold start 775ms, idle 229MB (anon 67MB)
+[02:27:57] symfony rep 3: signed in; room page 200 463217 bytes, 3 streams, csrf yes , css /assets/_reset-QwOaQZM.css
+[02:27:57] symfony rep 3: pages room_show 200 40 msgs 4000 elements 463229 B (45047 on the wire); messages_page 200 40 msgs 3720 elements 430685 B (35915 on the wire); sidebar 200 0 msgs 248 elements 31373 B (6394 on the wire); search 200 13 msgs 1420 elements 165221 B (17708 on the wire)
+[02:28:07] symfony rep 3: room_show c=1 209.1 rps p50 4.687 p99 5.447 {'200': 1673} err 0 avg 45044 B
+[02:28:15] symfony rep 3: room_show c=16 708.7 rps p50 22.175 p99 38.143 {'200': 5684} err 0 avg 45044 B
+[02:28:24] symfony rep 3: room_show c=64 719.7 rps p50 88.447 p99 103.103 {'200': 5817} err 0 avg 45044 B
+[02:28:34] symfony rep 3: messages_page c=1 538.1 rps p50 1.834 p99 2.033 {'200': 4305} err 0 avg 35915 B
+[02:28:42] symfony rep 3: messages_page c=16 1638.6 rps p50 9.319 p99 21.071 {'200': 13126} err 0 avg 35915 B
+[02:28:50] symfony rep 3: messages_page c=64 1733.9 rps p50 36.223 p99 59.263 {'200': 13926} err 0 avg 35915 B
+[02:29:00] symfony rep 3: sidebar c=1 819.6 rps p50 1.171 p99 1.402 {'200': 6557} err 0 avg 6395 B
+[02:29:08] symfony rep 3: sidebar c=16 2664.6 rps p50 5.499 p99 13.983 {'200': 21338} err 0 avg 6395 B
+[02:29:16] symfony rep 3: sidebar c=64 2883.1 rps p50 21.711 p99 37.919 {'200': 23118} err 0 avg 6395 B
+[02:29:26] symfony rep 3: search c=1 430.3 rps p50 2.293 p99 2.507 {'200': 3443} err 0 avg 17708 B
+[02:29:34] symfony rep 3: search c=16 1494.4 rps p50 10.471 p99 21.135 {'200': 11970} err 0 avg 17708 B
+[02:29:42] symfony rep 3: search c=64 1525.6 rps p50 41.471 p99 55.775 {'200': 12268} err 0 avg 17708 B
+[02:29:52] symfony rep 3: avatar c=1 1489.5 rps p50 0.634 p99 0.75 {'200': 11928} err 0 avg 3364 B
+[02:30:00] symfony rep 3: avatar c=16 4863.4 rps p50 2.781 p99 9.047 {'200': 38920} err 0 avg 3364 B
+[02:30:08] symfony rep 3: avatar c=64 5294.3 rps p50 11.351 p99 24.863 {'200': 42410} err 0 avg 3364 B
+[02:30:18] symfony rep 3: static_css c=1 12179.5 rps p50 0.077 p99 0.101 {'200': 97437} err 0 avg 654 B
+[02:30:26] symfony rep 3: static_css c=16 72456.7 rps p50 0.174 p99 1.114 {'200': 579673} err 0 avg 654 B
+[02:30:34] symfony rep 3: static_css c=64 75553.4 rps p50 0.621 p99 4.235 {'200': 604527} err 0 avg 654 B
+[02:30:44] symfony rep 3: up c=1 3283.1 rps p50 0.289 p99 0.4 {'200': 26266} err 0 avg 73 B
+[02:30:52] symfony rep 3: up c=16 11159.4 rps p50 1.326 p99 4.029 {'200': 89290} err 0 avg 73 B
+[02:31:00] symfony rep 3: up c=64 11627.2 rps p50 5.271 p99 13.407 {'200': 93077} err 0 avg 73 B
+[02:31:10] symfony rep 3: post_message c=1 671.2 rps p50 1.371 p99 4.911 {'200': 5370} err 0 avg 2031 B
+[02:31:18] symfony rep 3: post_message c=16 1642.8 rps p50 8.003 p99 42.847 {'200': 13166} err 0 avg 2032 B
+[02:31:26] symfony rep 3: post_message c=64 1669.0 rps p50 37.023 p99 70.847 {'200': 13419} err 0 avg 2031 B
+[02:31:26] symfony rep 3: writes ok {'acknowledged': 34706, 'new_messages': 34706, 'with_bench_rich_text': 34706, 'in_fts': 34706, 'fts_match': 34706, 'integrity': 'ok', 'settle_ms': 73} 
+[02:31:49] symfony rep 3: cable 100 clients ready 100 failed 0 | paced 30 / 30 all p50 18.063 p99 21.743 | tput 985.6 msg/s 14789 / 14789
+[02:32:22] symfony rep 3: cable 1000 clients ready 1000 failed 0 | paced 30 / 30 all p50 40.959 p99 48.287 | tput 169.5 msg/s 3884 / 3884
+[02:32:25] symfony rep 3: upload median 35.7ms
+[02:32:25] symfony rep 3: upload thumbnail ok [302, 200] jpeg 84296 bytes 
+[02:32:25] symfony rep 3: valid
+[02:32:26] symfony rep 3: done -> bench/results/2026-10-06-m3pro-all/symfony-3.json
+[02:32:26] some reps failed or did not validate: see the Validation section of bench/results/2026-10-06-m3pro-all/report.md
