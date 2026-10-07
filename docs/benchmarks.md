@@ -74,9 +74,11 @@ ranges.
 
 ## Machine
 
-- Apple M3 Pro (6 performance + 6 efficiency cores), macOS 26.7.1. Both runs were made on AC
-  power, with Low Power Mode off and under `caffeinate`.
-- OrbStack Docker VM with 12 vCPUs and about 16.8 GB of memory. All images are native
+- MacBook Pro 16-inch (Nov 2023, `Mac15,7`): Apple M3 Pro (12 cores: 6 performance + 6
+  efficiency), 36 GB of memory, macOS 26.7.1. Both runs were made on AC power, with Low Power
+  Mode off and under `caffeinate`.
+- OrbStack 2.2.3 (Docker Engine 29.4.0) Linux VM (kernel 7.0.14, arm64) with 12 vCPUs and about
+  16.8 GB of memory. All images are native
   `linux/arm64`; `bench/run` refuses an emulated image.
 - **CPUs:** `0-3` for the app, `4-7` for the load generator, `8-11` for the harness.
 - **Other containers** were stopped: `env.txt` records one running container before each run.

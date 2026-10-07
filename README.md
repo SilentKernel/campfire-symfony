@@ -196,6 +196,18 @@ AI MAX+ 395 table in the once-campfire README**: the hardware is different, and 
 the VM's vCPUs. Method, per-app configuration, latency, cable, upload and memory tables:
 [docs/benchmarks.md](docs/benchmarks.md).
 
+### Benchmark machine
+
+| | |
+|---|---|
+| Computer | MacBook Pro 16-inch (Nov 2023, `Mac15,7`) |
+| Chip | Apple M3 Pro, 12 cores (6 performance + 6 efficiency) |
+| Memory | 36 GB |
+| OS | macOS 26.7.1, on AC power, Low Power Mode off |
+| Docker | OrbStack 2.2.3 (Docker Engine 29.4.0, Linux 7.0.14 arm64 VM with 12 vCPUs and 16 GB) |
+| Placement | each app pinned to vCPUs 0–3, load generator to 4–7, harness to 8–11; host networking |
+| Images | all linux/arm64, built natively (no emulation) |
+
 ### All apps, 16 concurrent clients (requests/sec)
 
 3 repetitions, 2026-10-06 ([full report](bench/results/2026-10-06-m3pro-all/report.md)).
