@@ -200,7 +200,7 @@ the VM's vCPUs. Method, per-app configuration, latency, cable, upload and memory
 
 3 repetitions, 2026-10-06 ([full report](bench/results/2026-10-06-m3pro-all/report.md)).
 
-| HTTP workload | Rails | Django | Laravel FrankenPHP classic | Laravel Octane | Express | Elixir | Go | Rust | Symfony classic | Symfony |
+| HTTP workload | Rails | Django | Laravel FrankenPHP classic | Laravel Octane | Express | Elixir | Go | Rust | Symfony classic mode | Symfony worker mode |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Room page | 254 | 249 | 120 | 179 | 615 | 460 | 4,169 | 22,541 | 174 | 713 |
 | Messages page | 439 | 289 | 137 | 221 | 797 | 716 | 5,236 | 23,907 | 350 | 1,620 |
@@ -208,7 +208,7 @@ the VM's vCPUs. Method, per-app configuration, latency, cable, upload and memory
 | Search | 456 | 462 | 211 | 526 | 1,530 | 778 | 6,836 | 23,561 | 300 | 1,495 |
 | Post a message | 274 | 228 | 226 | 599 | 1,682 | 533 | 4,545 | 6,703 | 262 | 1,652 |
 
-- **Symfony** is the image as shipped (FrankenPHP worker mode). **Symfony classic** is the same
+- **Symfony worker mode** is the image as shipped (FrankenPHP worker mode). **Symfony classic mode** is the same
   image with `FRANKENPHP_MODE=classic`, which boots the framework on every request, as PHP-FPM does.
 - **Laravel FrankenPHP classic** and **Laravel Octane** are the same Laravel port on FrankenPHP,
   from a pending pull request to once-campfire-laravel: Octane worker mode, a `FRANKENPHP_MODE`
@@ -225,7 +225,7 @@ mode (framework booted per request) and worker mode (booted once per thread: Lar
 Runtime). 5 repetitions, 2026-10-06 ([full report](bench/results/2026-10-06-m3pro-grid/report.md)).
 HTTP at 16 clients. S/L above 1× means Symfony does better.
 
-| Metric | Laravel classic | Symfony classic | S/L | Laravel Octane | Symfony | S/L |
+| Metric | Laravel classic | Symfony classic mode | S/L | Laravel Octane | Symfony worker mode | S/L |
 |---|---:|---:|---:|---:|---:|---:|
 | Room page (req/s) | 120 | 174 | 1.45× | 178 | 711 | 4.01× |
 | Messages page (req/s) | 137 | 350 | 2.56× | 222 | 1,627 | 7.33× |
